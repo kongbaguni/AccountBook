@@ -56,5 +56,21 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>upload photo</string>
+	<key>NSCameraUsageDescription</key>
+	<string>upload photo</string>
+    <key>CFBundleURLTypes</key>
+    <array>
+        <dict>
+            <key>CFBundleTypeRole</key>
+            <string>Editor</string>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>com.googleusercontent.apps.1053192206022-b2emuiavj0cov8h3nj8fprf3j8cqqn09</string>
+            </array>
+        </dict>
+    </array>
+
 </dict>
 </plist>

@@ -1,0 +1,25 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "ImagePicker",
+        "repositoryURL": "https://github.com/achernoprudov/image-picker.git",
+        "state": {
+          "branch": null,
+          "revision": "bac8eaf733c06d4c483843b1a884f22568ed0905",
+          "version": "0.0.8"
+        }
+      },
+      {
+        "package": "SwURL",
+        "repositoryURL": "https://github.com/cmtrounce/SwURL.git",
+        "state": {
+          "branch": null,
+          "revision": "f9ae7d6e3ff18ea80689da1de4b66461ed8dbc41",
+          "version": "0.2.3"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
