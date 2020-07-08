@@ -33,9 +33,23 @@ extension String {
 extension String {
     #if DEBUG
     /** firebase db : 사용자 정보 콜랙션 */
-    public static let FSCollectionName_user:String = "AccountBook_user_TEST"
+    public static let FSCollectionName_user:String = "users_TEST"
+    /** firebase db : private 저장 data */
+    public static let FSCollectionName_accountData:String = "accounts_data_TEST"
+    /** firebase db : 공개용 data */
+    public static let FSCollectionName_public_accountData:String = "account_data_public_TEST"
     #else
     /** firebase db : 사용자 정보 콜랙션 */
-    public static let FSCollectionName_user:String = "AccountBook_user"
+    public static let FSCollectionName_user:String = "users"
+    /** firebase db : private 저장 data */
+    public static let FSCollectionName_accountData:String = "accounts_data"
+    /** firebase db : 공개용 data */
+    public static let FSCollectionName_public_accountData:String = "account_data_public"
     #endif
+    
+    /** firebase db : 태그 */
+    public static let FSCollectionName_accounts_tag:String = "tags"
+   
+    /** firebase db : 수입, 지출 */
+    public static let FSCollectionName_accounts_income:String = "income"
 }

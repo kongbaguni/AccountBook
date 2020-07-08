@@ -7,19 +7,25 @@
 //
 
 import SwiftUI
+import RealmSwift
 
 struct ReviewNavigationView: View {
     @State var isActive = false
     var body: some View {
         NavigationView {
-            NavigationLink(destination:
-                ProfileSettingView(), isActive: $isActive) {
-                    Text("review".localized)
-            }
-            VStack {
-                Text("test")
-            }
-        }.navigationBarTitle("Reviews".localized)
+            TagListView().navigationBarTitle("Tags")
+                .navigationBarItems(
+                trailing:Button(action: {
+                    TagModel.createTag(title: "test\(Int.random(in: 0...100))", isCreatePublic: true) { (isSucess) in
+                        
+                    }
+                }) {
+                    Text("make tag")
+                }
+            )
+                
+            
+        }
     }
 }
 

@@ -43,13 +43,7 @@ extension SigninWithGoogleId : GIDSignInDelegate {
             authResult?.joinIfNeed(complete: { (isSucess) in
                 debugPrint("sign in sucess")
                 // Create the SwiftUI view that provides the window contents.
-                let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene
-                if let windowScenedelegate = scene?.delegate as? SceneDelegate {
-                   let window = UIWindow(windowScene: scene!)
-                   window.rootViewController = UIHostingController(rootView:MainTabView())
-                   windowScenedelegate.window = window
-                   window.makeKeyAndVisible()
-                }
+                MainTabView().changeThisView()
             })
         }
     }

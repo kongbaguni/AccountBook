@@ -11,11 +11,17 @@ import RealmSwift
 import ImagePicker
 struct ProfileSettingView: View {
     var info:UserInfoModel? { UserInfoModel.myInfo }
-    @State var profileImageUrl:String? = "https://lh3.googleusercontent.com/proxy/xNFsYBeWxLwCcjg8Qhjjj8fV9nRrEXCR64dwc_sX-9CFa6_mMuaUMgFTIw0fBLJkAFmM8pRpK66sHOLPdIawGExYXJcLc3jAxJkDVTrLBRVrdfBARA"
-    @State var name:String = ""
-    @State var email:String = "email@email.com"
+    @State var profileImageUrl:String? = UserInfoModel.myInfo?.profileImageURL?.absoluteString ?? ""
+    @State var name:String = UserInfoModel.myInfo?.name ?? ""
+    @State var email:String = UserInfoModel.myInfo?.email ?? ""
+    @State var isActive:Bool = false
     var body: some View {
         ScrollView {
+            NavigationLink(
+                destination: ProfileSettingView(),
+                isActive: $isActive) {
+                Text("profileSetting".localized)
+            }
             HStack {
                 ImageButton(imageUrl: profileImageUrl ?? "", placeHolderImage: Image("profile"), size: CGSize(width: 100, height: 100), text: "profileImage".localized, action: {
                     let picker = ImagePickerController { (asset) in
@@ -31,6 +37,8 @@ struct ProfileSettingView: View {
             }.padding(10)
         }.navigationBarTitle("profileSetting".localized)
     }
+    
+    
 }
 
 struct ProfileSettingView_Previews: PreviewProvider {

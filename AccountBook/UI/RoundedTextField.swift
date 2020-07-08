@@ -20,7 +20,6 @@ struct RoundedTextField: View {
                 RoundedRectangle(cornerRadius: 10)
                     .stroke(Color.strockColor, lineWidth: 1))
             .background(RoundedRectangle(cornerRadius: 10).foregroundColor(.textFieldBgColor))
-    
         
     }
 }

@@ -9,11 +9,16 @@
 import SwiftUI
 
 struct MainTabView: View {
+    @State var selection:Int = 0
     var body: some View {        
-        TabView(selection: /*@START_MENU_TOKEN@*/ /*@PLACEHOLDER=Selection@*/.constant(1)/*@END_MENU_TOKEN@*/) {
-            ReviewNavigationView().tabItem { Text("Tab Label 1")}.tag(1)
-            Text("Tab Content 2").tabItem { Text("Tab Label 2") }.tag(2)
-        }
+        TabView(selection: $selection) {
+            TodayNavigationView().tabItem {
+                Text("today")
+            }.tag(1)
+            Text("Tab Content 2").tabItem {
+                Text("Tab Label 2")
+            }.tag(2)
+        }.navigationBarTitle("\(selection)")
     }
 }
 

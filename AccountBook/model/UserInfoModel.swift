@@ -25,7 +25,7 @@ class UserInfoModel: Object {
     @objc dynamic var email:String = ""
     @objc dynamic var profileImageURLgoogle:String = ""
     @objc dynamic var profileImageURLfirebase:String = ""
-    @objc dynamic var isUseDefaultProfileImage:Bool = true
+    @objc dynamic var isDeleteProfileImage:Bool = true
     @objc dynamic var updateTimeIntervalSince1970:Double = 0
     @objc dynamic var point:Int = 0
     @objc dynamic var exp:Int = 0
@@ -40,8 +40,21 @@ class UserInfoModel: Object {
 }
 
 extension UserInfoModel {
-    static var myInfo:UserInfoModel? {
+    static var myInfo:UserInfoModel? {        
         try! Realm().object(ofType: UserInfoModel.self, forPrimaryKey: loginedEmail)
+    }
+    
+    var profileImageURL:URL? {
+        if isDeleteProfileImage {
+            return nil
+        }
+        if profileImageURLfirebase.isEmpty == false {
+            return URL(string: profileImageURLfirebase)
+        }
+        if profileImageURLgoogle.isEmpty == false {
+            return URL(string: profileImageURLgoogle)
+        }
+        return nil
     }
 }
 
@@ -75,7 +88,30 @@ extension UserInfoModel {
             "email":email,
             "name":name
         ]
+        if let url = uploadProfileImageURL {
+            data["profileImageURLfirebase"] = url.absoluteString
+        }
         db.document(email).setData(data) { (error) in
+            if error == nil {
+                let realm = try! Realm()
+                realm.beginWrite()
+                realm.create(UserInfoModel.self, value: data, update: .all)
+                try! realm.commitWrite()
+            }
+            complete(error == nil)
+        }
+    }
+    
+    func updateUserInfo(name:String, uploadProfileImageURL:String?, isDeleteProfile:Bool ,complete:@escaping(_ isSucess:Bool)->Void) {
+        var data:[String:Any] = [
+            "email" : email,
+            "name" : name,
+            "isDeleteProfileImage" : isDeleteProfile
+        ]
+        if let url = uploadProfileImageURL {
+            data["profileImageURLfirebase"] = url
+        }
+        db.document(email).updateData(data) { (error) in
             if error == nil {
                 let realm = try! Realm()
                 realm.beginWrite()
