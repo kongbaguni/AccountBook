@@ -18,4 +18,11 @@ extension View {
             window.makeKeyAndVisible()
         }
     }
+    
+    var rootViewController : UIViewController? {
+        if let sceneDelegate = (UIApplication.shared.connectedScenes.first as? UIWindowScene)?.delegate as? SceneDelegate {
+            return sceneDelegate.window?.rootViewController
+        }
+        return nil
+    }
 }

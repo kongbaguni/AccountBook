@@ -18,7 +18,7 @@ struct LoginView: View {
             Spacer()
             ButtonView(image: Image("google"), title: "Sign in with GoogleID".localized) {
                 
-                self.signInWithGoogle.sign(viewController: UIApplication.shared.windows.first?.rootViewController)
+                self.signInWithGoogle.sign(viewController: self.rootViewController)
             }
             ButtonView(image: Image("apple"), title: "Sign in with Apple".localized) {
                 self.signInWithApple.startSignInWithAppleFlow()
