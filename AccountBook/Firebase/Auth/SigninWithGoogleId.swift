@@ -36,7 +36,7 @@ extension SigninWithGoogleId : GIDSignInDelegate {
         guard let authentication = user.authentication else {
             return
         }
-        
+        TitleView().changeThisView()
         UserDefaults.standard.authData = AuthData(accessToken: authentication.accessToken, idToken: authentication.idToken)
        
         let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,
@@ -44,11 +44,15 @@ extension SigninWithGoogleId : GIDSignInDelegate {
         
             
         Auth.auth().signIn(with: credential) {(authResult, error) in
-            authResult?.joinIfNeed(complete: { (isSucess) in
-                debugPrint("sign in sucess")
-                // Create the SwiftUI view that provides the window contents.
-                MainTabView().changeThisView()
-            })
+            if error == nil {
+                authResult?.joinIfNeed(complete: { (isSucess) in
+                    debugPrint("sign in sucess")
+                    // Create the SwiftUI view that provides the window contents.
+                    MainTabView().changeThisView()
+                })
+            } else {
+                LoginView().changeThisView()
+            }
         }
     }
 }

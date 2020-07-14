@@ -11,7 +11,7 @@ import SwiftUI
 struct TitleView: View {
     var body: some View {
         VStack {
-            Image("book")
+            LogoView()
                 .frame(width: 150, height: 150, alignment: .center)
                 .clipShape(Circle())
                 .overlay(Circle().stroke(Color.strockColor,lineWidth: 10))

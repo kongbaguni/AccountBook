@@ -60,7 +60,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     private func signin() {
         if let data  = UserDefaults.standard.authData {
-            LogoView().changeThisView()
+            TitleView().changeThisView()
             let credential = GoogleAuthProvider.credential(withIDToken: data.idToken,
                                                            accessToken: data.accessToken)
             
