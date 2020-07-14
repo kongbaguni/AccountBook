@@ -92,7 +92,7 @@ extension SigninWithApple : ASAuthorizationControllerDelegate {
                                                       idToken: idTokenString,
                                                       rawNonce: nonce)
             // Sign in with Firebase.
-            
+        
             Auth.auth().signIn(with: credential) {(authResult, error) in
                 if let err = error {
                     debugPrint(err.localizedDescription)

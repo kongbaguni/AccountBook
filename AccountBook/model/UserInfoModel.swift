@@ -114,6 +114,7 @@ extension UserInfoModel {
         if let url = uploadProfileImageURL {
             data["profileImageURLfirebase"] = url
         }
+        
         db.document(email).updateData(data) { (error) in
             if error == nil {
                 let realm = try! Realm()

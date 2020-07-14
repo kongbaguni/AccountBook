@@ -22,6 +22,7 @@ struct MenuView: View {
                     print(error.localizedDescription)
                     return
                 }
+                UserDefaults.standard.authData = nil
                 LoginView().changeThisView()
             }) {
                 Text("Logout")

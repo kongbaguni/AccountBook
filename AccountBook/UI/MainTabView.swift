@@ -13,6 +13,7 @@ struct MainTabView: View {
     var body: some View {        
         TabView(selection: $selection) {
             TodayNavigationView().tabItem {
+                
                 Text("today")
             }.tag(1)
             SUHorizonCalendarView(

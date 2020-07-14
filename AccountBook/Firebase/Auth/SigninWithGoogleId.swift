@@ -36,9 +36,13 @@ extension SigninWithGoogleId : GIDSignInDelegate {
         guard let authentication = user.authentication else {
             return
         }
+        
+        UserDefaults.standard.authData = AuthData(accessToken: authentication.accessToken, idToken: authentication.idToken)
+       
         let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,
                                                        accessToken: authentication.accessToken)
         
+            
         Auth.auth().signIn(with: credential) {(authResult, error) in
             authResult?.joinIfNeed(complete: { (isSucess) in
                 debugPrint("sign in sucess")

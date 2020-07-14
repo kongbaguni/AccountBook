@@ -8,6 +8,8 @@
 
 import UIKit
 import SwiftUI
+import Firebase
+import GoogleSignIn
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -20,14 +22,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
 
         // Create the SwiftUI view that provides the window contents.
-        let contentView = ContentView()
-
-        // Use a UIHostingController as window root view controller.
-        if let windowScene = scene as? UIWindowScene {
-            let window = UIWindow(windowScene: windowScene)
-            window.rootViewController = UIHostingController(rootView: contentView)
-            self.window = window
-            window.makeKeyAndVisible()
+        
+        if UserDefaults.standard.authData != nil {
+            signin()
+        } else {
+            ContentView().changeThisView()
         }
     }
 
@@ -59,6 +58,24 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // to restore the scene back to its current state.
     }
 
-
+    private func signin() {
+        if let data  = UserDefaults.standard.authData {
+            LogoView().changeThisView()
+            let credential = GoogleAuthProvider.credential(withIDToken: data.idToken,
+                                                           accessToken: data.accessToken)
+            
+            Auth.auth().signIn(with: credential) {(authResult, error) in
+                loginedEmail = authResult?.email ?? ""
+                if error == nil {
+                    debugPrint("sign in sucess")
+                    // Create the SwiftUI view that provides the window contents.
+                    MainTabView().changeThisView()
+                } else {
+                    LoginView().changeThisView()
+                    UserDefaults.standard.authData = nil
+                }
+            }
+        }
+    }
 }
 

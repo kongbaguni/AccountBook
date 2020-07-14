@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		02F28C5EB3A198C4A2132223 /* Pods_AccountBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E93C12ED9C05169AA81D528A /* Pods_AccountBook.framework */; };
+		C34C7D5324BD42D600E7E1FA /* UserDefault+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34C7D5224BD42D600E7E1FA /* UserDefault+Extensions.swift */; };
 		C36C6CC624B312C8001CC3E7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36C6CC524B312C8001CC3E7 /* AppDelegate.swift */; };
 		C36C6CC824B312C8001CC3E7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36C6CC724B312C8001CC3E7 /* SceneDelegate.swift */; };
 		C36C6CCA24B312C8001CC3E7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36C6CC924B312C8001CC3E7 /* ContentView.swift */; };
@@ -46,11 +47,13 @@
 		C36C6D2924B5C5EA001CC3E7 /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36C6D2824B5C5EA001CC3E7 /* View+Extensions.swift */; };
 		C36C6D3224B6B6A7001CC3E7 /* HorizonCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = C36C6D3124B6B6A7001CC3E7 /* HorizonCalendar */; };
 		C36C6D3424B6B758001CC3E7 /* SUHorizonCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36C6D3324B6B758001CC3E7 /* SUHorizonCalendarView.swift */; };
+		C3760D3A24BD7A1900C13678 /* LogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3760D3924BD7A1900C13678 /* LogoView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		54629A7E4FC90EF909318947 /* Pods-AccountBook.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AccountBook.release.xcconfig"; path = "Target Support Files/Pods-AccountBook/Pods-AccountBook.release.xcconfig"; sourceTree = "<group>"; };
 		5AA65F46D6B25139C448A16F /* Pods-AccountBook.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AccountBook.debug.xcconfig"; path = "Target Support Files/Pods-AccountBook/Pods-AccountBook.debug.xcconfig"; sourceTree = "<group>"; };
+		C34C7D5224BD42D600E7E1FA /* UserDefault+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefault+Extensions.swift"; sourceTree = "<group>"; };
 		C36C6CC224B312C8001CC3E7 /* AccountBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AccountBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C36C6CC524B312C8001CC3E7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C36C6CC724B312C8001CC3E7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -91,6 +94,7 @@
 		C36C6D2424B5C22C001CC3E7 /* TitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleView.swift; sourceTree = "<group>"; };
 		C36C6D2824B5C5EA001CC3E7 /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
 		C36C6D3324B6B758001CC3E7 /* SUHorizonCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SUHorizonCalendarView.swift; sourceTree = "<group>"; };
+		C3760D3924BD7A1900C13678 /* LogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoView.swift; sourceTree = "<group>"; };
 		E93C12ED9C05169AA81D528A /* Pods_AccountBook.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AccountBook.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -186,6 +190,7 @@
 				C36C6D2224B598B1001CC3E7 /* ProfileView.swift */,
 				C36C6CDB24B314E0001CC3E7 /* ProfileSettingView.swift */,
 				C36C6D2424B5C22C001CC3E7 /* TitleView.swift */,
+				C3760D3924BD7A1900C13678 /* LogoView.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -197,6 +202,7 @@
 				C36C6CED24B3153D001CC3E7 /* String+Extensions.swift */,
 				C36C6CEE24B3153D001CC3E7 /* Color+Extensions.swift */,
 				C36C6D2824B5C5EA001CC3E7 /* View+Extensions.swift */,
+				C34C7D5224BD42D600E7E1FA /* UserDefault+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -408,6 +414,7 @@
 				C36C6D2524B5C22C001CC3E7 /* TitleView.swift in Sources */,
 				C36C6CEF24B3153D001CC3E7 /* String+Extensions.swift in Sources */,
 				C36C6CE624B314E0001CC3E7 /* ImageButton.swift in Sources */,
+				C34C7D5324BD42D600E7E1FA /* UserDefault+Extensions.swift in Sources */,
 				C36C6CC824B312C8001CC3E7 /* SceneDelegate.swift in Sources */,
 				C36C6CFD24B31813001CC3E7 /* SigninWithApple.swift in Sources */,
 				C36C6CF024B3153D001CC3E7 /* Color+Extensions.swift in Sources */,
@@ -416,6 +423,7 @@
 				C36C6D1B24B46F1B001CC3E7 /* TagModel.swift in Sources */,
 				C36C6CE224B314E0001CC3E7 /* MainTabView.swift in Sources */,
 				C36C6D1924B46C92001CC3E7 /* IncomeModel.swift in Sources */,
+				C3760D3A24BD7A1900C13678 /* LogoView.swift in Sources */,
 				C36C6D1F24B5826E001CC3E7 /* TodayNavigationView.swift in Sources */,
 				C36C6CE924B314E0001CC3E7 /* ReviewNavigationView.swift in Sources */,
 				C36C6CE724B314E0001CC3E7 /* RoundedTextField.swift in Sources */,
