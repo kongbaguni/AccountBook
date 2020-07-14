@@ -7,24 +7,30 @@
 //
 
 import SwiftUI
-
+import HorizonCalendar
 struct TodayNavigationView: View {
     @State var isActive:Bool = false
     var body: some View {
         NavigationView {
-            TagListView().navigationBarTitle("Tags")
-               .navigationBarItems(trailing: NavigationLink(
-                destination: MenuView(),
-                isActive: $isActive,
-                label: {
-                   Image("menu")
-               }))
+            TagListView()
+            .navigationBarTitle(LocalizedStringKey("Today"))
+                .navigationBarTitle("Tags")
+                .navigationBarItems(trailing: NavigationLink(
+                    destination: MenuView(),
+                    isActive: $isActive,
+                    label: {
+                        Image("menu")
+                }))
         }
+        
     }
 }
 
 struct TodayNavigationView_Previews: PreviewProvider {
     static var previews: some View {
-        TodayNavigationView()
+        ForEach(["en", "kr"], id: \.self) { id in
+            TodayNavigationView()
+                .environment(\.locale, .init(identifier: id))
+        }
     }
 }

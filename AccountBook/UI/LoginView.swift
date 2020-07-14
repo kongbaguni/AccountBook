@@ -16,11 +16,11 @@ struct LoginView: View {
         VStack {
             TitleView()
             Spacer()
-            ButtonView(image: Image("google"), title: "Sign in with GoogleID".localized) {
+            ButtonView(image: Image("google"), title: Text("Sign in with GoogleID")) {
                 
                 self.signInWithGoogle.sign(viewController: self.rootViewController)
             }
-            ButtonView(image: Image("apple"), title: "Sign in with Apple".localized) {
+            ButtonView(image: Image("apple"), title: Text("Sign in with Apple")) {
                 self.signInWithApple.startSignInWithAppleFlow()
             }
                         
@@ -32,6 +32,9 @@ struct LoginView: View {
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginView()
+        ForEach(["en", "ko"], id: \.self) { id in
+            LoginView()
+                .environment(\.locale, .init(identifier: id))
+        }
     }
 }

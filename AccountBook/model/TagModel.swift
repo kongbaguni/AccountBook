@@ -119,7 +119,7 @@ extension TagModel {
                     complete(a && b)
                 }
             }
-        }
+        } 
         else {
             make(isPublic: false) { (isSucess) in
                 complete(isSucess)
@@ -127,3 +127,4 @@ extension TagModel {
         }
     }
 }
+ 

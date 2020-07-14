@@ -12,7 +12,9 @@ import FirebaseAuth
 struct MenuView: View {
     var body: some View {
         List {
-            ProfileView()
+            NavigationLink(destination: ProfileSettingView()) {
+                 ProfileView()
+            }
             Button(action: {
                 do {
                     try Auth.auth().signOut()

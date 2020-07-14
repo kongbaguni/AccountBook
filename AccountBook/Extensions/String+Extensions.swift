@@ -9,13 +9,6 @@
 import Foundation
 import CryptoKit
 
-extension String {
-    /** 다국어 번역 지원 */
-    var localized:String {
-        let value = NSLocalizedString(self, comment:"")
-        return value
-    }
-}
 
 
 extension String {

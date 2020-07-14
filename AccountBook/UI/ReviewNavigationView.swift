@@ -13,14 +13,14 @@ struct ReviewNavigationView: View {
     @State var isActive = false
     var body: some View {
         NavigationView {
-            TagListView().navigationBarTitle("Tags")
+            TagListView().navigationBarTitle(LocalizedStringKey("Tags"))
                 .navigationBarItems(
                 trailing:Button(action: {
                     TagModel.createTag(title: "test\(Int.random(in: 0...100))", isCreatePublic: true) { (isSucess) in
                         
                     }
                 }) {
-                    Text("make tag")
+                    Text("AppTitle")+Text("TEST").bold()
                 }
             )
                 
@@ -32,5 +32,7 @@ struct ReviewNavigationView: View {
 struct ReviewNavigationView_Previews: PreviewProvider {
     static var previews: some View {
         ReviewNavigationView()
+            .environment(\.locale, .init(identifier: "kr"))
+
     }
 }

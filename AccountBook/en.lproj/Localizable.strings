@@ -6,3 +6,16 @@
   Copyright © 2020 Changyul Seo. All rights reserved.
 */
 "AppTitle" = "Account Book";
+"profileSetting" = "profile setting";
+"profileImage" = "profile image";
+"name" = "name";
+"email" = "email";
+"Logout" = "logout";
+"menu" = "menu";
+"Today" = "Today";
+"Tags" = "Tags";
+"alert" = "alert";
+"name is empty!" = "name is empty!" ;
+"confirm" = "name is empty!";
+"Sign in with GoogleID" = "Sign in with GoogleID";
+"Sign in with Apple" = "Sign in with Apple";

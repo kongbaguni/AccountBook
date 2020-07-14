@@ -44,6 +44,8 @@
 		C36C6D2324B598B1001CC3E7 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36C6D2224B598B1001CC3E7 /* ProfileView.swift */; };
 		C36C6D2524B5C22C001CC3E7 /* TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36C6D2424B5C22C001CC3E7 /* TitleView.swift */; };
 		C36C6D2924B5C5EA001CC3E7 /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36C6D2824B5C5EA001CC3E7 /* View+Extensions.swift */; };
+		C36C6D3224B6B6A7001CC3E7 /* HorizonCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = C36C6D3124B6B6A7001CC3E7 /* HorizonCalendar */; };
+		C36C6D3424B6B758001CC3E7 /* SUHorizonCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36C6D3324B6B758001CC3E7 /* SUHorizonCalendarView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -71,7 +73,6 @@
 		C36C6CF824B31760001CC3E7 /* UserInfoModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfoModel.swift; sourceTree = "<group>"; };
 		C36C6CFC24B31813001CC3E7 /* SigninWithApple.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SigninWithApple.swift; sourceTree = "<group>"; };
 		C36C6D0124B31895001CC3E7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/infoPlist.strings; sourceTree = "<group>"; };
-		C36C6D0324B318AF001CC3E7 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		C36C6D0424B318AF001CC3E7 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/infoPlist.strings; sourceTree = "<group>"; };
 		C36C6D0524B31A9F001CC3E7 /* AccountBook.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AccountBook.entitlements; sourceTree = "<group>"; };
 		C36C6D0624B31B9B001CC3E7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -89,6 +90,7 @@
 		C36C6D2224B598B1001CC3E7 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		C36C6D2424B5C22C001CC3E7 /* TitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleView.swift; sourceTree = "<group>"; };
 		C36C6D2824B5C5EA001CC3E7 /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
+		C36C6D3324B6B758001CC3E7 /* SUHorizonCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SUHorizonCalendarView.swift; sourceTree = "<group>"; };
 		E93C12ED9C05169AA81D528A /* Pods_AccountBook.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AccountBook.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -99,6 +101,7 @@
 			files = (
 				C36C6CF324B315A7001CC3E7 /* SwURL in Frameworks */,
 				C36C6CF624B31629001CC3E7 /* ImagePicker in Frameworks */,
+				C36C6D3224B6B6A7001CC3E7 /* HorizonCalendar in Frameworks */,
 				02F28C5EB3A198C4A2132223 /* Pods_AccountBook.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -168,8 +171,8 @@
 		C36C6CD924B314E0001CC3E7 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				C36C6D2D24B6A9AC001CC3E7 /* wrapSwiftUI */,
 				C36C6CDA24B314E0001CC3E7 /* MainTabView.swift */,
-				C36C6CDB24B314E0001CC3E7 /* ProfileSettingView.swift */,
 				C36C6CDC24B314E0001CC3E7 /* LoginView.swift */,
 				C36C6CDD24B314E0001CC3E7 /* NetImageView.swift */,
 				C36C6CDE24B314E0001CC3E7 /* ImageButton.swift */,
@@ -181,6 +184,7 @@
 				C36C6D1E24B5826E001CC3E7 /* TodayNavigationView.swift */,
 				C36C6D2024B592C5001CC3E7 /* MenuView.swift */,
 				C36C6D2224B598B1001CC3E7 /* ProfileView.swift */,
+				C36C6CDB24B314E0001CC3E7 /* ProfileSettingView.swift */,
 				C36C6D2424B5C22C001CC3E7 /* TitleView.swift */,
 			);
 			path = UI;
@@ -224,6 +228,14 @@
 			path = Auth;
 			sourceTree = "<group>";
 		};
+		C36C6D2D24B6A9AC001CC3E7 /* wrapSwiftUI */ = {
+			isa = PBXGroup;
+			children = (
+				C36C6D3324B6B758001CC3E7 /* SUHorizonCalendarView.swift */,
+			);
+			path = wrapSwiftUI;
+			sourceTree = "<group>";
+		};
 		FA720B475365BE9200A0C7F3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -254,6 +266,7 @@
 			packageProductDependencies = (
 				C36C6CF224B315A7001CC3E7 /* SwURL */,
 				C36C6CF524B31629001CC3E7 /* ImagePicker */,
+				C36C6D3124B6B6A7001CC3E7 /* HorizonCalendar */,
 			);
 			productName = AccountBook;
 			productReference = C36C6CC224B312C8001CC3E7 /* AccountBook.app */;
@@ -287,6 +300,7 @@
 			packageReferences = (
 				C36C6CF124B315A7001CC3E7 /* XCRemoteSwiftPackageReference "SwURL" */,
 				C36C6CF424B31629001CC3E7 /* XCRemoteSwiftPackageReference "image-picker" */,
+				C36C6D3024B6B6A7001CC3E7 /* XCRemoteSwiftPackageReference "HorizonCalendar" */,
 			);
 			productRefGroup = C36C6CC324B312C8001CC3E7 /* Products */;
 			projectDirPath = "";
@@ -386,6 +400,7 @@
 				C36C6CE424B314E0001CC3E7 /* LoginView.swift in Sources */,
 				C36C6CE824B314E0001CC3E7 /* ButtonView.swift in Sources */,
 				C36C6CC624B312C8001CC3E7 /* AppDelegate.swift in Sources */,
+				C36C6D3424B6B758001CC3E7 /* SUHorizonCalendarView.swift in Sources */,
 				C36C6D2324B598B1001CC3E7 /* ProfileView.swift in Sources */,
 				C36C6CF924B31760001CC3E7 /* UserInfoModel.swift in Sources */,
 				C36C6D1D24B56663001CC3E7 /* TagListView.swift in Sources */,
@@ -415,7 +430,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				C36C6CD124B312CC001CC3E7 /* Base */,
-				C36C6D0324B318AF001CC3E7 /* ko */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -641,6 +655,14 @@
 				minimumVersion = 0.0.8;
 			};
 		};
+		C36C6D3024B6B6A7001CC3E7 /* XCRemoteSwiftPackageReference "HorizonCalendar" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/HorizonCalendar.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.1.3;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -653,6 +675,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C36C6CF424B31629001CC3E7 /* XCRemoteSwiftPackageReference "image-picker" */;
 			productName = ImagePicker;
+		};
+		C36C6D3124B6B6A7001CC3E7 /* HorizonCalendar */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C36C6D3024B6B6A7001CC3E7 /* XCRemoteSwiftPackageReference "HorizonCalendar" */;
+			productName = HorizonCalendar;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

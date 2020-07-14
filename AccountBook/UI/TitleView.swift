@@ -17,7 +17,7 @@ struct TitleView: View {
                 .overlay(Circle().stroke(Color.strockColor,lineWidth: 10))
                 .shadow(color: .shadowColor, radius: 10, x: 0, y: 0)
                 .padding(20)
-            Text("AppTitle".localized)
+            Text("AppTitle")
                 .font(.title)
                 .fontWeight(.bold)
         }
@@ -27,6 +27,10 @@ struct TitleView: View {
 
 struct TitleView_Previews: PreviewProvider {
     static var previews: some View {
-        TitleView()
+        ForEach(["en", "ko_kr"], id: \.self) { id in
+            TitleView()
+                .environment(\.locale, .init(identifier: id))
+        }
+        
     }
 }

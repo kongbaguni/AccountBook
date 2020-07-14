@@ -6,3 +6,16 @@
   Copyright © 2020 Changyul Seo. All rights reserved.
 */
 "AppTitle" = "가계부";
+"profileSetting" = "프로필 설정";
+"profileImage" = "프로필 이미지";
+"name" = "이름";
+"email" = "이메일";
+"Logout" = "로그아웃";
+"menu" = "메뉴";
+"Today" = "오늘";
+"Tags" = "태그";
+"alert" = "알람";
+"name is empty!" = "이름이 공란입니다!";
+"confirm" = "확인";
+"Sign in with GoogleID" = "구글 아이디로 로그인";
+"Sign in with Apple" = "애플 아이디로 로그인";

@@ -23,6 +23,9 @@ struct TagListView: View {
 
 struct TagListView_Previews: PreviewProvider {
     static var previews: some View {
-        TagListView()
+        ForEach(["en", "kr"], id: \.self) { id in
+            TagListView()
+                .environment(\.locale, .init(identifier: id))
+        }
     }
 }

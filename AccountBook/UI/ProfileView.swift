@@ -12,17 +12,22 @@ fileprivate var profile:UserInfoModel? {
 }
 
 struct ProfileView: View {
+    @State var name:String = "홍길동"
     var body: some View {
         HStack {
             NetImageView(imageUrl: profile?.profileImageURL?.absoluteString ?? " " , placeHolder: Image("profile"), size: CGSize(width: 100, height: 100))
             VStack {
-                Text(profile?.name ?? "홍길동")
+                Text(name)
                     .font(.title)
                     .fontWeight(.bold)
                     .multilineTextAlignment(.leading)
                     
                 Text(profile?.email ?? "hong@gil.dong")
                     .multilineTextAlignment(.leading)
+            }.onReceive(NotificationCenter.default.publisher(for: .profileUpdatedNotification)) { (obj) in
+                self.name = UserInfoModel.myInfo!.name
+            }.onAppear {
+                self.name = UserInfoModel.myInfo!.name
             }
             
         }

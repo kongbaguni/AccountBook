@@ -10,6 +10,9 @@ import Foundation
 import RealmSwift
 import FirebaseFirestore
 
+extension Notification.Name {
+    static let profileUpdatedNotification = Notification.Name("profileUpdateNotification_observer")
+}
 var FS:Firestore {
     Firestore.firestore()
 }
@@ -117,6 +120,7 @@ extension UserInfoModel {
                 realm.beginWrite()
                 realm.create(UserInfoModel.self, value: data, update: .all)
                 try! realm.commitWrite()
+                NotificationCenter.default.post(name: .profileUpdatedNotification, object: nil)
             }
             complete(error == nil)
         }
