@@ -13,9 +13,10 @@ fileprivate var profile:UserInfoModel? {
 
 struct ProfileView: View {
     @State var name:String = "홍길동"
+    @State var profileURL:String = profile?.profileImageURL?.absoluteString ?? " "
     var body: some View {
         HStack {
-            NetImageView(imageUrl: profile?.profileImageURL?.absoluteString ?? " " , placeHolder: Image("profile"), size: CGSize(width: 100, height: 100))
+            NetImageView(imageUrl: profileURL, placeHolder: Image("profile"), size: CGSize(width: 100, height: 100))
             VStack {
                 Text(name)
                     .font(.title)
@@ -26,8 +27,10 @@ struct ProfileView: View {
                     .multilineTextAlignment(.leading)
             }.onReceive(NotificationCenter.default.publisher(for: .profileUpdatedNotification)) { (obj) in
                 self.name = UserInfoModel.myInfo!.name
+                self.profileURL = UserInfoModel.myInfo!.profileImageURL!.absoluteString
             }.onAppear {
                 self.name = UserInfoModel.myInfo!.name
+                self.profileURL = UserInfoModel.myInfo!.profileImageURL!.absoluteString
             }
             
         }

@@ -14,4 +14,6 @@ pod 'Firebase/Firestore'
 pod 'FirebaseFirestoreSwift'
 pod 'Firebase/Storage'
 pod 'RxRealm'
+pod 'AlamofireImage'
+
 end

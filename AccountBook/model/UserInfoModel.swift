@@ -27,7 +27,11 @@ class UserInfoModel: Object {
     @objc dynamic var name:String = ""
     @objc dynamic var email:String = ""
     @objc dynamic var profileImageURLgoogle:String = ""
-    @objc dynamic var profileImageURLfirebase:String = ""
+    /** 업로드한 프로필 이미지*/
+      @objc dynamic var profileImageURLfirebase   : String    = ""
+      /** 업로드한 프로필 이미지의 섬네일*/
+      @objc dynamic var profileThumbURLfirebase   : String    = ""
+    
     @objc dynamic var isDeleteProfileImage:Bool = true
     @objc dynamic var updateTimeIntervalSince1970:Double = 0
     @objc dynamic var point:Int = 0
@@ -51,8 +55,8 @@ extension UserInfoModel {
         if isDeleteProfileImage {
             return nil
         }
-        if profileImageURLfirebase.isEmpty == false {
-            return URL(string: profileImageURLfirebase)
+        if profileThumbURLfirebase.isEmpty == false {
+            return URL(string: profileThumbURLfirebase)
         }
         if profileImageURLgoogle.isEmpty == false {
             return URL(string: profileImageURLgoogle)
@@ -92,8 +96,10 @@ extension UserInfoModel {
             "name":name
         ]
         if let url = uploadProfileImageURL {
-            data["profileImageURLfirebase"] = url.absoluteString
+            data["profileImageURLgoogle"] = url.absoluteString
         }
+       
+        
         db.document(email).setData(data) { (error) in
             if error == nil {
                 let realm = try! Realm()
@@ -105,16 +111,18 @@ extension UserInfoModel {
         }
     }
     
-    func updateUserInfo(name:String, uploadProfileImageURL:String?, isDeleteProfile:Bool ,complete:@escaping(_ isSucess:Bool)->Void) {
+    func updateUserInfo(name:String, profileImageURL:URL?, profileImageThumbURL:URL?, isDeleteProfile:Bool ,complete:@escaping(_ isSucess:Bool)->Void) {
         var data:[String:Any] = [
             "email" : email,
             "name" : name,
             "isDeleteProfileImage" : isDeleteProfile
         ]
-        if let url = uploadProfileImageURL {
-            data["profileImageURLfirebase"] = url
+        if let url = profileImageURL {
+            data["profileImageURLfirebase"] = url.absoluteString
         }
-        
+        if let url = profileImageThumbURL {
+            data["profileThumbURLfirebase"] = url.absoluteString
+        }
         db.document(email).updateData(data) { (error) in
             if error == nil {
                 let realm = try! Realm()

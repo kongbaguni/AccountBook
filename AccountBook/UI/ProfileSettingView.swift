@@ -9,6 +9,8 @@
 import SwiftUI
 import RealmSwift
 import ImagePicker
+import Photos
+
 struct ProfileSettingView: View {
     var info:UserInfoModel? { UserInfoModel.myInfo }
     @State var showingAlert:Bool = false
@@ -16,16 +18,25 @@ struct ProfileSettingView: View {
     @State var name:String = "홍길동"
     @State var email:String = "Hong@gil.dong"
     @State var isActive:Bool = false
+    @State var selectImageURL:URL? = nil
+    @State var isDeleteProfile:Bool = false
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     var body: some View {
         ScrollView {
             HStack {
-                ImageButton(imageUrl: profileImageUrl ?? "", placeHolderImage: Image("profile"), size: CGSize(width: 100, height: 100), text: "profileImage", action: {
-                    let picker = ImagePickerController { (asset) in
-                                            
+                ImageButton(imageUrl: selectImageURL?.absoluteString ?? profileImageUrl ?? "", placeHolderImage: Image("profile"), size: CGSize(width: 100, height: 100), text: Text("profileImage"), action: {
+                    
+                    let picker = ImagePickerController { (assets) in
+                        if let asset:PHAsset = assets?.first{
+                            print(asset)
+                            asset.getURL { url in
+                                self.selectImageURL = url
+                            }
+                        }
                     }
+                    
                     picker.modalPresentationStyle = UIModalPresentationStyle.fullScreen
-                    UIApplication.shared.windows.last?.rootViewController?.present(picker, animated: true, completion: nil)
+                    self.rootViewController?.present(picker, animated: true, completion: nil)
                 })
                 VStack {
                     RoundedTextField(title: "name", text: $name)
@@ -46,9 +57,23 @@ struct ProfileSettingView: View {
                     self.showingAlert = true
                     return
                 }
-                UserInfoModel.myInfo?.updateUserInfo(name: self.name, uploadProfileImageURL: nil, isDeleteProfile: false, complete: { (complete) in
-                    self.presentationMode.wrappedValue.dismiss()
-                })
+                func updateProfile(photoURL:URL?, thumbURL:URL?) {
+                    UserInfoModel.myInfo?.updateUserInfo(name: self.name, profileImageURL: photoURL, profileImageThumbURL: thumbURL, isDeleteProfile: self.isDeleteProfile, complete: { (complete) in
+                        self.presentationMode.wrappedValue.dismiss()
+
+                    })
+                }
+                
+                if let url = self.selectImageURL {
+                    FirebaseStorageHelper().uploadProfile(url: url) { (large, thumb) in
+                        updateProfile(photoURL: large, thumbURL: thumb)
+                    }
+                    
+                } else {
+                    updateProfile(photoURL: nil, thumbURL: nil)
+                }
+                
+                
             }) {
                 Text("save")
             })
@@ -58,6 +83,7 @@ struct ProfileSettingView: View {
     }
     
     private func loadData() {
+        profileImageUrl = UserInfoModel.myInfo?.profileImageURL?.absoluteString
         name = UserInfoModel.myInfo!.name
         email = UserInfoModel.myInfo!.email
     }
