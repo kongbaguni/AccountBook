@@ -13,14 +13,16 @@ struct TodayNavigationView: View {
     var body: some View {
         NavigationView {
             TagListView()
-            .navigationBarTitle(LocalizedStringKey("Today"))
-                .navigationBarTitle("Tags")
-                .navigationBarItems(trailing: NavigationLink(
-                    destination: MenuView(),
-                    isActive: $isActive,
-                    label: {
-                        Image("menu")
-                }))
+                .navigationBarTitle(LocalizedStringKey("Today"))
+                .navigationBarItems(trailing:
+                    NavigationLink(
+                        destination: MenuView(),
+                        isActive: $isActive,
+                        label: {
+                            Image("menu")
+                    })
+                    
+            )
         }
         
     }

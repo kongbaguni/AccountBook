@@ -15,7 +15,7 @@ struct MenuView: View {
     var body: some View {
         List {
             NavigationLink(destination: ProfileSettingView()) {
-                 ProfileView()
+                ProfileView()
             }
             Button(action: {
                 

@@ -14,6 +14,7 @@ fileprivate var profile:UserInfoModel? {
 struct ProfileView: View {
     @State var name:String = "홍길동"
     @State var profileURL:String = profile?.profileImageURL?.absoluteString ?? " "
+
     var body: some View {
         HStack {
             NetImageView(imageUrl: profileURL, placeHolder: Image("profile"), size: CGSize(width: 100, height: 100))
@@ -31,14 +32,18 @@ struct ProfileView: View {
                     Spacer()
                 }
             }.onReceive(NotificationCenter.default.publisher(for: .profileUpdatedNotification)) { (obj) in
-                self.name = UserInfoModel.myInfo!.name
-                self.profileURL = UserInfoModel.myInfo!.profileImageURL?.absoluteString ?? " "
+                self.update()
             }.onAppear {
-                self.name = UserInfoModel.myInfo!.name
-                self.profileURL = UserInfoModel.myInfo!.profileImageURL?.absoluteString ?? " "
+                self.update()
             }
         }
     }
+    
+    private func update() {
+        name = profile?.name ?? "홍길동"
+        profileURL = profile?.profileImageURL?.absoluteString ?? " "
+    }
+    
 }
 
 struct ProfileView_Previews: PreviewProvider {
