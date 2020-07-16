@@ -111,17 +111,22 @@ extension UserInfoModel {
         }
     }
     
-    func updateUserInfo(name:String, profileImageURL:URL?, profileImageThumbURL:URL?, isDeleteProfile:Bool ,complete:@escaping(_ isSucess:Bool)->Void) {
+    func updateUserInfo(name:String, profileImageURL:URL?, profileImageThumbURL:URL?, isSetDefaultProfile:Bool, isSetGoogleProfile:Bool ,complete:@escaping(_ isSucess:Bool)->Void) {
         var data:[String:Any] = [
             "email" : email,
             "name" : name,
-            "isDeleteProfileImage" : isDeleteProfile
+            "isDeleteProfileImage" : isSetDefaultProfile,
+            "updateTimeIntervalSince1970" : Date().timeIntervalSince1970
         ]
         if let url = profileImageURL {
             data["profileImageURLfirebase"] = url.absoluteString
         }
         if let url = profileImageThumbURL {
             data["profileThumbURLfirebase"] = url.absoluteString
+        }
+        if isSetGoogleProfile {
+            data["profileImageURLfirebase"] = ""
+            data["profileThumbURLfirebase"] = ""
         }
         db.document(email).updateData(data) { (error) in
             if error == nil {

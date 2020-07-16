@@ -19,3 +19,8 @@
 "confirm" = "name is empty!";
 "Sign in with GoogleID" = "Sign in with GoogleID";
 "Sign in with Apple" = "Sign in with Apple";
+"action" = "action";
+"change profile image" = "change profile image";
+"pic profile image" = "select image from PhotoAlbum";
+"delete profile image" = "delete profile image";
+"set Google Profile image" = "set Google Profile image";

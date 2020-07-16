@@ -18,21 +18,25 @@ struct ProfileView: View {
         HStack {
             NetImageView(imageUrl: profileURL, placeHolder: Image("profile"), size: CGSize(width: 100, height: 100))
             VStack {
-                Text(name)
-                    .font(.title)
-                    .fontWeight(.bold)
-                    .multilineTextAlignment(.leading)
-                    
-                Text(profile?.email ?? "hong@gil.dong")
-                    .multilineTextAlignment(.leading)
+                HStack {
+                    Text(name)
+                        .font(.title)
+                        .fontWeight(.bold)
+                        .multilineTextAlignment(.leading)
+                    Spacer()
+                }
+                HStack {
+                    Text(profile?.email ?? "hong@gil.dong")
+                        .multilineTextAlignment(.leading)
+                    Spacer()
+                }
             }.onReceive(NotificationCenter.default.publisher(for: .profileUpdatedNotification)) { (obj) in
                 self.name = UserInfoModel.myInfo!.name
-                self.profileURL = UserInfoModel.myInfo!.profileImageURL!.absoluteString
+                self.profileURL = UserInfoModel.myInfo!.profileImageURL?.absoluteString ?? " "
             }.onAppear {
                 self.name = UserInfoModel.myInfo!.name
-                self.profileURL = UserInfoModel.myInfo!.profileImageURL!.absoluteString
+                self.profileURL = UserInfoModel.myInfo!.profileImageURL?.absoluteString ?? " "
             }
-            
         }
     }
 }

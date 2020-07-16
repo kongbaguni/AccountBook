@@ -19,3 +19,8 @@
 "confirm" = "확인";
 "Sign in with GoogleID" = "구글 아이디로 로그인";
 "Sign in with Apple" = "애플 아이디로 로그인";
+"action" = "액션";
+"change profile image" = "프로필 이미지 바꾸기";
+"pic profile image" = "카메라 롤에서 선택";
+"delete profile image" = "프로필 이미지 삭제";
+"set Google Profile image" = "구글 프로필 이미지로 설정";
