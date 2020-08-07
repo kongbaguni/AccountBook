@@ -11,9 +11,11 @@ import SwiftUI
 struct RoundedTextField: View {
     let title:String
     let text:Binding<String>
+    let keyboardType:UIKeyboardType
 
     var body: some View {
         TextField(self.title, text: text)
+            .keyboardType(keyboardType)
             .foregroundColor(.textFieldTextColor)
             .padding(10)
             .overlay(
@@ -32,7 +34,7 @@ struct RoundedTextField_Previews: PreviewProvider {
     struct Preview : View {
         @State var name_preview = "홍길동"
         var body: some View {
-            RoundedTextField(title: "test", text: $name_preview)
+            RoundedTextField(title: "test", text: $name_preview, keyboardType: .default)
         }
     }
 }

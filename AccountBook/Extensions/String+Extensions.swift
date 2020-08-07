@@ -46,3 +46,12 @@ extension String {
     /** firebase db : 수입, 지출 */
     public static let FSCollectionName_accounts_income:String = "income"
 }
+
+
+extension String {
+    func dateValue(format:String)->Date? {
+        let formatter = DateFormatter()
+        formatter.dateFormat = format
+        return formatter.date(from: self)
+    }
+}

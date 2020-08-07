@@ -12,9 +12,9 @@ struct TitleView: View {
     var body: some View {
         VStack {
             LogoView()
-                .frame(width: 150, height: 150, alignment: .center)
+                .frame(width: 200, height: 200, alignment: .center)
                 .clipShape(Circle())
-                .overlay(Circle().stroke(Color.strockColor,lineWidth: 10))
+                .overlay(Circle().stroke(Color.orangeColor,lineWidth: 10))
                 .shadow(color: .shadowColor, radius: 10, x: 10, y: 10)
                 .padding(20)
             Text("AppTitle")

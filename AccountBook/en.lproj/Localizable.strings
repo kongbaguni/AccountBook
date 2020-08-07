@@ -24,3 +24,11 @@
 "pic profile image" = "select image from PhotoAlbum";
 "delete profile image" = "delete profile image";
 "set Google Profile image" = "set Google Profile image";
+
+
+"just now" = "just now";
+"%@ minutes ago" = "%@ minutes ago";
+"%@ hour ago" = "%@ hour ago";
+"Yesterday" = "yesterday";
+"Day before yesterday" = "Day before yesterday";
+"%@ days ago" = "%@ days ago";

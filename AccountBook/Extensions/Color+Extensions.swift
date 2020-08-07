@@ -30,4 +30,7 @@ extension Color {
     static var imageButtonOveray:Color {
         Color("imageButtonOveray")
     }
+    static var orangeColor:Color {
+        Color("orangeColor")
+    }
 }

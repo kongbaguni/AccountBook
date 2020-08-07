@@ -47,11 +47,12 @@ struct ProfileSettingView: View {
                     self.showingImagePic = true
                 })
                 VStack {
-                    RoundedTextField(title: "name", text: $name)
+                    RoundedTextField(title: "name", text: $name, keyboardType: .default)
                     HStack {
                         Text(email)
                         Spacer()
                     }
+                    Spacer()
                 }
             }.padding(10)
                 .onAppear {

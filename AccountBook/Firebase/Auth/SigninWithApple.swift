@@ -100,7 +100,7 @@ extension SigninWithApple : ASAuthorizationControllerDelegate {
                 } else {
                     authResult?.joinIfNeed(complete: { (isSucess) in
                         debugPrint("sign in sucess")
-                        MainTabView().changeThisView()
+                        TodayNavigationView().changeThisView()
                         
                     })
                 }

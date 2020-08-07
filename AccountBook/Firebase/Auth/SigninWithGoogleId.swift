@@ -48,7 +48,7 @@ extension SigninWithGoogleId : GIDSignInDelegate {
                 authResult?.joinIfNeed(complete: { (isSucess) in
                     debugPrint("sign in sucess")
                     // Create the SwiftUI view that provides the window contents.
-                    MainTabView().changeThisView()
+                    TodayNavigationView().changeThisView()
                 })
             } else {
                 LoginView().changeThisView()

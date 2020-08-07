@@ -12,7 +12,7 @@ struct TodayNavigationView: View {
     @State var isActive:Bool = false
     var body: some View {
         NavigationView {
-            TagListView()
+            IncomeListView()
                 .navigationBarTitle(LocalizedStringKey("Today"))
                 .navigationBarItems(trailing:
                     NavigationLink(

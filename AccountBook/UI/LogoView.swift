@@ -13,6 +13,8 @@ struct LogoView: View {
 
     var body: some View {
         Image("book")
+        .resizable()
+        .frame(width: 100, height: 100, alignment: .center)
         .rotation3DEffect(Angle(degrees: animationAmount), axis: (x: 10, y:5, z: 10))
         .animation(
             Animation.easeInOut(duration: 0.25)

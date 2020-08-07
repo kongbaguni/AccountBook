@@ -24,3 +24,10 @@
 "pic profile image" = "카메라 롤에서 선택";
 "delete profile image" = "프로필 이미지 삭제";
 "set Google Profile image" = "구글 프로필 이미지로 설정";
+
+"just now" = "방금";
+"%@ minutes ago" = "%@분 전";
+"%@ hour ago" = "%@시간 전";
+"Yesterday" = "어저께";
+"Day before yesterday" = "그저께";
+"%@ days ago" = "%@일 전";
