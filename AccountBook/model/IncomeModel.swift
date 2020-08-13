@@ -18,6 +18,7 @@ class IncomeModel: Object {
     @objc dynamic var longitude:Double = 0
     @objc dynamic var creatorEmail:String = ""
     @objc dynamic var regTimeIntervalSince1970:Double = 0
+    @objc dynamic var updateTimeIntervalSince1970:Double = 0
     
     override static func primaryKey() -> String? {
         return "id"
@@ -32,6 +33,10 @@ extension IncomeModel {
     
     var regTime:Date {
         return Date(timeIntervalSince1970: regTimeIntervalSince1970)
+    }
+    
+    var updateTime:Date {
+        return Date(timeIntervalSince1970: updateTimeIntervalSince1970)
     }
     
     var coordinate2D:CLLocationCoordinate2D? {
@@ -53,5 +58,58 @@ extension IncomeModel {
             }
         }
         return list
+    }
+    
+    
+    static func create(id:String? = nil ,
+        value:Float, name:String, tags:String, coordinate2D:CLLocationCoordinate2D?, complete:@escaping(_ isSucess:Bool)->Void) {
+        let isUpdate = id != nil
+        let id = id ?? "\(UUID().uuidString)_\(Date().timeIntervalSince1970)_\(loginedEmail)"
+        var data:[String:Any] = [
+            "id" : id ,
+            "value" : value,
+            "name" : name,
+            "tags" : tags,
+            "latitude" : coordinate2D?.latitude ?? 0,
+            "longitude" : coordinate2D?.longitude ?? 0,
+            "creatorEmail" : loginedEmail,
+        ]
+        let now = Date().timeIntervalSince1970
+        if isUpdate {
+            data["updateTimeIntervalSince1970"] = now
+        } else {
+            data["regTimeIntervalSince1970"] = now
+            data["updateTimeIntervalSince1970"] = now
+        }
+        
+        FS.collection(.FSCollectionName_accountData).document(id).setData(data) { (error) in
+            if error == nil {
+                let realm = try! Realm()
+                realm.beginWrite()
+                realm.create(IncomeModel.self, value: data, update: isUpdate ? .modified : .all)
+                try! realm.commitWrite()
+            }
+            complete(error == nil)
+        }
+    }
+    
+    static func sync(complete:@escaping(_ isSucess:Bool)->Void) {
+        var syncDt:Double = 0
+        
+        if let last = try! Realm().objects(IncomeModel.self).sorted(byKeyPath: "updateTimeIntervalSince1970").last {
+            syncDt = last.regTimeIntervalSince1970
+        }
+        FS.collection(.FSCollectionName_accountData)
+            .whereField("updateTimeIntervalSince1970", isGreaterThan: syncDt)
+            .getDocuments { (snapShot, error) in
+                print(snapShot?.documents ?? "")
+                let realm = try! Realm()
+                realm.beginWrite()
+                for doc in snapShot?.documents ?? [] {
+                    realm.create(IncomeModel.self, value: doc.data(), update: .all)
+                }
+                try! realm.commitWrite()
+                complete(error == nil)
+        }
     }
 }

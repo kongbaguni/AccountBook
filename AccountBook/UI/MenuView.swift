@@ -9,30 +9,32 @@
 import SwiftUI
 import FirebaseAuth
 
+import RealmSwift
+
 struct MenuView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
-    var body: some View {
+      var body: some View {
         List {
             NavigationLink(destination: ProfileSettingView()) {
                 ProfileView()
             }
             Button(action: {
-                
                 do {
                     try Auth.auth().signOut()
                 } catch {
                     print(error.localizedDescription)
                     return
                 }
+                
                 self.presentationMode.wrappedValue.dismiss()
                 UserDefaults.standard.authData = nil
                 LoginView().changeThisView()
             }) {
                 Text("Logout")
             }
-        }.navigationBarTitle("menu")
-        
+        }
+        .navigationBarTitle("menu")
     }
 }
 

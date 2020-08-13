@@ -32,3 +32,6 @@
 "Yesterday" = "yesterday";
 "Day before yesterday" = "Day before yesterday";
 "%@ days ago" = "%@ days ago";
+
+"income" = "income";
+"expenditure" = "expenditure";

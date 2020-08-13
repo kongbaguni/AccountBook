@@ -55,3 +55,9 @@ extension String {
         return formatter.date(from: self)
     }
 }
+
+extension String {
+    var floatValue:Float {
+        return NSString(string: self).floatValue
+    }
+}

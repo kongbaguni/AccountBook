@@ -11,15 +11,14 @@ import RealmSwift
 import ImagePicker
 import Photos
 
-fileprivate var info:UserInfoModel? { UserInfoModel.myInfo }
 
 struct ProfileSettingView: View {
-    
-    
-  
+    var info:UserInfoModel? {
+        return UserInfoModel.myInfo
+    }
     @State var showingAlert:Bool = false
     @State var showingImagePic:Bool = false
-    @State var profileImageUrl:String? = UserInfoModel.myInfo?.profileImageURL?.absoluteString
+    @State var profileImageUrl:String? = nil
     @State var name:String = "홍길동"
     @State var email:String = "Hong@gil.dong"
     @State var isActive:Bool = false
@@ -34,12 +33,13 @@ struct ProfileSettingView: View {
     @State var isSetGoogleProfile:Bool = false {
         didSet {
             if isSetGoogleProfile {
-                profileImageUrl = info?.profileImageURLgoogle
+                profileImageUrl = UserInfoModel.myInfo?.profileImageURLgoogle
             }
         }
     }
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    
     var body: some View {
         ScrollView {
             HStack {
@@ -55,40 +55,48 @@ struct ProfileSettingView: View {
                     Spacer()
                 }
             }.padding(10)
-                .onAppear {
-                    self.loadData()
-            }.onReceive(NotificationCenter.default.publisher(for: .profileUpdatedNotification)) { obj in
-                self.loadData()
+        }
+        .onAppear {
+            print("""
+               appear
+               isPresented : \(self.presentationMode.wrappedValue.isPresented)
+               ------------
+               """)
+            self.loadData()
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .profileUpdatedNotification)) { obj in
+            self.loadData()
+        }
+        .navigationBarBackButtonHidden(true)
+        .navigationBarTitle("profileSetting")
+        .navigationBarItems(trailing: Button(action: {
+            if self.name.isEmpty {
+                self.showingAlert = true
+                return
             }
-        }.navigationBarTitle("profileSetting")
-            .navigationBarItems(trailing: Button(action: {
-                if self.name.isEmpty {
-                    self.showingAlert = true
-                    return
-                }
-                func updateProfile(photoURL:URL?, thumbURL:URL?) {
-                    info?.updateUserInfo(name: self.name, profileImageURL: photoURL, profileImageThumbURL: thumbURL, isSetDefaultProfile: self.isDeleteProfile, isSetGoogleProfile: self.isSetGoogleProfile, complete: { (complete) in
-                        self.presentationMode.wrappedValue.dismiss()
-
-                    })
-                }
-                
-                if let url = self.selectImageURL {
-                    FirebaseStorageHelper().uploadProfile(url: url) { (large, thumb) in
-                        updateProfile(photoURL: large, thumbURL: thumb)
-                    }
+            func updateProfile(photoURL:URL?, thumbURL:URL?) {
+                self.info?.updateUserInfo(name: self.name, profileImageURL: photoURL, profileImageThumbURL: thumbURL, isSetDefaultProfile: self.isDeleteProfile, isSetGoogleProfile: self.isSetGoogleProfile, complete: { (complete) in
+                    self.presentationMode.wrappedValue.dismiss()
                     
-                } else {
-                    updateProfile(photoURL: nil, thumbURL: nil)
+                })
+            }
+            
+            if let url = self.selectImageURL {
+                FirebaseStorageHelper().uploadProfile(url: url) { (large, thumb) in
+                    updateProfile(photoURL: large, thumbURL: thumb)
                 }
                 
-                
-            }) {
-                Text("save")
-            })
+            } else {
+                updateProfile(photoURL: nil, thumbURL: nil)
+            }
+            
+            
+        }) {
+            Text("save")
+        })
             .alert(isPresented: $showingAlert) { () -> Alert in
                 Alert(title: Text("alert"), message: Text("name is empty!"), dismissButton: .default(Text("confirm")))
-            
+                
         }
         .actionSheet(isPresented: $showingImagePic, content: { () -> ActionSheet in
             var buttons:[ActionSheet.Button] = [
@@ -127,7 +135,7 @@ struct ProfileSettingView: View {
         })
    
     }
-    
+        
     private func loadData() {
         profileImageUrl = info?.profileImageURL?.absoluteString
         if profileImageUrl == nil {

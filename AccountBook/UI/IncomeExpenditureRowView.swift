@@ -36,13 +36,19 @@ struct IncomeExpenditureRowView: View {
     var body: some View {
         HStack {
             Text(name).font(.title).fontWeight(.heavy).foregroundColor(Color("orangeColor")).padding(10)
+            Spacer()
             VStack {
-                Text(price.currencyFormatString).foregroundColor(price > 0 ? .blue : .red)
-                Text(tags).foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/)
+                Text(price.currencyFormatString)
+                    .italic()
+                    .foregroundColor(price > 0 ? .blue : .red)
+                    .font(.subheadline)
+                Text(tags).foregroundColor(.green)
+                    .font(.caption)
                 Text(regDt.relativeTimeStringValue)
-            }
-            .clipShape(Capsule())
-            .overlay(Capsule().stroke(Color.orangeColor,lineWidth: 2))
+                    .font(.footnote)
+            }.padding(10)
+//            .clipShape(Capsule())
+//            .overlay(Capsule().stroke(Color.orangeColor,lineWidth: 2))
         }
     }
 }
