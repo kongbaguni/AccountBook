@@ -47,7 +47,7 @@ struct ProfileSettingView: View {
                     self.showingImagePic = true
                 })
                 VStack {
-                    RoundedTextField(title: "name", text: $name, keyboardType: .default)
+                    RoundedTextField(title: "name", text: $name, keyboardType: .default, onEditingChanged: {_ in }, onCommit: { })
                     HStack {
                         Text(email)
                         Spacer()
@@ -69,7 +69,13 @@ struct ProfileSettingView: View {
         }
         .navigationBarBackButtonHidden(true)
         .navigationBarTitle("profileSetting")
-        .navigationBarItems(trailing: Button(action: {
+        .navigationBarItems(leading:
+            Button(action: {
+                self.presentationMode.wrappedValue.dismiss()
+            }) {
+                Text("cancel")
+            }
+            , trailing: Button(action: {
             if self.name.isEmpty {
                 self.showingAlert = true
                 return

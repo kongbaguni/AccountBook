@@ -11,17 +11,16 @@ import RealmSwift
 import FirebaseFirestore
 
 fileprivate var db:CollectionReference {
-    FS.collection(.FSCollectionName_accountData).document(loginedEmail).collection(.FSCollectionName_accounts_tag)
-}
-
-fileprivate var publidDB:CollectionReference {
-    FS.collection(.FSCollectionName_public_accountData).document(.FSCollectionName_public_accountData).collection(.FSCollectionName_accounts_tag)
+    FS.collection(.FSCollectionName_tags)
 }
 
 class TagModel: Object {
     @objc dynamic var creatorEmail:String = ""
     @objc dynamic var title:String = ""
     @objc dynamic var regTimeIntervalSince1970:Double = Date().timeIntervalSince1970
+    @objc dynamic var latitude:Double = 0
+    @objc dynamic var longitude:Double = 0
+    
     override static func primaryKey() -> String? {
         return "title"
     }
@@ -42,18 +41,12 @@ extension TagModel {
 }
 
 extension TagModel {
-    static func sync(isPublic:Bool = false, complete:@escaping(_ isSucess:Bool)->Void) {
+    static func sync(complete:@escaping(_ isSucess:Bool)->Void) {
         let realm = try! Realm()
-        let collection = isPublic ? publidDB : db
+        let collection =  db
         var query = collection.whereField("regTimeIntervalSince1970", isGreaterThan: 0)
-        if isPublic {
-            if let time = realm.objects(TagModel.self).sorted(byKeyPath: "regTimeIntervalSince1970").last?.regTimeIntervalSince1970 {
-                query = collection.whereField("regTimeIntervalSince1970", isGreaterThan: time)
-            }
-        } else {
-            if let time = realm.objects(TagModel.self).filter("creatorEmail = %@",loginedEmail).sorted(byKeyPath: "regTimeIntervalSince1970").last?.regTimeIntervalSince1970 {
-                query = collection.whereField("regTimeIntervalSince1970", isGreaterThan: time)
-            }
+        if let time = realm.objects(TagModel.self).sorted(byKeyPath: "regTimeIntervalSince1970").last?.regTimeIntervalSince1970 {
+            query = collection.whereField("regTimeIntervalSince1970", isGreaterThan: time)
         }
         
         query.getDocuments { (snapShot, error) in
@@ -78,8 +71,8 @@ extension TagModel {
         }
     }
     
-    static func getInfo(title:String, isFromPublic:Bool = false ,complete:@escaping(_ isSucess:Bool)->Void) {
-        (isFromPublic ? publidDB : db).document(title).getDocument { (snapShot, error) in
+    static func getInfo(title:String,complete:@escaping(_ isSucess:Bool)->Void) {
+        db.document(title).getDocument { (snapShot, error) in
             if let data = snapShot?.data() {
                 let realm = try! Realm()
                 realm.beginWrite()
@@ -91,17 +84,17 @@ extension TagModel {
     }
     
     static func createTag(title:String, isCreatePublic:Bool = false, complete:@escaping(_ isSucess:Bool)->Void) {
-        func make(isPublic:Bool,complete:@escaping(_ isSucess:Bool)->Void) {
-            getInfo(title: title, isFromPublic: isPublic) { (isSucess) in
+        func make(complete:@escaping(_ isSucess:Bool)->Void) {
+            getInfo(title: title) { (isSucess) in
                 if isSucess {
                     complete(true)
                 } else {
                     let data:[String:Any] = [
                         "creatorEmail":loginedEmail,
-                        "title":title,
+                        "title":title.trimmingValue,
                         "regTimeIntervalSince1970":Date().timeIntervalSince1970
                     ]
-                    (isPublic ? publidDB : db).document(title).setData(data) { (error) in
+                    db.document(title).setData(data) { (error) in
                         if error == nil {
                             let realm = try! Realm()
                             realm.beginWrite()
@@ -113,17 +106,8 @@ extension TagModel {
                 }
             }
         }
-        if isCreatePublic {
-            make(isPublic: true) { (a) in
-                make(isPublic: false) { (b) in
-                    complete(a && b)
-                }
-            }
-        } 
-        else {
-            make(isPublic: false) { (isSucess) in
-                complete(isSucess)
-            }
+        make { (isSucess) in
+            complete(isSucess)
         }
     }
 }

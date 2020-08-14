@@ -29,23 +29,17 @@ extension String {
     public static let FSCollectionName_user:String = "users_TEST"
     /** firebase db : private 저장 data */
     public static let FSCollectionName_accountData:String = "accounts_data_TEST"
-    /** firebase db : 공개용 data */
-    public static let FSCollectionName_public_accountData:String = "account_data_public_TEST"
+    /** firenase db : tag 정보 저장*/
+    public static let FSCollectionName_tags:String = "accounts_tag_TEST"
     #else
     /** firebase db : 사용자 정보 콜랙션 */
     public static let FSCollectionName_user:String = "users"
     /** firebase db : private 저장 data */
     public static let FSCollectionName_accountData:String = "accounts_data"
-    /** firebase db : 공개용 data */
-    public static let FSCollectionName_public_accountData:String = "account_data_public"
+    /** firenase db : tag 정보 저장*/
+    public static let FSCollectionName_tags:String = "accounts_tag"
     #endif
-    
-    /** firebase db : 태그 */
-    public static let FSCollectionName_accounts_tag:String = "tags"
-   
-    /** firebase db : 수입, 지출 */
-    public static let FSCollectionName_accounts_income:String = "income"
-}
+    }
 
 
 extension String {
@@ -54,10 +48,13 @@ extension String {
         formatter.dateFormat = format
         return formatter.date(from: self)
     }
-}
 
-extension String {
     var floatValue:Float {
         return NSString(string: self).floatValue
+    }
+    
+    /** 앞뒤로 스페이스 제거*/
+    var trimmingValue:String {
+        return trimmingCharacters(in: CharacterSet(charactersIn: " "))
     }
 }

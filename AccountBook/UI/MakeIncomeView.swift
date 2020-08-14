@@ -10,15 +10,19 @@ import SwiftUI
 import RealmSwift
 extension Notification.Name {
     static let incomeDataDidUpdated = Notification.Name("incomeDataDidUpdated_observer")
+    static let incomeDataWillDelete = Notification.Name("incomeDataWillDelete_observer")
 }
 struct MakeIncomeView: View {
     @State var name:String = ""
     @State var value:String = ""
     @State var tags:String = ""
-    //    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    
+ 
     let isIncome:Bool
     let incomeId:String?
+    
+    
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+
     var incomeModel:IncomeModel? {
         if let id = incomeId {
             return try! Realm().object(ofType: IncomeModel.self, forPrimaryKey: id)
@@ -30,6 +34,12 @@ struct MakeIncomeView: View {
         print("MakeIconView init \(incomeId ?? "new")")
         self.incomeId = incomeId
         self.isIncome = isIncome
+        if let model = incomeModel {
+            tags = model.tags
+        } else {
+            editTags = ""
+        }
+        print(tags)
     }
     
     @State var isLoaded:Bool = false
@@ -42,32 +52,72 @@ struct MakeIncomeView: View {
             name = model.name
             value = "\(Int(abs(model.value)))"
             tags = model.tags
+            editTags = model.tags
         }
     }
-    
+        
     var body: some View {
         List {
             HStack {
                 Text("name")
-                RoundedTextField(title: "name", text: $name, keyboardType: .default)
+                RoundedTextField(title: "name", text: $name, keyboardType: .default, onEditingChanged: {_ in }, onCommit: { })
             }.padding(20)
             HStack {
                 Text("price")
-                RoundedTextField(title: "price", text: $value, keyboardType: .numberPad)
+                RoundedTextField(title: "price", text: $value, keyboardType: .numberPad, onEditingChanged: {_ in }, onCommit: { })
                 
             }.padding(20)
-            HStack {
-                Text("tags")
-                RoundedTextField(title: "tags", text: $tags, keyboardType: .default)
-            }.padding(20)
+            NavigationLink(destination: MakeTagView(tags:self.tags)) {
+                HStack {
+                    Text("tags")
+                    Text(tags)
+                }.padding(20)
+            }
+            if incomeId != nil {
+                Button(action: {
+                    if let id = self.incomeModel?.id {
+                        self.presentationMode.wrappedValue.dismiss()
+                        DispatchQueue.main.async {
+                            NotificationCenter.default.post(name: .incomeDataWillDelete, object: id)
+                        }
+                    }
+                }) {
+                    Text("delete")
+                }.padding(20)
+                
+            }
         }
-            .onAppear {
-                print("MakeIncomeView did appear")
-                self.loadData()
+        .onAppear {
+            print("MakeIncomeView did appear")
+            self.loadData()
         }
-        .onDisappear{
-            self.save()
-        }
+        .navigationBarItems(leading:
+            Button(action: {
+                self.presentationMode.wrappedValue.dismiss()
+            }) {
+                Text("cancel")
+            }
+            ,trailing:
+            Button(action: {
+                self.save()
+            }) {
+                Text("save")
+            }
+        )
+        .onReceive(NotificationCenter.default.publisher(for: .makeTagsNotification), perform: { (obj) in
+            if let list = obj.object as? [String] {
+                var txt = ""
+                for text in list {
+                    if txt.isEmpty == false {
+                        txt.append(",")
+                    }
+                    txt.append(text)
+                }
+                self.tags = txt
+                editTags = txt  
+            }
+        })
+        .navigationBarBackButtonHidden(true)
         .navigationBarTitle(Text(isIncome ? "income" : "expenditure"))
     }
     
@@ -77,7 +127,7 @@ struct MakeIncomeView: View {
             return
         }
         let value = abs(self.value.floatValue)
-        IncomeModel.create(
+        let newId = IncomeModel.create(
             id: self.incomeModel?.id,
             value: self.isIncome ? value : -value ,
             name: self.name,
@@ -85,6 +135,7 @@ struct MakeIncomeView: View {
             coordinate2D: nil) { (isSucess) in
                 NotificationCenter.default.post(name: .incomeDataDidUpdated, object: nil)
         }
+        presentationMode.wrappedValue.dismiss()
     }
 }
 

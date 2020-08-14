@@ -12,7 +12,12 @@ import RealmSwift
 
 
 struct IncomeListView: View {
-    @State var listData:Results<IncomeModel> = try! Realm().objects(IncomeModel.self).sorted(byKeyPath: "regTimeIntervalSince1970").filter("creatorEmail = %@",loginedEmail)
+    var listData:Results<IncomeModel> {
+        try! Realm().objects(IncomeModel.self).sorted(byKeyPath: "regTimeIntervalSince1970").filter("creatorEmail = %@",loginedEmail)
+    }
+    
+    @State var list:[IncomeModel] = []
+    
     var sum:Float {
         let sum:Float = listData.sum(ofProperty: "value")
         return sum
@@ -32,7 +37,7 @@ struct IncomeListView: View {
     
     var body: some View {
         VStack {
-            List(listData, id:\.id) { model in
+            List(list, id:\.id) { model in
                 NavigationLink(destination: MakeIncomeView(incomeId: model.id, isIncome: model.value > 0)) {
                     IncomeExpenditureRowView(data:model)
                 }
@@ -75,10 +80,21 @@ struct IncomeListView: View {
         .onReceive(NotificationCenter.default.publisher(for: .incomeDataDidUpdated)) { (obj) in
             self.loadData()
         }
+        .onReceive(NotificationCenter.default.publisher(for: .incomeDataWillDelete)) { (obj) in
+            if let id = obj.object as? String {
+                if let model = try! Realm().object(ofType: IncomeModel.self, forPrimaryKey: id) {
+                    model.delete { (isSucess) in
+                        self.loadData()
+                    }
+                }
+            }
+        }
     }
     
     func loadData() {
-        listData = try! Realm().objects(IncomeModel.self).sorted(byKeyPath: "regTimeIntervalSince1970").filter("creatorEmail = %@",loginedEmail)
+        list = listData.sorted(by: { (a, b) -> Bool in
+            return  a.regTimeIntervalSince1970 < b.regTimeIntervalSince1970
+        })
     }
 }
 

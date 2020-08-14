@@ -55,6 +55,7 @@
 		C383B79024D3F3F20051FB5F /* Float+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C383B78F24D3F3F20051FB5F /* Float+Extensions.swift */; };
 		C383B79224D3F8B20051FB5F /* Date+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C383B79124D3F8B20051FB5F /* Date+extensions.swift */; };
 		C3A5154E24DD4C7000730E9F /* MakeIncomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A5154D24DD4C7000730E9F /* MakeIncomeView.swift */; };
+		C3EC817E24E50CED001FC45F /* MakeTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EC817D24E50CED001FC45F /* MakeTagView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -109,6 +110,7 @@
 		C383B78F24D3F3F20051FB5F /* Float+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Float+Extensions.swift"; sourceTree = "<group>"; };
 		C383B79124D3F8B20051FB5F /* Date+extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+extensions.swift"; sourceTree = "<group>"; };
 		C3A5154D24DD4C7000730E9F /* MakeIncomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeIncomeView.swift; sourceTree = "<group>"; };
+		C3EC817D24E50CED001FC45F /* MakeTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeTagView.swift; sourceTree = "<group>"; };
 		E93C12ED9C05169AA81D528A /* Pods_AccountBook.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AccountBook.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -203,6 +205,7 @@
 				C36C6D1E24B5826E001CC3E7 /* TodayNavigationView.swift */,
 				C36C6D2024B592C5001CC3E7 /* MenuView.swift */,
 				C3A5154D24DD4C7000730E9F /* MakeIncomeView.swift */,
+				C3EC817D24E50CED001FC45F /* MakeTagView.swift */,
 				C36C6D2224B598B1001CC3E7 /* ProfileView.swift */,
 				C36C6CDB24B314E0001CC3E7 /* ProfileSettingView.swift */,
 				C36C6D2424B5C22C001CC3E7 /* TitleView.swift */,
@@ -456,6 +459,7 @@
 				C301E77124BED53F00A08A59 /* PHAsset+Extensions.swift in Sources */,
 				C36C6CE724B314E0001CC3E7 /* RoundedTextField.swift in Sources */,
 				C36C6CE324B314E0001CC3E7 /* ProfileSettingView.swift in Sources */,
+				C3EC817E24E50CED001FC45F /* MakeTagView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

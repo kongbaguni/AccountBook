@@ -50,6 +50,7 @@ extension IncomeModel {
         return try! Realm().object(ofType: UserInfoModel.self, forPrimaryKey: creatorEmail)
     }
     
+    
     var tagList:[TagModel] {
         var list:[TagModel] = []
         for tag in tags.components(separatedBy: ",") {
@@ -60,9 +61,31 @@ extension IncomeModel {
         return list
     }
     
+    public func addTag(tag:String, complete:@escaping(_ isSucess:Bool)->Void) {
+        let tagList = tags.components(separatedBy: self.tags)
+        var set = Set<String>(tagList)
+        set.insert(tag)
+        var tags:String = ""
+        for t in set {
+            if !tags.isEmpty {
+                tags.append(",")
+            }
+            tags.append(t)
+        }
+        let data = ["tags" : tags, "id": self.id]
+        TagModel.createTag(title: tag) { (isSucess) in
+            FS.collection(.FSCollectionName_accountData).document(self.id).updateData(data) { (error) in
+                let realm = try! Realm()
+                realm.beginWrite()
+                realm.create(IncomeModel.self, value: data, update: .modified)
+                try! realm.commitWrite()
+                complete(error == nil)
+            }
+        }
+    }
     
     static func create(id:String? = nil ,
-        value:Float, name:String, tags:String, coordinate2D:CLLocationCoordinate2D?, complete:@escaping(_ isSucess:Bool)->Void) {
+                       value:Float, name:String, tags:String, coordinate2D:CLLocationCoordinate2D?, complete:@escaping(_ isSucess:Bool)->Void)->String {
         let isUpdate = id != nil
         let id = id ?? "\(UUID().uuidString)_\(Date().timeIntervalSince1970)_\(loginedEmail)"
         var data:[String:Any] = [
@@ -87,10 +110,21 @@ extension IncomeModel {
                 let realm = try! Realm()
                 realm.beginWrite()
                 realm.create(IncomeModel.self, value: data, update: isUpdate ? .modified : .all)
+                for tag in tags.components(separatedBy: ",") {
+                    let tagData:[String:Any] = [
+                        "title":tag.trimmingValue,
+                        "creatorEmail":loginedEmail,
+                        "regTimeIntervalSince1970":Date().timeIntervalSince1970,
+                        "latitude":0,
+                        "longitude":0
+                    ]
+                    realm.create(TagModel.self, value: tagData, update: .all)
+                }
                 try! realm.commitWrite()
             }
             complete(error == nil)
         }
+        return id
     }
     
     static func sync(complete:@escaping(_ isSucess:Bool)->Void) {
@@ -110,6 +144,20 @@ extension IncomeModel {
                 }
                 try! realm.commitWrite()
                 complete(error == nil)
+        }
+    }
+    
+    func delete(complete:@escaping(_ isSucess:Bool)->Void) {
+        FS.collection(.FSCollectionName_accountData).document(self.id).delete { (error) in
+            if error == nil {
+                let realm = try! Realm()
+                realm.beginWrite()
+                self.creatorEmail = "deleted"
+                self.value = 0
+                self.name = ""
+                try! realm.commitWrite()
+            }
+            complete(error == nil)
         }
     }
 }
