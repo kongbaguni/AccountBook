@@ -32,7 +32,7 @@ class IncomeModel: Object {
 extension IncomeModel {
     var isNew:Bool {
         let i = Date().timeIntervalSince1970 - updateTimeIntervalSince1970
-        return i < 5    
+        return i <= 1
     }
     
     var regTime:Date {

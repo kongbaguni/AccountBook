@@ -45,3 +45,7 @@
 "price" = "price";
 "tags" = "tags";
 
+"new tag" = "new tag";
+"included tags" = "included tags";
+"not included tags" = "not included tags";
+

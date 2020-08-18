@@ -42,3 +42,7 @@
 "delete this?" = "삭제할까요?";
 "price" = "가격";
 "tags" = "태그";
+
+"new tag" = "태그 작성";
+"included tags" = "포함된 태그";
+"not included tags" = "미포함 태그";

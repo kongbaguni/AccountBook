@@ -48,12 +48,8 @@ struct MakeTagView: View {
         }
         
         setB.subtract(setA)
-        addTags = setA.sorted { (a, b) -> Bool in
-            return a > b
-        }
-        newTags = setB.sorted(by: { (a, b) -> Bool in
-            return a > b
-        })
+        addTags = setA.sorted()
+        newTags = setB.sorted()
     }
     
     
@@ -90,7 +86,7 @@ struct MakeTagView: View {
     
     var body: some View {
         List {
-            Section {
+            Section(header:Text("")) {
                 HStack {
                     Text("new tag").padding(10)
                     RoundedTextField(title: "tags", text: $newTag, keyboardType: .default, onEditingChanged: {tag in
@@ -101,7 +97,8 @@ struct MakeTagView: View {
                     })
                 }
             }
-            Section(header: Text("tags")) {
+
+            Section(header: Text("included tags")) {
                 ForEach(addTags, id:\.self) { tag in
                     Button(action: {
                         self.toggleTag(tag: tag)
@@ -110,7 +107,7 @@ struct MakeTagView: View {
                     }.padding(10)
                 }
             }
-            Section(header:Text("newTags")) {
+            Section(header:Text("not included tags")) {
                 ForEach(newTags, id:\.self) { tag in
                     Button(action: {
                         self.toggleTag(tag: tag)

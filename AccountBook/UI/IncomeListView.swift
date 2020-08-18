@@ -79,6 +79,11 @@ struct IncomeListView: View {
         }
         .onReceive(NotificationCenter.default.publisher(for: .incomeDataDidUpdated)) { (obj) in
             self.loadData(updateId: obj.object as? String)
+            if obj.object != nil {
+                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1) + .milliseconds(100)) {
+                    self.loadData()
+                }
+            }
         }
         .onReceive(NotificationCenter.default.publisher(for: .incomeDataWillDelete)) { (obj) in
             if let id = obj.object as? String {
