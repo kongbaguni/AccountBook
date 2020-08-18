@@ -34,7 +34,7 @@
 
 "income" = "수입";
 "expenditure" = "지출";
-"edit tag" = "태그 편집";
+"edit tag" = "태그 수정";
 "cancel" = "취소";
 "save" = "저장";
 
@@ -46,3 +46,13 @@
 "new tag" = "태그 작성";
 "included tags" = "포함된 태그";
 "not included tags" = "미포함 태그";
+
+"edit" = "수정";
+"make" = "신규작성";
+
+"edit name" = "이름 수정";
+"edit price" = "가격 수정";
+
+"Prices previously entered" = "예전에 입력했던 가격들";
+"Names previously entered" = "예전에 입력했던 품목 이름들";
+"empty income or expenture" = "수입 및 지출 기록이 없습니다.";

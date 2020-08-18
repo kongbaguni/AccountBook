@@ -58,9 +58,9 @@ extension Date {
     }
     
     /** n일전 자정시각 구하기*/
-    static func getMidnightTime(beforDay:Int)->Date {
+    static func getMidnightTime(beforeDay:Int)->Date {
         let format = "yyyyMMdd"
-        let dayInterval:Double = Double(Date().timeIntervalSince1970) - Double(60 * 60 * 24 * beforDay)
+        let dayInterval:Double = Double(Date().timeIntervalSince1970) - Double(60 * 60 * 24 * beforeDay)
         let day = Date(timeIntervalSince1970: dayInterval)
         return day.formatedString(format: format).dateValue(format: format)!
     }

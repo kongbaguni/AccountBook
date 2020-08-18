@@ -13,12 +13,15 @@ extension Notification.Name {
     static let nameModifiedFromListNotification = Notification.Name("nameModifiredFromList_observer")
 }
 
-fileprivate var nameValue:String = ""
 struct MakeNameView: View {
+    fileprivate var nameValue:String = ""
+    fileprivate var isIncome:Bool = false
+    
     @State var name:String = ""
     @State var names:[String] = []
-    init(name:String) {
-        nameValue = name
+    init(name:String, isIncome:Bool) {
+        self.nameValue = name
+        self.isIncome  = isIncome
     }
     
     var body: some View {
@@ -36,7 +39,7 @@ struct MakeNameView: View {
                     }.padding(10)
                 }
             }
-            Section(header: Text("names")) {
+            Section(header: Text(names.count == 0 ? "" : "Names previously entered")) {
                 ForEach(names, id:\.self) { newName in
                     Button(action: {
                         self.name = newName
@@ -47,7 +50,7 @@ struct MakeNameView: View {
                 }
             }
         }.onAppear {
-            self.name = nameValue
+            self.name = self.nameValue
             self.loadNames()
         }
         .listStyle(GroupedListStyle())
@@ -56,7 +59,13 @@ struct MakeNameView: View {
     
     func loadNames() {
         var names = Set<String>()
-        for model in try! Realm().objects(IncomeModel.self) {
+        var list = try! Realm().objects(IncomeModel.self)
+        if isIncome  {
+            list = list.filter("value > %@", 0)
+        } else {
+            list = list.filter("value < %@", 0)
+        }
+        for model in list {
             let n = model.name.trimmingValue
             if n.isEmpty == false {
                 names.insert(model.name)
@@ -68,6 +77,6 @@ struct MakeNameView: View {
 
 struct MakeNameView_Previews: PreviewProvider {
     static var previews: some View {
-        MakeNameView(name: "하하하")
+        MakeNameView(name: "하하하", isIncome: true)
     }
 }

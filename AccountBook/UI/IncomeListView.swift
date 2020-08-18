@@ -9,11 +9,13 @@
 import SwiftUI
 import RealmSwift
 
-
-
 struct IncomeListView: View {
+    var beforeDay:Int = 0
     var listData:Results<IncomeModel> {
-        try! Realm().objects(IncomeModel.self).sorted(byKeyPath: "regTimeIntervalSince1970").filter("creatorEmail = %@",loginedEmail)
+        try! Realm().objects(IncomeModel.self)
+            .sorted(byKeyPath: "regTimeIntervalSince1970")
+            .filter("creatorEmail = %@",loginedEmail)
+            .filter("regTimeIntervalSince1970 > %@", Date.getMidnightTime(beforeDay:self.beforeDay).timeIntervalSince1970)
     }
     
     @State var list:[IncomeModel] = []
@@ -37,10 +39,15 @@ struct IncomeListView: View {
     
     var body: some View {
         VStack {
-            List(list, id:\.id) { model in
-                NavigationLink(destination: MakeIncomeView(incomeId: model.id, isIncome: model.value > 0)) {
-                    IncomeExpenditureRowView(data:model)
-                }
+            if list.count > 0 {
+                List(list, id:\.id) { model in
+                    NavigationLink(destination: MakeIncomeView(incomeId: model.id, isIncome: model.value > 0)) {
+                        IncomeExpenditureRowView(data:model)
+                    }
+                }.listStyle(GroupedListStyle())
+            } else {
+                Text("empty income or expenture").padding(20).foregroundColor(Color.orangeColor)
+                Spacer()
             }
             HStack {
                 VStack {

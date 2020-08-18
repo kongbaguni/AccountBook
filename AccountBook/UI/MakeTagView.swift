@@ -98,7 +98,7 @@ struct MakeTagView: View {
                 }
             }
 
-            Section(header: Text("included tags")) {
+            Section(header: Text(addTags.count == 0 ? "" : "included tags")) {
                 ForEach(addTags, id:\.self) { tag in
                     Button(action: {
                         self.toggleTag(tag: tag)
@@ -107,7 +107,7 @@ struct MakeTagView: View {
                     }.padding(10)
                 }
             }
-            Section(header:Text("not included tags")) {
+            Section(header:Text(newTag.count == 0 ? "" : "not included tags")) {
                 ForEach(newTags, id:\.self) { tag in
                     Button(action: {
                         self.toggleTag(tag: tag)

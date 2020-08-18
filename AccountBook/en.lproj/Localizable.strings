@@ -49,3 +49,12 @@
 "included tags" = "included tags";
 "not included tags" = "not included tags";
 
+"edit" = "edit";
+"make" = "make";
+
+"edit name" = "edit name";
+"edit price" = "edit price";
+
+"Prices previously entered" = "Prices previously entered";
+"Names previously entered" = "Names previously entered";
+"empty income or expenture" = "empty income or expenture";

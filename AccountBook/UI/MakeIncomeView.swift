@@ -22,7 +22,6 @@ struct MakeIncomeView: View {
     let isIncome:Bool
     let incomeId:String?
     
-    
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
     var incomeModel:IncomeModel? {
@@ -60,32 +59,38 @@ struct MakeIncomeView: View {
         
     var body: some View {
         List {
-            NavigationLink(destination: MakeNameView(name: self.name)) {
-                HStack {
-                    Text("name")
-                    RoundedTextField(title: "name", text: $name, keyboardType: .default, onEditingChanged: {_ in }, onCommit: { })
-                }.padding(20)
-            }
-            HStack {
-                Text("price")
-                RoundedTextField(title: "price", text: $value, keyboardType: .numberPad, onEditingChanged: {_ in }, onCommit: { })
-                
-            }.padding(20)
-            NavigationLink(destination: MakeTagView(tags:self.tags)) {
-                HStack {
-                    Text("tags")
-                    Text(tags)
-                }.padding(20)
+            Section(header: Text(incomeId == nil ? "make" : "edit"), footer: Text("")) {
+                NavigationLink(destination: MakeNameView(name: self.name, isIncome: self.isIncome)) {
+                    HStack {
+                        Text("name")
+                        RoundedTextField(title: "name", text: $name, keyboardType: .default, onEditingChanged: {_ in }, onCommit: { })
+                    }.padding(20)
+                }
+                NavigationLink(destination: MakePriceView(price: self.value, isIncome: self.isIncome     )) {
+                    HStack {
+                        Text("price")
+                        RoundedTextField(title: "price", text: $value, keyboardType: .numberPad, onEditingChanged: {_ in }, onCommit: { })
+                        
+                    }.padding(20)
+                }
+                NavigationLink(destination: MakeTagView(tags:self.tags)) {
+                    HStack {
+                        Text("tags")
+                        Text(tags).foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/)
+                    }.padding(20)
+                }
             }
             if incomeId != nil {
-                Button(action: {
-                    self.showDeleteAlert = true
-                }) {
-                    Text("delete")
-                }.padding(20)
-                
+                Section(header: Text(""), footer: Text("")) {
+                    Button(action: {
+                        self.showDeleteAlert = true
+                    }) {
+                        Text("delete")
+                    }.padding(20)
+                }
             }
         }
+        .listStyle(GroupedListStyle())
         .alert(isPresented: $showDeleteAlert, content: { () -> Alert in
             return Alert(
                 title: Text("delete"),
@@ -134,6 +139,11 @@ struct MakeIncomeView: View {
         .onReceive(NotificationCenter.default.publisher(for: .nameModifiedFromListNotification), perform: { (obj) in
             if let name = obj.object as? String {
                 self.name = name
+            }
+        })
+        .onReceive(NotificationCenter.default.publisher(for: .priceModifiedFromListNotification), perform: { (obj) in
+            if let price = obj.object as? String {
+                self.value = price
             }                
         })
         .navigationBarBackButtonHidden(true)
