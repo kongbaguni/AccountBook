@@ -12,6 +12,7 @@ extension Notification.Name {
     static let incomeDataDidUpdated = Notification.Name("incomeDataDidUpdated_observer")
     static let incomeDataWillDelete = Notification.Name("incomeDataWillDelete_observer")
 }
+
 struct MakeIncomeView: View {
     @State var name:String = ""
     @State var value:String = ""
@@ -59,10 +60,12 @@ struct MakeIncomeView: View {
         
     var body: some View {
         List {
-            HStack {
-                Text("name")
-                RoundedTextField(title: "name", text: $name, keyboardType: .default, onEditingChanged: {_ in }, onCommit: { })
-            }.padding(20)
+            NavigationLink(destination: MakeNameView(name: self.name)) {
+                HStack {
+                    Text("name")
+                    RoundedTextField(title: "name", text: $name, keyboardType: .default, onEditingChanged: {_ in }, onCommit: { })
+                }.padding(20)
+            }
             HStack {
                 Text("price")
                 RoundedTextField(title: "price", text: $value, keyboardType: .numberPad, onEditingChanged: {_ in }, onCommit: { })
@@ -127,6 +130,11 @@ struct MakeIncomeView: View {
                 self.tags = txt
                 editTags = txt  
             }
+        })
+        .onReceive(NotificationCenter.default.publisher(for: .nameModifiedFromListNotification), perform: { (obj) in
+            if let name = obj.object as? String {
+                self.name = name
+            }                
         })
         .navigationBarBackButtonHidden(true)
         .navigationBarTitle(Text(isIncome ? "income" : "expenditure"))

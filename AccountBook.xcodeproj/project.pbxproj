@@ -11,6 +11,7 @@
 		C301E77124BED53F00A08A59 /* PHAsset+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C301E77024BED53F00A08A59 /* PHAsset+Extensions.swift */; };
 		C324E15924BEE4450091A0B4 /* FirebaseStorageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C324E15824BEE4440091A0B4 /* FirebaseStorageHelper.swift */; };
 		C327349624BEEAFF009E7002 /* CGSize+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C327349524BEEAFE009E7002 /* CGSize+Extensions.swift */; };
+		C32D634324EBB6660056689F /* MakeNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32D634224EBB6660056689F /* MakeNameView.swift */; };
 		C34C7D5324BD42D600E7E1FA /* UserDefault+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34C7D5224BD42D600E7E1FA /* UserDefault+Extensions.swift */; };
 		C36C6CC624B312C8001CC3E7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36C6CC524B312C8001CC3E7 /* AppDelegate.swift */; };
 		C36C6CC824B312C8001CC3E7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36C6CC724B312C8001CC3E7 /* SceneDelegate.swift */; };
@@ -64,6 +65,7 @@
 		C301E77024BED53F00A08A59 /* PHAsset+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PHAsset+Extensions.swift"; sourceTree = "<group>"; };
 		C324E15824BEE4440091A0B4 /* FirebaseStorageHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseStorageHelper.swift; sourceTree = "<group>"; };
 		C327349524BEEAFE009E7002 /* CGSize+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGSize+Extensions.swift"; sourceTree = "<group>"; };
+		C32D634224EBB6660056689F /* MakeNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeNameView.swift; sourceTree = "<group>"; };
 		C34C7D5224BD42D600E7E1FA /* UserDefault+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefault+Extensions.swift"; sourceTree = "<group>"; };
 		C36C6CC224B312C8001CC3E7 /* AccountBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AccountBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C36C6CC524B312C8001CC3E7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -262,6 +264,7 @@
 			isa = PBXGroup;
 			children = (
 				C36C6D3324B6B758001CC3E7 /* SUHorizonCalendarView.swift */,
+				C32D634224EBB6660056689F /* MakeNameView.swift */,
 			);
 			path = wrapSwiftUI;
 			sourceTree = "<group>";
@@ -434,6 +437,7 @@
 				C36C6D3424B6B758001CC3E7 /* SUHorizonCalendarView.swift in Sources */,
 				C383B79024D3F3F20051FB5F /* Float+Extensions.swift in Sources */,
 				C36C6D2324B598B1001CC3E7 /* ProfileView.swift in Sources */,
+				C32D634324EBB6660056689F /* MakeNameView.swift in Sources */,
 				C36C6CF924B31760001CC3E7 /* UserInfoModel.swift in Sources */,
 				C3A5154E24DD4C7000730E9F /* MakeIncomeView.swift in Sources */,
 				C36C6D1D24B56663001CC3E7 /* TagListView.swift in Sources */,
