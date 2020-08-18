@@ -17,6 +17,7 @@ struct MakeIncomeView: View {
     @State var value:String = ""
     @State var tags:String = ""
  
+    @State var showDeleteAlert:Bool = false
     let isIncome:Bool
     let incomeId:String?
     
@@ -75,18 +76,28 @@ struct MakeIncomeView: View {
             }
             if incomeId != nil {
                 Button(action: {
-                    if let id = self.incomeModel?.id {
-                        self.presentationMode.wrappedValue.dismiss()
-                        DispatchQueue.main.async {
-                            NotificationCenter.default.post(name: .incomeDataWillDelete, object: id)
-                        }
-                    }
+                    self.showDeleteAlert = true
                 }) {
                     Text("delete")
                 }.padding(20)
                 
             }
         }
+        .alert(isPresented: $showDeleteAlert, content: { () -> Alert in
+            return Alert(
+                title: Text("delete"),
+                message: Text("delete this?"),
+                primaryButton: .default(Text("confirm"), action: {
+                    if let id = self.incomeModel?.id {
+                        self.presentationMode.wrappedValue.dismiss()
+                        DispatchQueue.main.async {
+                            NotificationCenter.default.post(name: .incomeDataWillDelete, object: id)
+                        }
+                    }
+                }), secondaryButton: .cancel({
+                    
+                }))
+        })
         .onAppear {
             print("MakeIncomeView did appear")
             self.loadData()
@@ -119,6 +130,7 @@ struct MakeIncomeView: View {
         })
         .navigationBarBackButtonHidden(true)
         .navigationBarTitle(Text(isIncome ? "income" : "expenditure"))
+            
     }
     
     
@@ -127,13 +139,13 @@ struct MakeIncomeView: View {
             return
         }
         let value = abs(self.value.floatValue)
-        let newId = IncomeModel.create(
+        IncomeModel.create(
             id: self.incomeModel?.id,
             value: self.isIncome ? value : -value ,
             name: self.name,
             tags: self.tags,
-            coordinate2D: nil) { (isSucess) in
-                NotificationCenter.default.post(name: .incomeDataDidUpdated, object: nil)
+            coordinate2D: nil) { (isSucess,id) in
+                NotificationCenter.default.post(name: .incomeDataDidUpdated, object: id)
         }
         presentationMode.wrappedValue.dismiss()
     }

@@ -37,3 +37,8 @@
 "edit tag" = "태그 편집";
 "cancel" = "취소";
 "save" = "저장";
+
+"delete" = "삭제";
+"delete this?" = "삭제할까요?";
+"price" = "가격";
+"tags" = "태그";

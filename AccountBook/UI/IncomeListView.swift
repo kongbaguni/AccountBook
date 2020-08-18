@@ -78,7 +78,7 @@ struct IncomeListView: View {
             }
         }
         .onReceive(NotificationCenter.default.publisher(for: .incomeDataDidUpdated)) { (obj) in
-            self.loadData()
+            self.loadData(updateId: obj.object as? String)
         }
         .onReceive(NotificationCenter.default.publisher(for: .incomeDataWillDelete)) { (obj) in
             if let id = obj.object as? String {
@@ -91,10 +91,16 @@ struct IncomeListView: View {
         }
     }
     
-    func loadData() {
-        list = listData.sorted(by: { (a, b) -> Bool in
-            return  a.regTimeIntervalSince1970 < b.regTimeIntervalSince1970
-        })
+    func loadData(updateId:String? = nil) {
+        list.removeAll()
+        for item in listData {
+            list.append(item)
+        }
+        if let id = updateId {
+            if let index = list.firstIndex(where: { (model) -> Bool in model.id == id}) {
+                print(list[index].value)
+            }
+        }
     }
 }
 

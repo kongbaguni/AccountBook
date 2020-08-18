@@ -30,6 +30,10 @@ class IncomeModel: Object {
 }
 
 extension IncomeModel {
+    var isNew:Bool {
+        let i = Date().timeIntervalSince1970 - updateTimeIntervalSince1970
+        return i < 5    
+    }
     
     var regTime:Date {
         return Date(timeIntervalSince1970: regTimeIntervalSince1970)
@@ -85,7 +89,7 @@ extension IncomeModel {
     }
     
     static func create(id:String? = nil ,
-                       value:Float, name:String, tags:String, coordinate2D:CLLocationCoordinate2D?, complete:@escaping(_ isSucess:Bool)->Void)->String {
+                       value:Float, name:String, tags:String, coordinate2D:CLLocationCoordinate2D?, complete:@escaping(_ isSucess:Bool, _ id:String)->Void) {
         let isUpdate = id != nil
         let id = id ?? "\(UUID().uuidString)_\(Date().timeIntervalSince1970)_\(loginedEmail)"
         var data:[String:Any] = [
@@ -122,9 +126,8 @@ extension IncomeModel {
                 }
                 try! realm.commitWrite()
             }
-            complete(error == nil)
+            complete(error == nil, id)
         }
-        return id
     }
     
     static func sync(complete:@escaping(_ isSucess:Bool)->Void) {

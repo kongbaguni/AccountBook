@@ -15,6 +15,7 @@ struct IncomeExpenditureRowView: View {
     var tags:String = "간식, 우유, 바나나"
     var creatorEmail:String = "kongbaguni@gmail.com"
     var regDt:Date = Date()
+    var isNew:Bool = false
     var creator:UserInfoModel? {
         return try! Realm().object(ofType: UserInfoModel.self, forPrimaryKey: creatorEmail)
     }
@@ -31,6 +32,7 @@ struct IncomeExpenditureRowView: View {
         tags = data.tags
         creatorEmail = data.creatorEmail
         regDt = data.regTime
+        isNew = data.isNew
     }
     
     var body: some View {
@@ -44,12 +46,12 @@ struct IncomeExpenditureRowView: View {
                     .font(.subheadline)
                 Text(tags).foregroundColor(.green)
                     .font(.caption)
-                Text(regDt.relativeTimeStringValue)
+                Text(regDt.simpleFormatStringValue)
                     .font(.footnote)
             }.padding(10)
 //            .clipShape(Capsule())
 //            .overlay(Capsule().stroke(Color.orangeColor,lineWidth: 2))
-        }
+        }.background(Rectangle().stroke(isNew ? Color.buttonStrockColor : Color.clear, lineWidth: 1))
     }
 }
 
@@ -57,7 +59,8 @@ struct IncomeExpenditureRowView_Previews: PreviewProvider {
     static var previews: some View {
         
         ForEach(["en", "ko"], id: \.self) { id in
-            IncomeExpenditureRowView(data:nil)                       .environment(\.locale, .init(identifier: id))
+            IncomeExpenditureRowView(data:nil)
+                .environment(\.locale, .init(identifier: id))
         }
     }
 }
