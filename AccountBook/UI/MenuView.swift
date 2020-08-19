@@ -13,12 +13,22 @@ import RealmSwift
 
 struct MenuView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @State var isMonthly:Bool = false
+    
+    @State var isDayly:Bool = false
 
+   
+    
       var body: some View {
         List {
             Section(header: Text("")) {
                 NavigationLink(destination: ProfileSettingView()) {
                     ProfileView()
+                }
+            }
+            Section(header: Text("")) {
+                NavigationLink(destination: SelectDayLangeView()) {
+                    Text(Consts.dayRangeSelection?.rawValue ?? "select")
                 }
             }
             Section(header: Text("")) {
@@ -36,7 +46,6 @@ struct MenuView: View {
                 }) {
                     Text("Logout")
                 }
-
             }
         }
         .navigationBarTitle("menu")
