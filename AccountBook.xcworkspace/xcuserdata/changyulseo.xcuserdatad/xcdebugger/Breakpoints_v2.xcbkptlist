@@ -20,5 +20,117 @@
             landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "3EF97276-025E-4F7F-A40C-A58A07E59FC9"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AccountBook/UI/IncomeListView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "153"
+            endingLineNumber = "153"
+            landmarkName = "loadData(updateId:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "82E3D7A9-B296-477A-8931-BE17F8459894"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AccountBook/UI/IncomeListView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "73"
+            endingLineNumber = "73"
+            landmarkName = "body"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "82E3D7A9-B296-477A-8931-BE17F8459894 - b36de5488b99ad7f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; SwiftUI.TupleView&lt;(Swift.Optional&lt;SwiftUI.Section&lt;SwiftUI.Text, SwiftUI.ForEach&lt;Swift.Array&lt;AccountBook.IncomeModel&gt;, Swift.String, SwiftUI.NavigationLink&lt;AccountBook.IncomeExpenditureRowView, AccountBook.MakeIncomeView&gt;&gt;, SwiftUI.EmptyView&gt;&gt;, Swift.Optional&lt;SwiftUI.Section&lt;SwiftUI.Text, SwiftUI.ForEach&lt;Swift.Array&lt;AccountBook.IncomeModel&gt;, Swift.String, SwiftUI.NavigationLink&lt;AccountBook.IncomeExpenditureRowView, AccountBook.MakeIncomeView&gt;&gt;, SwiftUI.EmptyView&gt;&gt;, Swift.Optional&lt;SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of (extension in SwiftUI):SwiftUI.View.foregroundColor(Swift.Optional&lt;SwiftUI.Color&gt;) -&gt; some&gt;&gt;.0, SwiftUI.Spacer)&gt;&gt;)&gt; in closure #1 () -&gt; SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of (extension in SwiftUI):SwiftUI.View.listStyle&lt;A where A1: SwiftUI.ListStyle&gt;(A1) -&gt; some&gt;&gt;.0, SwiftUI.HStack&lt;SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of (extension in SwiftUI):SwiftUI.View.padding(SwiftUI.EdgeInsets) -&gt; some&gt;&gt;.0, SwiftUI.Spacer, &lt;&lt;opaque return type of (extension in SwiftUI):SwiftUI.View.foregroundColor(Swift.Optional&lt;SwiftUI.Color&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;, SwiftUI.HStack&lt;SwiftUI.TupleView&lt;(SwiftUI.NavigationLink&lt;SwiftUI.Text, AccountBook.MakeIncomeView&gt;, SwiftUI.NavigationLink&lt;SwiftUI.Text, AccountBook.MakeIncomeView&gt;)&gt;&gt;)&gt; in AccountBook.IncomeListView.body.getter : some"
+                  moduleName = "AccountBook"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/changyulseo/Documents/dev/AccountBook/AccountBook/UI/IncomeListView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "73"
+                  endingLineNumber = "73"
+                  offsetFromSymbolStart = "1240">
+               </Location>
+               <Location
+                  uuid = "82E3D7A9-B296-477A-8931-BE17F8459894 - 968c5e0b2be14faa"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 () -&gt; SwiftUI.ForEach&lt;Swift.Array&lt;AccountBook.IncomeModel&gt;, Swift.String, SwiftUI.NavigationLink&lt;AccountBook.IncomeExpenditureRowView, AccountBook.MakeIncomeView&gt;&gt; in closure #1 () -&gt; SwiftUI.TupleView&lt;(Swift.Optional&lt;SwiftUI.Section&lt;SwiftUI.Text, SwiftUI.ForEach&lt;Swift.Array&lt;AccountBook.IncomeModel&gt;, Swift.String, SwiftUI.NavigationLink&lt;AccountBook.IncomeExpenditureRowView, AccountBook.MakeIncomeView&gt;&gt;, SwiftUI.EmptyView&gt;&gt;, Swift.Optional&lt;SwiftUI.Section&lt;SwiftUI.Text, SwiftUI.ForEach&lt;Swift.Array&lt;AccountBook.IncomeModel&gt;, Swift.String, SwiftUI.NavigationLink&lt;AccountBook.IncomeExpenditureRowView, AccountBook.MakeIncomeView&gt;&gt;, SwiftUI.EmptyView&gt;&gt;, Swift.Optional&lt;SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of (extension in SwiftUI):SwiftUI.View.foregroundColor(Swift.Optional&lt;SwiftUI.Color&gt;) -&gt; some&gt;&gt;.0, SwiftUI.Spacer)&gt;&gt;)&gt; in closure #1 () -&gt; SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of (extension in SwiftUI):SwiftUI.View.listStyle&lt;A where A1: SwiftUI.ListStyle&gt;(A1) -&gt; some&gt;&gt;.0, SwiftUI.HStack&lt;SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of (extension in SwiftUI):SwiftUI.View.padding(SwiftUI.EdgeInsets) -&gt; some&gt;&gt;.0, SwiftUI.Spacer, &lt;&lt;opaque return type of (extension in SwiftUI):SwiftUI.View.foregroundColor(Swift.Optional&lt;SwiftUI.Color&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;, SwiftUI.HStack&lt;SwiftUI.TupleView&lt;(SwiftUI.NavigationLink&lt;SwiftUI.Text, AccountBook.MakeIncomeView&gt;, SwiftUI.NavigationLink&lt;SwiftUI.Text, AccountBook.MakeIncomeView&gt;)&gt;&gt;)&gt; in AccountBook.IncomeListView.body.getter : some"
+                  moduleName = "AccountBook"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/changyulseo/Documents/dev/AccountBook/AccountBook/UI/IncomeListView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "74"
+                  endingLineNumber = "74"
+                  offsetFromSymbolStart = "56">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "54A3A107-E63F-4164-B0DF-69A0C166D83F"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AccountBook/UI/IncomeListView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "64"
+            endingLineNumber = "64"
+            landmarkName = "body"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "54A3A107-E63F-4164-B0DF-69A0C166D83F - 8ea877a784eb78cb"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; SwiftUI._ConditionalContent&lt;SwiftUI._ConditionalContent&lt;SwiftUI.Section&lt;SwiftUI.Text, SwiftUI.ForEach&lt;Swift.Array&lt;AccountBook.IncomeModel&gt;, Swift.String, SwiftUI.NavigationLink&lt;AccountBook.IncomeExpenditureRowView, AccountBook.MakeIncomeView&gt;&gt;, SwiftUI.EmptyView&gt;, SwiftUI.Section&lt;SwiftUI.Text, SwiftUI.ForEach&lt;Swift.Array&lt;AccountBook.IncomeModel&gt;, Swift.String, SwiftUI.NavigationLink&lt;AccountBook.IncomeExpenditureRowView, AccountBook.MakeIncomeView&gt;&gt;, SwiftUI.EmptyView&gt;&gt;, SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of (extension in SwiftUI):SwiftUI.View.foregroundColor(Swift.Optional&lt;SwiftUI.Color&gt;) -&gt; some&gt;&gt;.0, SwiftUI.Spacer)&gt;&gt; in closure #1 () -&gt; SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of (extension in SwiftUI):SwiftUI.View.listStyle&lt;A where A1: SwiftUI.ListStyle&gt;(A1) -&gt; some&gt;&gt;.0, SwiftUI.HStack&lt;SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of (extension in SwiftUI):SwiftUI.View.padding(SwiftUI.EdgeInsets) -&gt; some&gt;&gt;.0, SwiftUI.Spacer, &lt;&lt;opaque return type of (extension in SwiftUI):SwiftUI.View.foregroundColor(Swift.Optional&lt;SwiftUI.Color&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;, SwiftUI.HStack&lt;SwiftUI.TupleView&lt;(SwiftUI.NavigationLink&lt;SwiftUI.Text, AccountBook.MakeIncomeView&gt;, SwiftUI.NavigationLink&lt;SwiftUI.Text, AccountBook.MakeIncomeView&gt;)&gt;&gt;)&gt; in AccountBook.IncomeListView.body.getter : some"
+                  moduleName = "AccountBook"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/changyulseo/Documents/dev/AccountBook/AccountBook/UI/IncomeListView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "64"
+                  endingLineNumber = "64"
+                  offsetFromSymbolStart = "532">
+               </Location>
+               <Location
+                  uuid = "54A3A107-E63F-4164-B0DF-69A0C166D83F - 7a55f9dd1f19b7f2"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; SwiftUI.ForEach&lt;Swift.Array&lt;AccountBook.IncomeModel&gt;, Swift.String, SwiftUI.NavigationLink&lt;AccountBook.IncomeExpenditureRowView, AccountBook.MakeIncomeView&gt;&gt; in closure #1 () -&gt; SwiftUI._ConditionalContent&lt;SwiftUI._ConditionalContent&lt;SwiftUI.Section&lt;SwiftUI.Text, SwiftUI.ForEach&lt;Swift.Array&lt;AccountBook.IncomeModel&gt;, Swift.String, SwiftUI.NavigationLink&lt;AccountBook.IncomeExpenditureRowView, AccountBook.MakeIncomeView&gt;&gt;, SwiftUI.EmptyView&gt;, SwiftUI.Section&lt;SwiftUI.Text, SwiftUI.ForEach&lt;Swift.Array&lt;AccountBook.IncomeModel&gt;, Swift.String, SwiftUI.NavigationLink&lt;AccountBook.IncomeExpenditureRowView, AccountBook.MakeIncomeView&gt;&gt;, SwiftUI.EmptyView&gt;&gt;, SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of (extension in SwiftUI):SwiftUI.View.foregroundColor(Swift.Optional&lt;SwiftUI.Color&gt;) -&gt; some&gt;&gt;.0, SwiftUI.Spacer)&gt;&gt; in closure #1 () -&gt; SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of (extension in SwiftUI):SwiftUI.View.listStyle&lt;A where A1: SwiftUI.ListStyle&gt;(A1) -&gt; some&gt;&gt;.0, SwiftUI.HStack&lt;SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of (extension in SwiftUI):SwiftUI.View.padding(SwiftUI.EdgeInsets) -&gt; some&gt;&gt;.0, SwiftUI.Spacer, &lt;&lt;opaque return type of (extension in SwiftUI):SwiftUI.View.foregroundColor(Swift.Optional&lt;SwiftUI.Color&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;, SwiftUI.HStack&lt;SwiftUI.TupleView&lt;(SwiftUI.NavigationLink&lt;SwiftUI.Text, AccountBook.MakeIncomeView&gt;, SwiftUI.NavigationLink&lt;SwiftUI.Text, AccountBook.MakeIncomeView&gt;)&gt;&gt;)&gt; in AccountBook.IncomeListView.body.getter : some"
+                  moduleName = "AccountBook"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/changyulseo/Documents/dev/AccountBook/AccountBook/UI/IncomeListView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "65"
+                  endingLineNumber = "65"
+                  offsetFromSymbolStart = "56">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

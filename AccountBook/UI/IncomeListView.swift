@@ -10,15 +10,35 @@ import SwiftUI
 import RealmSwift
 
 struct IncomeListView: View {
-    var beforeDay:Int = 0
+    @State var beforeDay:Int = 0
+    
     var listData:Results<IncomeModel> {
-        try! Realm().objects(IncomeModel.self)
+        let t1 = Date.getMidnightTime(beforeDay:self.beforeDay)
+        let t2 = Date.getMidnightTime(beforeDay:self.beforeDay-1)
+        print("""
+            _________________________________
+            \(t1.simpleFormatStringValue) to \(t2.simpleFormatStringValue)
+            ---------------------------------
+            """
+        )
+        return try! Realm().objects(IncomeModel.self)
             .sorted(byKeyPath: "regTimeIntervalSince1970")
             .filter("creatorEmail = %@",loginedEmail)
-            .filter("regTimeIntervalSince1970 > %@", Date.getMidnightTime(beforeDay:self.beforeDay).timeIntervalSince1970)
+            .filter("regTimeIntervalSince1970 > %@ && regTimeIntervalSince1970 <= %@"
+                ,t1.timeIntervalSince1970
+                ,t2.timeIntervalSince1970
+        )        
     }
     
+    init(beforeDay:Int = 0) {
+        self.beforeDay = beforeDay
+        loadData()
+    }
+    
+    /** 수입 리스트*/
     @State var list:[IncomeModel] = []
+    /** 지출 리스트*/
+    @State var eList:[IncomeModel] = []
     
     var sum:Float {
         let sum:Float = listData.sum(ofProperty: "value")
@@ -39,16 +59,30 @@ struct IncomeListView: View {
     
     var body: some View {
         VStack {
-            if list.count > 0 {
-                List(list, id:\.id) { model in
-                    NavigationLink(destination: MakeIncomeView(incomeId: model.id, isIncome: model.value > 0)) {
-                        IncomeExpenditureRowView(data:model)
+            List {
+                if list.count > 0 {
+                    Section(header: Text("income")) {
+                        ForEach(list, id:\.id) { model in
+                            NavigationLink(destination: MakeIncomeView(incomeId: model.id, isIncome: model.value > 0)) {
+                                IncomeExpenditureRowView(data:model)
+                            }
+                        }
                     }
-                }.listStyle(GroupedListStyle())
-            } else {
-                Text("empty income or expenture").padding(20).foregroundColor(Color.orangeColor)
-                Spacer()
-            }
+                }
+                if eList.count > 0 {
+                    Section(header: Text("expenditure")) {
+                        ForEach(eList, id:\.id) { model in
+                            NavigationLink(destination: MakeIncomeView(incomeId: model.id, isIncome: model.value > 0)) {
+                                IncomeExpenditureRowView(data:model)
+                            }
+                        }
+                    }
+
+                }
+                if list.count == 0 && eList.count == 0 {
+                    Text("empty income or expenture").padding(20).foregroundColor(Color.orangeColor)
+                }
+            }.listStyle(GroupedListStyle())
             HStack {
                 VStack {
                     HStack {
@@ -101,16 +135,31 @@ struct IncomeListView: View {
                 }
             }
         }
+        .onReceive(NotificationCenter.default.publisher(for: .todaySelectorDidUpdated)) { (obj) in
+            if let day = obj.object as? Int {
+                self.beforeDay = day
+                self.loadData()
+            }
+        }
     }
     
     func loadData(updateId:String? = nil) {
         list.removeAll()
-        for item in listData {
-            list.append(item)
-        }
-        if let id = updateId {
-            if let index = list.firstIndex(where: { (model) -> Bool in model.id == id}) {
-                print(list[index].value)
+        eList.removeAll()
+        print("listData.count : \(listData.count)")
+        if listData.count > 0 {
+            for item in listData {
+                if item.value < 0 {
+                    eList.append(item)
+                } else {
+                    list.append(item)
+                }
+                print("\(item.name) : \(item.regTime.simpleFormatStringValue)")
+            }
+            if let id = updateId {
+                if let index = list.firstIndex(where: { (model) -> Bool in model.id == id}) {
+                    print(list[index].value)
+                }
             }
         }
     }
@@ -118,6 +167,6 @@ struct IncomeListView: View {
 
 struct IncomeListView_Previews: PreviewProvider {
     static var previews: some View {
-        IncomeListView()
+        IncomeListView(beforeDay:0)
     }
 }
