@@ -53,6 +53,10 @@ extension String {
         return NSString(string: self).floatValue
     }
     
+    var integerValue:Int {
+        return NSString(string: self).integerValue
+    }
+    
     /** 앞뒤로 스페이스 제거*/
     var trimmingValue:String {
         return trimmingCharacters(in: CharacterSet(charactersIn: " "))

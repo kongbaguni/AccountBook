@@ -64,5 +64,25 @@ extension Date {
         let day = Date(timeIntervalSince1970: dayInterval)
         return day.formatedString(format: format).dateValue(format: format)!
     }
+    
+    /** n달전 1일 자정시각 구하기*/
+    static func getMidnightTime(beforeMonth:Int)->Date {
+        let year = Date().formatedString(format: "y").integerValue
+        let month = Date().formatedString(format: "M").integerValue
+        
+        let y = beforeMonth / 12
+        let m = beforeMonth % 12
+        let str = "\(year - y)_\(month - m)"
+        print(str)
+        return str.dateValue(format: "y_M") ?? Date()
+    }
+    
+    /** n년전 1월1일 자정시각 구하기*/
+    static func getMidnightTime(beforeYear:Int)->Date {
+        let year = Date().formatedString(format:"y").integerValue
+        return "\(year - beforeYear)".dateValue(format:"y") ?? Date()
+    }
+    
+
 }
 

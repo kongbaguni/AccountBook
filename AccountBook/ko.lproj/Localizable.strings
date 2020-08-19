@@ -59,3 +59,8 @@
 
 
 "today" = "오늘";
+
+"select period" = "기간 선택";
+"daily" = "일간";
+"monthly" = "월간";
+"yearly" = "년간";

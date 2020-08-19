@@ -13,23 +13,37 @@ struct Consts {
     static let PROFILE_THUMB_SIZE = CGSize(width: 100, height: 100)
     static let PROFILE_LARGE_SIZE = CGSize(width: 1000, height: 1000)
     
-    enum DayRangeType:String, CaseIterable {
-        case daily = "daily"
-        case monthly = "monthly"
-    }
-    
-    static var dayRangeSelection:DayRangeType? {
-        set {
-            print(newValue?.rawValue ?? "unSet")
-            if let value = newValue?.rawValue {
-                UserDefaults.standard.set(value, forKey: "dayRangeSelection")
+    enum DayRangeType:Int, CaseIterable {
+        case daily = 0
+        case monthly = 1
+        case yearly = 2
+        
+        var stringValue:String {
+            switch self {
+            case .daily:
+                return "daily"
+            case .monthly:
+                return "monthly"
+            case .yearly:
+                return "yearly"
             }
         }
+    }
+    
+    
+    static var dayRangeSelection:DayRangeType {
+        set {
+            print(newValue.rawValue)
+            let value = newValue.rawValue
+            UserDefaults.standard.set(value, forKey: "dayRangeSelection")
+        }
+        
         get {
-            if let value = UserDefaults.standard.string(forKey: "dayRangeSelection") {
-                return DayRangeType(rawValue: value)
+            let value = UserDefaults.standard.integer(forKey: "dayRangeSelection")
+            if let type = DayRangeType(rawValue: value) {
+                return type
             }
-            return DayRangeType.allCases.first
+            return .daily
         }
     }
 }

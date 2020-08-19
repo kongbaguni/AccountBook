@@ -26,9 +26,9 @@ struct MenuView: View {
                     ProfileView()
                 }
             }
-            Section(header: Text("")) {
-                NavigationLink(destination: SelectDayLangeView()) {
-                    Text(Consts.dayRangeSelection?.rawValue ?? "select")
+            Section(header: Text("select period")) {
+                NavigationLink(destination: SelectDayRangeView()) {
+                    Text(Consts.dayRangeSelection.stringValue)
                 }
             }
             Section(header: Text("")) {

@@ -13,8 +13,18 @@ struct IncomeListView: View {
     @State var beforeDay:Int = 0
     
     var listData:Results<IncomeModel> {
-        let t1 = Date.getMidnightTime(beforeDay:self.beforeDay)
-        let t2 = Date.getMidnightTime(beforeDay:self.beforeDay-1)
+        var t1 = Date.getMidnightTime(beforeDay:self.beforeDay)
+        var t2 = Date.getMidnightTime(beforeDay:self.beforeDay-1)
+        switch Consts.dayRangeSelection {
+        case .daily:
+            break
+        case .monthly:
+            t1 = Date.getMidnightTime(beforeMonth:self.beforeDay)
+            t2 = Date.getMidnightTime(beforeMonth:self.beforeDay-1)
+        case .yearly:
+            t1 = Date.getMidnightTime(beforeYear:self.beforeDay)
+            t2 = Date.getMidnightTime(beforeYear:self.beforeDay-1)
+        }
         print("""
             _________________________________
             \(t1.simpleFormatStringValue) to \(t2.simpleFormatStringValue)

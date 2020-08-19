@@ -22,7 +22,14 @@ struct TodayNavigationView: View {
     }
     
     var dayString:String {
-        return Date.getMidnightTime(beforeDay:dayBefore).formatedString(format:"yyyy M d")
+        switch Consts.dayRangeSelection {
+        case .daily:
+            return Date.getMidnightTime(beforeDay:dayBefore).formatedString(format:"yyyy M d")
+        case .monthly:
+            return Date.getMidnightTime(beforeMonth:dayBefore).formatedString(format:"yyyy M")
+        case .yearly:
+            return Date.getMidnightTime(beforeYear:dayBefore).formatedString(format:"yyyy")
+        }
     }
     
     var body: some View {
@@ -38,18 +45,16 @@ struct TodayNavigationView: View {
                         self.dayBefore = 0
                     }) {
                         Text(dayString).padding(10).font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
-                    }
-                    if dayBefore > 0 {
-                        Button(action: {
-                            self.dayBefore -= 1
-                        }) {
-                            Text(">").padding(10)
-                        }
-                    }
+                    }.disabled(dayBefore == 0)
+                    Button(action: {
+                        self.dayBefore -= 1
+                    }) {
+                        Text(">").padding(10)
+                    }.disabled(dayBefore == 0)
                 }
                 IncomeListView(beforeDay:dayBefore)
             }
-            .navigationBarTitle("home")
+            .navigationBarTitle(Consts.dayRangeSelection.stringValue)
             .navigationBarItems(trailing:
                  NavigationLink(
                     destination: MenuView(),

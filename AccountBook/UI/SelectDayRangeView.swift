@@ -1,5 +1,5 @@
 //
-//  SelectDayLangeView.swift
+//  SelectDayRangeView.swift
 //  AccountBook
 //
 //  Created by Changyul Seo on 2020/08/19.
@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct SelectDayLangeView: View {
+struct SelectDayRangeView: View {
     let options = Consts.DayRangeType.allCases
     
     @State var optionSelect:Consts.DayRangeType? = Consts.dayRangeSelection
@@ -17,7 +17,7 @@ struct SelectDayLangeView: View {
         List( selection: $optionSelect) {
             Section(header: Text("")) {
                 ForEach(options, id: \.self) { option in
-                    Text(option.rawValue)
+                    Text(option.stringValue)
                 }
             }
         }
@@ -25,15 +25,17 @@ struct SelectDayLangeView: View {
         .onReceive([optionSelect].publisher) { (output) in
             print(output ?? "선택없음")
             if output != nil {
-                Consts.dayRangeSelection = output
+                Consts.dayRangeSelection = output ?? Consts.DayRangeType.daily
+            } else {
+                self.optionSelect = Consts.dayRangeSelection
             }
         }
-        .navigationBarTitle("select option")
+        .navigationBarTitle("select period")
     }
 }
 
-struct SelectDayLangeView_Previews: PreviewProvider {
+struct SelectDayRangeView_Previews: PreviewProvider {
     static var previews: some View {
-        SelectDayLangeView()
+        SelectDayRangeView()
     }
 }

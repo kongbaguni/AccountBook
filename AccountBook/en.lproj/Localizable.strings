@@ -60,3 +60,8 @@
 "empty income or expenture" = "empty income or expenture";
 
 "today" = "today";
+
+"select period" = "select period";
+"daily" = "daily";
+"monthly" = "monthly";
+"yearly" = "yearly";
