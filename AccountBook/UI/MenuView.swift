@@ -16,25 +16,31 @@ struct MenuView: View {
 
       var body: some View {
         List {
-            NavigationLink(destination: ProfileSettingView()) {
-                ProfileView()
-            }
-            Button(action: {
-                do {
-                    try Auth.auth().signOut()
-                } catch {
-                    print(error.localizedDescription)
-                    return
+            Section(header: Text("")) {
+                NavigationLink(destination: ProfileSettingView()) {
+                    ProfileView()
                 }
-                
-                self.presentationMode.wrappedValue.dismiss()
-                UserDefaults.standard.authData = nil
-                LoginView().changeThisView()
-            }) {
-                Text("Logout")
+            }
+            Section(header: Text("")) {
+                Button(action: {
+                    do {
+                        try Auth.auth().signOut()
+                    } catch {
+                        print(error.localizedDescription)
+                        return
+                    }
+                    
+                    self.presentationMode.wrappedValue.dismiss()
+                    UserDefaults.standard.authData = nil
+                    LoginView().changeThisView()
+                }) {
+                    Text("Logout")
+                }
+
             }
         }
         .navigationBarTitle("menu")
+        .listStyle(GroupedListStyle())
     }
 }
 
