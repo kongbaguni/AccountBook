@@ -46,9 +46,9 @@ struct IncomeListView: View {
     }
     
     /** 수입 리스트*/
-    @State var list:[IncomeModel] = []
+    @State var list:[String] = []
     /** 지출 리스트*/
-    @State var eList:[IncomeModel] = []
+    @State var eList:[String] = []
     
     var sum:Float {
         let sum:Float = listData.sum(ofProperty: "value")
@@ -67,23 +67,27 @@ struct IncomeListView: View {
         return listData.filter("value < 0").count
     }
     
+    func model(_ id:String)->IncomeModel? {
+        try! Realm().object(ofType: IncomeModel .self, forPrimaryKey: id)
+    }
+    
     var body: some View {
         VStack {
             List {
                 if list.count > 0 {
                     Section(header: Text("income")) {
-                        ForEach(list, id:\.id) { model in
-                            NavigationLink(destination: MakeIncomeView(incomeId: model.id, isIncome: model.value > 0)) {
-                                IncomeExpenditureRowView(data:model)
+                        ForEach(list, id:\.self) { id in
+                            NavigationLink(destination: MakeIncomeView(incomeId: id, isIncome: self.model(id)?.value ?? 0 > 0)) {
+                                IncomeExpenditureRowView(id)
                             }
                         }
                     }
                 }
                 if eList.count > 0 {
                     Section(header: Text("expenditure")) {
-                        ForEach(eList, id:\.id) { model in
-                            NavigationLink(destination: MakeIncomeView(incomeId: model.id, isIncome: model.value > 0)) {
-                                IncomeExpenditureRowView(data:model)
+                        ForEach(eList, id:\.self) { id in
+                            NavigationLink(destination: MakeIncomeView(incomeId: id, isIncome: self.model(id)?.value ?? 0 > 0)) {
+                                IncomeExpenditureRowView(id)
                             }
                         }
                     }
@@ -160,17 +164,13 @@ struct IncomeListView: View {
         if listData.count > 0 {
             for item in listData {
                 if item.value < 0 {
-                    eList.append(item)
+                    eList.append(item.id)
                 } else {
-                    list.append(item)
+                    list.append(item.id)
                 }
                 print("\(item.name) : \(item.regTime.simpleFormatStringValue)")
             }
-            if let id = updateId {
-                if let index = list.firstIndex(where: { (model) -> Bool in model.id == id}) {
-                    print(list[index].value)
-                }
-            }
+           
         }
     }
 }

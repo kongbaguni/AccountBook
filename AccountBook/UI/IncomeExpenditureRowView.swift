@@ -20,19 +20,19 @@ struct IncomeExpenditureRowView: View {
         return try! Realm().object(ofType: UserInfoModel.self, forPrimaryKey: creatorEmail)
     }
     
-    init(data:IncomeModel?) {
-        if let d = data {
-            setData(data: d)
-        }
+    init(_ id:String) {
+        setData(id:id)
     }
     
-    mutating func setData(data:IncomeModel) {
-        name = data.name
-        price = data.value
-        tags = data.tags
-        creatorEmail = data.creatorEmail
-        regDt = data.regTime
-        isNew = data.isNew
+    mutating func setData(id:String) {
+        if let data = try! Realm().object(ofType: IncomeModel.self, forPrimaryKey: id) {
+            name = data.name
+            price = data.value
+            tags = data.tags
+            creatorEmail = data.creatorEmail
+            regDt = data.regTime
+            isNew = data.isNew
+        }
     }
     
     var body: some View {
@@ -59,7 +59,7 @@ struct IncomeExpenditureRowView_Previews: PreviewProvider {
     static var previews: some View {
         
         ForEach(["en", "ko"], id: \.self) { id in
-            IncomeExpenditureRowView(data:nil)
+            IncomeExpenditureRowView("")
                 .environment(\.locale, .init(identifier: id))
         }
     }

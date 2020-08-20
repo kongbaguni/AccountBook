@@ -11,11 +11,6 @@ import FirebaseAuth
 
 import RealmSwift
 
-extension Notification.Name {
-    static let logoutDBwillDeleteNotification = Notification.Name("logoutDBwillDeleteNotification_observer")
-    static let logoutDBdidDeletedNotification = Notification.Name("logoutDBdidDeletedNotification_observer")
-}
-
 struct MenuView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @State var isMonthly:Bool = false
@@ -38,6 +33,11 @@ struct MenuView: View {
             }
             Section(header: Text("")) {
                 Button(action: {
+                    let realm = try! Realm()
+                    realm.beginWrite()
+                    realm.deleteAll()
+                    try! realm.commitWrite()
+                    
                     do {
                         try Auth.auth().signOut()
                     } catch {
@@ -48,16 +48,6 @@ struct MenuView: View {
                     self.presentationMode.wrappedValue.dismiss()
                     UserDefaults.standard.authData = nil
                     LoginView().changeThisView()
-                    DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(200)) {
-                        NotificationCenter.default.post(name: .logoutDBwillDeleteNotification, object: nil)
-                        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
-                            let realm = try! Realm()
-                            realm.beginWrite()
-                            realm.deleteAll()
-                            try! realm.commitWrite()
-                            NotificationCenter.default.post(name: .logoutDBdidDeletedNotification, object: nil)
-                        }
-                    }
                 }) {
                     Text("Logout")
                 }
