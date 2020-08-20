@@ -69,8 +69,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 if error == nil {
                     debugPrint("sign in sucess")
                     // Create the SwiftUI view that provides the window contents.
-                    TodayNavigationView().changeThisView()
-                    
+                    TagModel.sync { (sucess) in
+                        TodayNavigationView().changeThisView()
+                    }                    
                 } else {
                     LoginView().changeThisView()
                     UserDefaults.standard.authData = nil

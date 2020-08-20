@@ -100,8 +100,10 @@ extension SigninWithApple : ASAuthorizationControllerDelegate {
                 } else {
                     authResult?.joinIfNeed(complete: { (isSucess) in
                         debugPrint("sign in sucess")
-                        TodayNavigationView().changeThisView()
-                        
+                        TagModel.sync { (sucess) in
+                            TodayNavigationView().changeThisView()
+                        }
+
                     })
                 }
             }

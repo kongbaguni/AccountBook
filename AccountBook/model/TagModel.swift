@@ -11,7 +11,7 @@ import RealmSwift
 import FirebaseFirestore
 
 fileprivate var db:CollectionReference {
-    FS.collection(.FSCollectionName_tags)
+    FS.collection(.FSCollectionName_tags).document(loginedEmail).collection("tags")
 }
 
 class TagModel: Object {

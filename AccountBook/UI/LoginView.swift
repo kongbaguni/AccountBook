@@ -15,8 +15,7 @@ struct LoginView: View {
         VStack {
             TitleView()
             Spacer()
-            ButtonView(image: Image("google"), title: Text("Sign in with GoogleID")) {
-                
+            ButtonView(image: Image("google"), title: Text("Sign in with GoogleID")) {                
                 self.signInWithGoogle.sign(viewController: self.rootViewController)
             }
             ButtonView(image: Image("apple"), title: Text("Sign in with Apple")) {
