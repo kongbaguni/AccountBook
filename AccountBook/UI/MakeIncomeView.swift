@@ -8,6 +8,8 @@
 
 import SwiftUI
 import RealmSwift
+import CoreLocation
+
 extension Notification.Name {
     static let incomeDataDidUpdated = Notification.Name("incomeDataDidUpdated_observer")
     static let incomeDataWillDelete = Notification.Name("incomeDataWillDelete_observer")
@@ -18,6 +20,8 @@ struct MakeIncomeView: View {
     @State var value:String = ""
     @State var tags:String = ""
  
+    @State var location:CLLocation? = nil
+    
     @State var showDeleteAlert:Bool = false
     let isIncome:Bool
     let incomeId:String?
@@ -159,6 +163,11 @@ struct MakeIncomeView: View {
                 self.value = price
             }                
         })
+        .onReceive(NotificationCenter.default.publisher(for: .locationDidUpdateLocations), perform: { (out) in
+            if let location = out.object as? CLLocation {
+                self.location = location
+            }
+        })
         .navigationBarBackButtonHidden(true)
         .navigationBarTitle(Text(isIncome ? "income" : "expenditure"))
             
@@ -175,7 +184,7 @@ struct MakeIncomeView: View {
             value: self.isIncome ? value : -value ,
             name: self.name,
             tags: self.tags,
-            coordinate2D: nil) { (isSucess,id) in
+            coordinate2D: location?.coordinate) { (isSucess,id) in
                 NotificationCenter.default.post(name: .incomeDataDidUpdated, object: id)
         }
         presentationMode.wrappedValue.dismiss()
