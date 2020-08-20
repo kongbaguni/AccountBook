@@ -49,7 +49,7 @@ extension SigninWithGoogleId : GIDSignInDelegate {
                     debugPrint("sign in sucess")
                     // Create the SwiftUI view that provides the window contents.
                     TagModel.sync { (sucess) in
-                        TodayNavigationView().changeThisView()
+                        LocationAgreeView().changeThisView()
                     }
                 })
             } else {

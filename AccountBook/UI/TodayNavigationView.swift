@@ -61,7 +61,7 @@ struct TodayNavigationView: View {
                     isActive: $isActive,
                     label: {
                         Image("menu")
-                })
+                }) 
             )
             .onReceive(NotificationCenter.default.publisher(for: .selectDayRangeDidChange)) { (obj) in
                 self.dayBefore = 0

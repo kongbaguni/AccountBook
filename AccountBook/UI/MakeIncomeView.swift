@@ -23,7 +23,17 @@ struct MakeIncomeView: View {
     let incomeId:String?
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-
+    
+    @ObservedObject var locationManager = LocationManager()
+    
+    var userLatitude: String {
+        return "\(locationManager.lastLocation?.coordinate.latitude ?? 0)"
+    }
+    
+    var userLongitude: String {
+        return "\(locationManager.lastLocation?.coordinate.longitude ?? 0)"
+    }
+    
     var incomeModel:IncomeModel? {
         if let id = incomeId {
             return try! Realm().object(ofType: IncomeModel.self, forPrimaryKey: id)
@@ -88,6 +98,9 @@ struct MakeIncomeView: View {
                         Text("delete")
                     }.padding(20)
                 }
+            }
+            Section(header: Text("")) {
+                MapView().frame(width: UIScreen.main.bounds.width, height: 300, alignment: .center)
             }
         }
         .listStyle(GroupedListStyle())

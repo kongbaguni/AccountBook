@@ -58,6 +58,9 @@
 		C383B79224D3F8B20051FB5F /* Date+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C383B79124D3F8B20051FB5F /* Date+extensions.swift */; };
 		C3A5154E24DD4C7000730E9F /* MakeIncomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A5154D24DD4C7000730E9F /* MakeIncomeView.swift */; };
 		C3B1464124ECE763006305AA /* SelectDayRangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B1464024ECE763006305AA /* SelectDayRangeView.swift */; };
+		C3DC022224EE6C20002F2E47 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3DC022124EE6C20002F2E47 /* MapView.swift */; };
+		C3DC022424EE6FDB002F2E47 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3DC022324EE6FDB002F2E47 /* LocationManager.swift */; };
+		C3DC022824EE720E002F2E47 /* LocationAgreeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3DC022724EE720E002F2E47 /* LocationAgreeView.swift */; };
 		C3EC817E24E50CED001FC45F /* MakeTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EC817D24E50CED001FC45F /* MakeTagView.swift */; };
 /* End PBXBuildFile section */
 
@@ -116,6 +119,9 @@
 		C383B79124D3F8B20051FB5F /* Date+extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+extensions.swift"; sourceTree = "<group>"; };
 		C3A5154D24DD4C7000730E9F /* MakeIncomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeIncomeView.swift; sourceTree = "<group>"; };
 		C3B1464024ECE763006305AA /* SelectDayRangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDayRangeView.swift; sourceTree = "<group>"; };
+		C3DC022124EE6C20002F2E47 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		C3DC022324EE6FDB002F2E47 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		C3DC022724EE720E002F2E47 /* LocationAgreeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationAgreeView.swift; sourceTree = "<group>"; };
 		C3EC817D24E50CED001FC45F /* MakeTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeTagView.swift; sourceTree = "<group>"; };
 		E93C12ED9C05169AA81D528A /* Pods_AccountBook.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AccountBook.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -168,6 +174,7 @@
 				C36C6D0524B31A9F001CC3E7 /* AccountBook.entitlements */,
 				C36C6CC524B312C8001CC3E7 /* AppDelegate.swift */,
 				C36C6D1024B3F360001CC3E7 /* Const.swift */,
+				C3DC022324EE6FDB002F2E47 /* LocationManager.swift */,
 				C36C6CC724B312C8001CC3E7 /* SceneDelegate.swift */,
 				C36C6CC924B312C8001CC3E7 /* ContentView.swift */,
 				C36C6CFA24B31813001CC3E7 /* Firebase */,
@@ -215,6 +222,7 @@
 				C32D634424EBBD090056689F /* MakePriceView.swift */,
 				C32D634224EBB6660056689F /* MakeNameView.swift */,
 				C3B1464024ECE763006305AA /* SelectDayRangeView.swift */,
+				C3DC022724EE720E002F2E47 /* LocationAgreeView.swift */,
 				C36C6D2224B598B1001CC3E7 /* ProfileView.swift */,
 				C36C6CDB24B314E0001CC3E7 /* ProfileSettingView.swift */,
 				C36C6D2424B5C22C001CC3E7 /* TitleView.swift */,
@@ -271,6 +279,7 @@
 			isa = PBXGroup;
 			children = (
 				C36C6D3324B6B758001CC3E7 /* SUHorizonCalendarView.swift */,
+				C3DC022124EE6C20002F2E47 /* MapView.swift */,
 			);
 			path = wrapSwiftUI;
 			sourceTree = "<group>";
@@ -434,10 +443,12 @@
 				C36C6CE524B314E0001CC3E7 /* NetImageView.swift in Sources */,
 				C36C6D2924B5C5EA001CC3E7 /* View+Extensions.swift in Sources */,
 				C36C6D2124B592C5001CC3E7 /* MenuView.swift in Sources */,
+				C3DC022424EE6FDB002F2E47 /* LocationManager.swift in Sources */,
 				C36C6D0F24B32455001CC3E7 /* SigninWithGoogleId.swift in Sources */,
 				C327349624BEEAFF009E7002 /* CGSize+Extensions.swift in Sources */,
 				C36C6D1324B40221001CC3E7 /* AuthDataResult+Extensions.swift in Sources */,
 				C36C6CE424B314E0001CC3E7 /* LoginView.swift in Sources */,
+				C3DC022224EE6C20002F2E47 /* MapView.swift in Sources */,
 				C36C6CE824B314E0001CC3E7 /* ButtonView.swift in Sources */,
 				C36C6CC624B312C8001CC3E7 /* AppDelegate.swift in Sources */,
 				C36C6D3424B6B758001CC3E7 /* SUHorizonCalendarView.swift in Sources */,
@@ -451,6 +462,7 @@
 				C3B1464124ECE763006305AA /* SelectDayRangeView.swift in Sources */,
 				C324E15924BEE4450091A0B4 /* FirebaseStorageHelper.swift in Sources */,
 				C36C6D1124B3F360001CC3E7 /* Const.swift in Sources */,
+				C3DC022824EE720E002F2E47 /* LocationAgreeView.swift in Sources */,
 				C36C6D2524B5C22C001CC3E7 /* TitleView.swift in Sources */,
 				C36C6CEF24B3153D001CC3E7 /* String+Extensions.swift in Sources */,
 				C36C6CE624B314E0001CC3E7 /* ImageButton.swift in Sources */,
