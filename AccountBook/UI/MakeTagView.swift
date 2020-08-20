@@ -98,22 +98,30 @@ struct MakeTagView: View {
                 }
             }
 
-            Section(header: Text(addTags.count == 0 ? "" : "included tags")) {
-                ForEach(addTags, id:\.self) { tag in
-                    Button(action: {
-                        self.toggleTag(tag: tag)
-                    }) {
-                        Text(tag)
-                    }.padding(10)
+            Section(header: Text("included tags")) {
+                if addTags.count == 0 {
+                    Text("empty msg").padding(10)
+                } else {
+                    ForEach(addTags, id:\.self) { tag in
+                        Button(action: {
+                            self.toggleTag(tag: tag)
+                        }) {
+                            Text(tag)
+                        }.padding(10)
+                    }
                 }
             }
-            Section(header:Text(newTag.count == 0 ? "" : "not included tags")) {
-                ForEach(newTags, id:\.self) { tag in
-                    Button(action: {
-                        self.toggleTag(tag: tag)
-                    }) {
-                        Text(tag)
-                    }.padding(10)
+            Section(header:Text("not included tags")) {
+                if newTags.count == 0 {
+                    Text("empty msg").padding(10)
+                } else {
+                    ForEach(newTags, id:\.self) { tag in
+                        Button(action: {
+                            self.toggleTag(tag: tag)
+                        }) {
+                            Text(tag)
+                        }.padding(10)
+                    }
                 }
             }
         }

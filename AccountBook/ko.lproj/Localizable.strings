@@ -64,3 +64,5 @@
 "daily" = "일간";
 "monthly" = "월간";
 "yearly" = "년간";
+
+"empty msg" = "비어있습니다.";

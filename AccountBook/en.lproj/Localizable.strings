@@ -65,3 +65,5 @@
 "daily" = "daily";
 "monthly" = "monthly";
 "yearly" = "yearly";
+
+"empty msg" = "It is empty.";
