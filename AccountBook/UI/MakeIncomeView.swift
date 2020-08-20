@@ -52,7 +52,7 @@ struct MakeIncomeView: View {
         if let model = incomeModel {
             name = model.name
             value = "\(Int(abs(model.value)))"
-            tags = model.tags
+            tags = model.tagStringValue
             editTags = model.tags
         }
     }

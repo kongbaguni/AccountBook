@@ -78,7 +78,7 @@ struct IncomeListView: View {
                     Section(header: Text("income")) {
                         ForEach(list, id:\.self) { id in
                             NavigationLink(destination: MakeIncomeView(incomeId: id, isIncome: self.model(id)?.value ?? 0 > 0)) {
-                                IncomeExpenditureRowView(id)
+                                IncomeExpenditureRowView(data: self.model(id)?.data)
                             }
                         }
                     }
@@ -87,7 +87,7 @@ struct IncomeListView: View {
                     Section(header: Text("expenditure")) {
                         ForEach(eList, id:\.self) { id in
                             NavigationLink(destination: MakeIncomeView(incomeId: id, isIncome: self.model(id)?.value ?? 0 > 0)) {
-                                IncomeExpenditureRowView(id)
+                                IncomeExpenditureRowView(data: self.model(id)?.data)
                             }
                         }
                     }

@@ -10,22 +10,23 @@ import SwiftUI
 import RealmSwift
 
 struct IncomeExpenditureRowView: View {
-    var name:String = "바나나우유"
-    var price:Float = -1500
-    var tags:String = "간식, 우유, 바나나"
-    var creatorEmail:String = "kongbaguni@gmail.com"
-    var regDt:Date = Date()
-    var isNew:Bool = false
+    @State var name:String = "바나나우유"
+    @State var price:Float = -1500
+    @State var creatorEmail:String = "kongbaguni@gmail.com"
+    @State var regDt:Date = Date()
+    @State var isNew:Bool = false
+    @State var tags:String = "test,1234"
+    
     var creator:UserInfoModel? {
         return try! Realm().object(ofType: UserInfoModel.self, forPrimaryKey: creatorEmail)
     }
-    
-    init(_ id:String) {
-        setData(id:id)
+    var data:IncomeModel.Data? = nil
+    init(data:IncomeModel.Data?) {
+        self.data = data
     }
     
-    mutating func setData(id:String) {
-        if let data = try! Realm().object(ofType: IncomeModel.self, forPrimaryKey: id) {
+    func loadData() {
+        if let data = data {
             name = data.name
             price = data.value
             tags = data.tags
@@ -36,22 +37,31 @@ struct IncomeExpenditureRowView: View {
     }
     
     var body: some View {
-        HStack {
-            Text(name).font(.title).fontWeight(.heavy).foregroundColor(Color("orangeColor")).padding(10)
-            Spacer()
-            VStack {
-                Text(price.currencyFormatString)
-                    .italic()
-                    .foregroundColor(price > 0 ? .blue : .red)
-                    .font(.subheadline)
-                Text(tags).foregroundColor(.green)
-                    .font(.caption)
-                Text(regDt.simpleFormatStringValue)
-                    .font(.footnote)
-            }.padding(10)
-//            .clipShape(Capsule())
-//            .overlay(Capsule().stroke(Color.orangeColor,lineWidth: 2))
-        }.background(Rectangle().stroke(isNew ? Color.buttonStrockColor : Color.clear, lineWidth: 1))
+        VStack {
+            HStack {
+                Text(name).font(.title).fontWeight(.heavy).foregroundColor(Color("orangeColor")).padding(10)
+                Spacer()
+                VStack {
+                    Text(price.currencyFormatString)
+                        .italic()
+                        .foregroundColor(price > 0 ? .blue : .red)
+                        .font(.subheadline)
+                    Text(regDt.simpleFormatStringValue)
+                        .font(.footnote)
+                }.padding(10)
+            }
+            if tags.trimmingValue.isEmpty == false {
+                HStack {
+                    Text(tags).foregroundColor(.green).padding(10)
+                    Spacer()
+                }
+            }
+        }
+        .background(Rectangle().stroke(isNew ? Color.buttonStrockColor : Color.clear, lineWidth: 1))
+        .onAppear {
+            self.loadData()
+        }
+        
     }
 }
 
@@ -59,7 +69,7 @@ struct IncomeExpenditureRowView_Previews: PreviewProvider {
     static var previews: some View {
         
         ForEach(["en", "ko"], id: \.self) { id in
-            IncomeExpenditureRowView("")
+            IncomeExpenditureRowView(data:nil)
                 .environment(\.locale, .init(identifier: id))
         }
     }

@@ -20,7 +20,7 @@ struct SelectDayRangeView: View {
         List( selection: $optionSelect) {
             Section(header: Text("")) {
                 ForEach(options, id: \.self) { option in
-                    Text(option.stringValue)
+                    option.textValue
                 }
             }
         }

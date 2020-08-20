@@ -27,9 +27,23 @@ class IncomeModel: Object {
     override static func indexedProperties() -> [String] {
         return ["creatorEmail","name","tags"]
     }
+    
 }
 
 extension IncomeModel {
+  
+    var tagStringValue:String {
+        
+        var result = ""
+        for tag in tagList {
+            if !result.isEmpty {
+                result.append(",")
+            }
+            result.append(tag)
+        }
+        return result
+    }
+    
     var isNew:Bool {
         let i = Date().timeIntervalSince1970 - updateTimeIntervalSince1970
         return i <= 1
@@ -55,14 +69,9 @@ extension IncomeModel {
     }
     
     
-    var tagList:[TagModel] {
-        var list:[TagModel] = []
-        for tag in tags.components(separatedBy: ",") {
-            if let model = try! Realm().object(ofType: TagModel.self, forPrimaryKey: tag) {
-                list.append(model)
-            }
-        }
-        return list
+    var tagList:[String] {
+        let set = Set<String>(tags.components(separatedBy: ","))
+        return set.sorted()
     }
     
     public func addTag(tag:String, complete:@escaping(_ isSucess:Bool)->Void) {
@@ -92,11 +101,21 @@ extension IncomeModel {
                        value:Float, name:String, tags:String, coordinate2D:CLLocationCoordinate2D?, complete:@escaping(_ isSucess:Bool, _ id:String)->Void) {
         let isUpdate = id != nil
         let id = id ?? "\(UUID().uuidString)_\(Date().timeIntervalSince1970)_\(loginedEmail)"
+        let newTags = tags.components(separatedBy: ",")
+        var ttags:String = ","
+        for t in newTags {
+            let tt = t.trimmingValue
+            if tt.isEmpty == false {
+                ttags.append(tt)
+                ttags.append(",")
+            }
+        }
+        
         var data:[String:Any] = [
             "id" : id ,
             "value" : value,
             "name" : name,
-            "tags" : tags,
+            "tags" : ttags,
             "latitude" : coordinate2D?.latitude ?? 0,
             "longitude" : coordinate2D?.longitude ?? 0,
             "creatorEmail" : loginedEmail,
@@ -180,5 +199,40 @@ extension IncomeModel {
             }
             complete(error == nil)
         }
+    }
+}
+
+
+extension IncomeModel {
+    struct Data {
+        let name:String
+        let value:Float
+        let tagList:[String]
+        let latitude:Double
+        let longitude:Double
+        let creatorEmail:String
+        let regTimeIntervalSince1970:Double
+        let updateTimeIntervalSince1970:Double
+        let isNew:Bool
+        var regTime:Date {
+            return  Date(timeIntervalSince1970: regTimeIntervalSince1970)
+        }
+        var updateTime:Date {
+            return Date(timeIntervalSince1970: updateTimeIntervalSince1970)
+        }
+        var tags:String {
+            var result = ""
+            for tag in tagList {
+                if !result.isEmpty {
+                    result.append(",")
+                }
+                result.append(tag)
+            }
+            return result
+        }
+    }
+    
+    var data:IncomeModel.Data {
+        return IncomeModel.Data(name: name, value: value, tagList: tagList, latitude: latitude, longitude: longitude, creatorEmail: creatorEmail, regTimeIntervalSince1970: regTimeIntervalSince1970, updateTimeIntervalSince1970: updateTimeIntervalSince1970, isNew: isNew)
     }
 }

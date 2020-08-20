@@ -54,7 +54,7 @@ struct TodayNavigationView: View {
                 }
                 IncomeListView(beforeDay:dayBefore)
             }
-            .navigationBarTitle(Consts.dayRangeSelection.stringValue)
+            .navigationBarTitle(Consts.dayRangeSelection.textValue)
             .navigationBarItems(trailing:
                  NavigationLink(
                     destination: MenuView(),

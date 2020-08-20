@@ -28,7 +28,7 @@ struct MenuView: View {
             }
             Section(header: Text("select period")) {
                 NavigationLink(destination: SelectDayRangeView()) {
-                    Text(Consts.dayRangeSelection.stringValue)
+                    Consts.dayRangeSelection.textValue
                 }
             }
             Section(header: Text("")) {

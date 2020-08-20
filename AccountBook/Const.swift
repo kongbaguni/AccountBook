@@ -18,15 +18,17 @@ struct Consts {
         case monthly = 1
         case yearly = 2
         
-        var stringValue:String {
-            switch self {
-            case .daily:
-                return "daily"
-            case .monthly:
-                return "monthly"
-            case .yearly:
-                return "yearly"
+        var textValue:Text {
+            if self == .daily {
+                return Text("daily")
             }
+            if self == .monthly {
+                return Text("monthly")
+            }
+            if self == .yearly {
+                return Text("yearly")
+            }
+            return Text("")
         }
     }
     
