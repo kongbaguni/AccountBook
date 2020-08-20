@@ -109,25 +109,43 @@ extension IncomeModel {
             data["updateTimeIntervalSince1970"] = now
         }
         
-        FS.collection(.FSCollectionName_accountData).document(id).setData(data) { (error) in
-            if error == nil {
-                let realm = try! Realm()
-                realm.beginWrite()
-                realm.create(IncomeModel.self, value: data, update: isUpdate ? .modified : .all)
-                for tag in tags.components(separatedBy: ",") {
-                    let tagData:[String:Any] = [
-                        "title":tag.trimmingValue,
-                        "creatorEmail":loginedEmail,
-                        "regTimeIntervalSince1970":Date().timeIntervalSince1970,
-                        "latitude":0,
-                        "longitude":0
-                    ]
-                    realm.create(TagModel.self, value: tagData, update: .all)
-                }
-                try! realm.commitWrite()
-            }
-            complete(error == nil, id)
+        let realm = try! Realm()
+        realm.beginWrite()
+        for tag in tags.components(separatedBy: ",") {
+            let tagData:[String:Any] = [
+                "title":tag.trimmingValue,
+                "creatorEmail":loginedEmail,
+                "regTimeIntervalSince1970":Date().timeIntervalSince1970,
+                "latitude":0,
+                "longitude":0
+            ]
+            realm.create(TagModel.self, value: tagData, update: .all)
         }
+        try! realm.commitWrite()
+
+        if isUpdate {
+            FS.collection(.FSCollectionName_accountData).document(id).updateData(data) { (error) in
+                if error == nil {
+                    let realm = try! Realm()
+                    realm.beginWrite()
+                    realm.create(IncomeModel.self, value: data, update: .modified)
+                    try! realm.commitWrite()
+                }
+                complete(error == nil, id)
+            }
+        }
+        else {
+            FS.collection(.FSCollectionName_accountData).document(id).setData(data) { (error) in
+                if error == nil {
+                    let realm = try! Realm()
+                    realm.beginWrite()
+                    realm.create(IncomeModel.self, value: data, update:.all)
+                    try! realm.commitWrite()
+                }
+                complete(error == nil, id)
+            }
+        }
+        
     }
     
     static func sync(complete:@escaping(_ isSucess:Bool)->Void) {
