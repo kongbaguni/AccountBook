@@ -32,7 +32,7 @@ struct Consts {
             if self == .yearly {
                 return Text("yearly")
             }
-            return Text("")
+            return Text(" ")
         }
     }
     
