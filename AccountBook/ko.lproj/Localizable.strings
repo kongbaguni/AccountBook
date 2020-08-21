@@ -62,6 +62,7 @@
 
 "select period" = "기간 선택";
 "daily" = "일간";
+"weakly" = "주간";
 "monthly" = "월간";
 "yearly" = "년간";
 

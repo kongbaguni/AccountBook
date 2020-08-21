@@ -15,12 +15,16 @@ struct Consts {
     
     enum DayRangeType:Int, CaseIterable {
         case daily = 0
-        case monthly = 1
-        case yearly = 2
+        case weakly = 1
+        case monthly = 2
+        case yearly = 3
         
         var textValue:Text {
             if self == .daily {
                 return Text("daily")
+            }
+            if self == .weakly {
+                return Text("weakly")
             }
             if self == .monthly {
                 return Text("monthly")

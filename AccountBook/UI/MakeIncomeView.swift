@@ -130,7 +130,9 @@ struct MakeIncomeView: View {
         .onAppear {
             print("MakeIncomeView did appear")
             self.loadData()
-            self.mapView.location = UserDefaults.standard.lastLocation
+            if self.incomeId == nil {
+                self.mapView.location = UserDefaults.standard.lastLocation
+            }
         }
         .navigationBarItems(leading:
             Button(action: {
@@ -170,8 +172,10 @@ struct MakeIncomeView: View {
         })
         .onReceive(NotificationCenter.default.publisher(for: .locationDidUpdateLocations), perform: { (out) in
             if let location = out.object as? CLLocation {
-                self.location = location
-                self.mapView.location  = location
+                if self.incomeId == nil {
+                    self.location = location
+                    self.mapView.location  = location
+                }
             }
         })
         .navigationBarBackButtonHidden(true)

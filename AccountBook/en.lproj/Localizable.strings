@@ -63,6 +63,7 @@
 
 "select period" = "select period";
 "daily" = "daily";
+"weakly" = "weakly";
 "monthly" = "monthly";
 "yearly" = "yearly";
 

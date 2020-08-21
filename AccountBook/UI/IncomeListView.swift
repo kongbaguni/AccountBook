@@ -18,6 +18,9 @@ struct IncomeListView: View {
         switch Consts.dayRangeSelection {
         case .daily:
             break
+        case .weakly:
+            t1 = Date.getMidnightTime(beforeWeak:self.beforeDay)
+            t2 = Date.getMidnightTime(beforeWeak:self.beforeDay-1)
         case .monthly:
             t1 = Date.getMidnightTime(beforeMonth:self.beforeDay)
             t2 = Date.getMidnightTime(beforeMonth:self.beforeDay-1)

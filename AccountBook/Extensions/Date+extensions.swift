@@ -76,6 +76,11 @@ extension Date {
         print(str)
         return str.dateValue(format: "y_M") ?? Date()
     }
+    /** n주전 월요일 자정시각 구하기*/
+    static func getMidnightTime(beforeWeak:Int)->Date {
+        let value = Date().formatedString(format: "W").integerValue
+        return Date.getMidnightTime(beforeDay: value + (beforeWeak * 7))
+    }
     
     /** n년전 1월1일 자정시각 구하기*/
     static func getMidnightTime(beforeYear:Int)->Date {

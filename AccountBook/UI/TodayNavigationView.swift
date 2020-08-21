@@ -25,6 +25,10 @@ struct TodayNavigationView: View {
         switch Consts.dayRangeSelection {
         case .daily:
             return Date.getMidnightTime(beforeDay:dayBefore).formatedString(format:"yyyy M d")
+        case .weakly :
+            var str = Date.getMidnightTime(beforeWeak:dayBefore).formatedString(format: "yyyy M d")
+            str.append(" ~ \(Date.getMidnightTime(beforeWeak:dayBefore-1).formatedString(format: "M d"))")
+            return str
         case .monthly:
             return Date.getMidnightTime(beforeMonth:dayBefore).formatedString(format:"yyyy M")
         case .yearly:
@@ -61,7 +65,7 @@ struct TodayNavigationView: View {
                     isActive: $isActive,
                     label: {
                         Image("menu")
-                }) 
+                })
             )
             .onReceive(NotificationCenter.default.publisher(for: .selectDayRangeDidChange)) { (obj) in
                 self.dayBefore = 0
