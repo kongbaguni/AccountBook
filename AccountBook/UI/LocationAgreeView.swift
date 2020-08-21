@@ -11,15 +11,17 @@ import CoreLocation
  
 struct LocationAgreeView: View {
     @ObservedObject var locationManager:LocationManager = LocationManager()
-    
+    @State var opacity:Double = 0.0
     var body: some View {
         VStack {
-            Text("Location Agree").padding(30)
+            Text("Location Agree").font(.title).padding(30)
+            TitleView()
             Spacer()
-        }
+            }.opacity(opacity)
         .onReceive(NotificationCenter.default.publisher(for: .locationDidChangeAuthorization)) { (out) in
             switch out.object as? CLAuthorizationStatus {
             case .notDetermined:
+                self.opacity = 1.0
                 break
             default:
                 TodayNavigationView().changeThisView()

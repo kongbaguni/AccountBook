@@ -34,6 +34,7 @@ struct MakeNameView: View {
                         text: $name,
                         keyboardType: .default,
                         onEditingChanged: { (_) in
+                        NotificationCenter.default.post(name: .nameModifiedFromListNotification, object: self.name) 
                     }) {
                         NotificationCenter.default.post(name: .nameModifiedFromListNotification, object: self.name)
                     }.padding(10)
