@@ -200,7 +200,7 @@ struct MakeIncomeView: View {
             value: self.isIncome ? value : -value ,
             name: self.name,
             tags: self.tags,
-            coordinate2D: location?.coordinate) { (isSucess,id) in
+            coordinate2D: location?.coordinate ?? UserDefaults.standard.lastLocation?.coordinate) { (isSucess,id) in
                 NotificationCenter.default.post(name: .incomeDataDidUpdated, object: id)
         }
         presentationMode.wrappedValue.dismiss()

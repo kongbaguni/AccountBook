@@ -58,6 +58,16 @@ struct IncomeListView: View {
         return sum
     }
     
+    var incomeSum:Float {
+        let sum:Float = listData.filter("value > 0").sum(ofProperty: "value")
+        return sum
+    }
+    
+    var expenditureSum:Float {
+        let sum:Float = listData.filter("value < 0").sum(ofProperty: "value")
+        return sum
+    }
+    
     var sumStr:String {
         return sum.currencyFormatString
     }
@@ -105,10 +115,14 @@ struct IncomeListView: View {
                     HStack {
                         Text("income")
                         Text("\(countOfIncome)").foregroundColor(.green).italic()
+                        Spacer()
+                        Text(incomeSum.currencyFormatString).foregroundColor(.blue).italic()
                     }
                     HStack {
                         Text("expenditure")
                         Text("\(countOfExpenditure)").foregroundColor(.green).italic()
+                        Spacer()
+                        Text(expenditureSum.currencyFormatString).foregroundColor(.red).italic()
                     }
                 }.padding(EdgeInsets(top: 5, leading: 20, bottom: 5, trailing: 20))
                 Spacer()

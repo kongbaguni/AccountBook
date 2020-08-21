@@ -60,6 +60,15 @@ struct MakePriceView: View {
     func loadPrices() {
         var set = Set<String>()
         var list = try! Realm().objects(IncomeModel.self)
+        if let location = UserDefaults.standard.lastLocation?.coordinate {
+            let minlat = location.latitude - 0.005
+            let maxlat = location.latitude + 0.005
+            let minlng = location.longitude - 0.005
+            let maxlng = location.longitude + 0.005
+            list = list.filter("latitude > %@ && latitude < %@ && longitude > %@ && longitude < %@"
+                ,minlat, maxlat, minlng, maxlng)
+        }
+        
         if isIncome  {
             list = list.filter("value > %@", 0)
         } else {

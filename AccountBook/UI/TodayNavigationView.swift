@@ -43,17 +43,17 @@ struct TodayNavigationView: View {
                     Button(action: {
                         self.dayBefore += 1
                     }) {
-                        Text("<").padding(10)
+                        Text("<").padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 10))
                     }
                     Button(action: {
                         self.dayBefore = 0
                     }) {
-                        Text(dayString).padding(10).font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
+                        Text(dayString).font(.headline)
                     }.disabled(dayBefore == 0)
                     Button(action: {
                         self.dayBefore -= 1
                     }) {
-                        Text(">").padding(10)
+                        Text(">").padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 0))
                     }.disabled(dayBefore == 0)
                 }
                 IncomeListView(beforeDay:dayBefore)

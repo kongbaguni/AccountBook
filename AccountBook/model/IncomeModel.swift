@@ -135,8 +135,8 @@ extension IncomeModel {
                 "title":tag.trimmingValue,
                 "creatorEmail":loginedEmail,
                 "regTimeIntervalSince1970":Date().timeIntervalSince1970,
-                "latitude":0,
-                "longitude":0
+                "latitude":coordinate2D?.latitude ?? 0,
+                "longitude":coordinate2D?.longitude ?? 0
             ]
             realm.create(TagModel.self, value: tagData, update: .all)
         }
