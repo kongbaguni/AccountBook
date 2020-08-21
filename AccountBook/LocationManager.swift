@@ -61,6 +61,7 @@ extension LocationManager: CLLocationManagerDelegate {
         guard let location = locations.last else { return }
         self.lastLocation = location
         NotificationCenter.default.post(name: .locationDidUpdateLocations, object: location)
+        UserDefaults.standard.lastLocation = location
         print(#function, location)
     }
 

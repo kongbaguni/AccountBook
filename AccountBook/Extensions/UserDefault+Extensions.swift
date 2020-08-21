@@ -9,6 +9,8 @@
 import Foundation
 import GoogleSignIn
 import Firebase
+import CoreLocation
+
 struct AuthData {
     let accessToken:String
     let idToken:String
@@ -31,6 +33,26 @@ extension UserDefaults {
                 return AuthData(accessToken: accessToken, idToken: idToken)
             }
             return nil
+        }
+    }
+    
+    var lastLocation:CLLocation? {
+        set {
+            if let value = newValue {
+                set(value.coordinate.latitude, forKey: "lastLocationLat")
+                set(value.coordinate.longitude, forKey: "lastLocationLong")
+            } else {
+                set(nil, forKey:"lastLocationLat")
+                set(nil, forKey:"lastLocationLong")
+            }
+        }
+        get {
+            let lat = double(forKey: "lastLocationLat")
+            let long = double(forKey: "lastLocationLong")
+            if lat == 0 && long == 0 {
+                return nil
+            }
+            return CLLocation(latitude: lat, longitude: long)
         }
     }
 }

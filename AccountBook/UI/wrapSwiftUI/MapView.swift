@@ -12,6 +12,8 @@ import MapKit
 import CoreLocation
 
 struct MapView: UIViewRepresentable {
+    var location:CLLocation? = nil
+    
     func makeUIView(context: Context) -> MKMapView {
         let mapView = MKMapView()
         mapView.delegate = context.coordinator
@@ -19,7 +21,35 @@ struct MapView: UIViewRepresentable {
     }
 
     func updateUIView(_ view: MKMapView, context: Context) {
-        view.showsUserLocation = true
+        view.isScrollEnabled = false
+        view.isPitchEnabled = false
+        view.isRotateEnabled = false
+        view.isZoomEnabled = false
+        view.showsUserLocation = location == nil
+
+        let camera = MKMapCamera()
+        camera.altitude = 1500
+        camera.pitch = 45
+        camera.heading = 45
+        
+        guard let coo = location?.coordinate  else {
+            view.camera = camera
+            return
+        }
+
+        camera.centerCoordinate = coo
+        view.camera = camera
+
+
+        for ann in view.annotations {
+            view.removeAnnotation(ann)
+        }
+        let ann = MKPointAnnotation()
+        ann.coordinate = coo
+        view.addAnnotation(ann)
+        
+        
+        
     }
 
     func makeCoordinator() -> Coordinator {

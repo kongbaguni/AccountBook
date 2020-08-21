@@ -8,16 +8,19 @@
 
 import SwiftUI
 import CoreLocation
- 
+
 struct LocationAgreeView: View {
     @ObservedObject var locationManager:LocationManager = LocationManager()
     @State var opacity:Double = 0.0
     var body: some View {
-        VStack {
-            Text("Location Agree").font(.title).padding(30)
+        ZStack {
             TitleView()
-            Spacer()
-            }.opacity(opacity)
+            VStack {
+                Text("Location Agree").font(.title).padding(30)
+                Spacer()
+            }
+        }
+        .opacity(opacity)
         .onReceive(NotificationCenter.default.publisher(for: .locationDidChangeAuthorization)) { (out) in
             switch out.object as? CLAuthorizationStatus {
             case .notDetermined:
@@ -27,6 +30,7 @@ struct LocationAgreeView: View {
                 TodayNavigationView().changeThisView()
             }
         }
+        
     }
 }
 

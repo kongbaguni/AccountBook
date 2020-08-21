@@ -26,6 +26,8 @@ struct MakeIncomeView: View {
     var isIncome:Bool
     let incomeId:String?
     
+    @State var mapView = MapView()
+    
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     @ObservedObject var locationManager = LocationManager()
@@ -65,6 +67,7 @@ struct MakeIncomeView: View {
         }
         isLoaded.toggle()
         if let model = incomeModel {
+            mapView.location = CLLocation(latitude: model.latitude, longitude: model.longitude)
             name = model.name
             value = "\(Int(abs(model.value)))"
             tags = model.tagStringValue
@@ -95,6 +98,9 @@ struct MakeIncomeView: View {
                     }.padding(20)
                 }
             }
+            Section(header: Text("location")) {
+                mapView.frame(width: UIScreen.main.bounds.width - 30, height: 300, alignment: .center)
+            }
             if incomeId != nil {
                 Section(header: Text(""), footer: Text("")) {
                     Button(action: {
@@ -103,9 +109,6 @@ struct MakeIncomeView: View {
                         Text("delete")
                     }.padding(20)
                 }
-            }
-            Section(header: Text("")) {
-                MapView().frame(width: UIScreen.main.bounds.width, height: 300, alignment: .center)
             }
         }
         .listStyle(GroupedListStyle())
@@ -127,6 +130,7 @@ struct MakeIncomeView: View {
         .onAppear {
             print("MakeIncomeView did appear")
             self.loadData()
+            self.mapView.location = UserDefaults.standard.lastLocation
         }
         .navigationBarItems(leading:
             Button(action: {
@@ -167,6 +171,7 @@ struct MakeIncomeView: View {
         .onReceive(NotificationCenter.default.publisher(for: .locationDidUpdateLocations), perform: { (out) in
             if let location = out.object as? CLLocation {
                 self.location = location
+                self.mapView.location  = location
             }
         })
         .navigationBarBackButtonHidden(true)
