@@ -23,7 +23,7 @@ struct MakeIncomeView: View {
     @State var location:CLLocation? = nil
     
     @State var showDeleteAlert:Bool = false
-    let isIncome:Bool
+    var isIncome:Bool
     let incomeId:String?
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
@@ -45,12 +45,13 @@ struct MakeIncomeView: View {
         return nil
     }
     
-    init(incomeId:String?, isIncome:Bool = true) {
+    init(incomeId:String?, isIncome:Bool?) {
         print("MakeIconView init \(incomeId ?? "new")")
         self.incomeId = incomeId
-        self.isIncome = isIncome
+        self.isIncome = isIncome ?? true
         if let model = incomeModel {
             tags = model.tags
+            self.isIncome = model.value > 0
         } else {
             editTags = ""
         }
@@ -193,6 +194,6 @@ struct MakeIncomeView: View {
 
 struct MakeIncomeView_Previews: PreviewProvider {
     static var previews: some View {
-        MakeIncomeView(incomeId: nil)
+        MakeIncomeView(incomeId: nil, isIncome: false)
     }
 }

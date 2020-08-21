@@ -205,34 +205,13 @@ extension IncomeModel {
 
 extension IncomeModel {
     struct Data {
-        let name:String
-        let value:Float
-        let tagList:[String]
-        let latitude:Double
-        let longitude:Double
-        let creatorEmail:String
-        let regTimeIntervalSince1970:Double
-        let updateTimeIntervalSince1970:Double
-        let isNew:Bool
-        var regTime:Date {
-            return  Date(timeIntervalSince1970: regTimeIntervalSince1970)
-        }
-        var updateTime:Date {
-            return Date(timeIntervalSince1970: updateTimeIntervalSince1970)
-        }
-        var tags:String {
-            var result = ""
-            for tag in tagList {
-                if !result.isEmpty {
-                    result.append(",")
-                }
-                result.append(tag)
-            }
-            return result
+        let id:String
+        var data:IncomeModel? {
+            return try! Realm().object(ofType: IncomeModel.self, forPrimaryKey: id)
         }
     }
     
     var data:IncomeModel.Data {
-        return IncomeModel.Data(name: name, value: value, tagList: tagList, latitude: latitude, longitude: longitude, creatorEmail: creatorEmail, regTimeIntervalSince1970: regTimeIntervalSince1970, updateTimeIntervalSince1970: updateTimeIntervalSince1970, isNew: isNew)
+        return IncomeModel.Data(id:id)
     }
 }

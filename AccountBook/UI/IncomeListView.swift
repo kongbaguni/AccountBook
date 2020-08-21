@@ -77,7 +77,7 @@ struct IncomeListView: View {
                 if list.count > 0 {
                     Section(header: Text("income")) {
                         ForEach(list, id:\.self) { id in
-                            NavigationLink(destination: MakeIncomeView(incomeId: id, isIncome: self.model(id)?.value ?? 0 > 0)) {
+                            NavigationLink(destination: MakeIncomeView(incomeId: id, isIncome: nil)) {
                                 IncomeExpenditureRowView(data: self.model(id)?.data)
                             }
                         }
@@ -86,7 +86,7 @@ struct IncomeListView: View {
                 if eList.count > 0 {
                     Section(header: Text("expenditure")) {
                         ForEach(eList, id:\.self) { id in
-                            NavigationLink(destination: MakeIncomeView(incomeId: id, isIncome: self.model(id)?.value ?? 0 > 0)) {
+                            NavigationLink(destination: MakeIncomeView(incomeId: id, isIncome: nil)) {
                                 IncomeExpenditureRowView(data: self.model(id)?.data)
                             }
                         }
@@ -116,7 +116,7 @@ struct IncomeListView: View {
             }
             HStack {
                 NavigationLink(destination:
-                    MakeIncomeView(incomeId: nil)
+                    MakeIncomeView(incomeId: nil, isIncome: true)
                 ) {
                     Text("income").font(.title)
                 }

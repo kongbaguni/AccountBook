@@ -27,12 +27,12 @@ struct IncomeExpenditureRowView: View {
     
     func loadData() {
         if let data = data {
-            name = data.name
-            price = data.value
-            tags = data.tags
-            creatorEmail = data.creatorEmail
-            regDt = data.regTime
-            isNew = data.isNew
+            name = data.data?.name ?? ""
+            price = data.data?.value ?? 0
+            tags = data.data?.tagStringValue ?? ""
+            creatorEmail = data.data?.creatorEmail ?? loginedEmail
+            regDt = data.data?.regTime ?? Date()
+            isNew = data.data?.isNew ?? false
         }
     }
     
@@ -60,6 +60,13 @@ struct IncomeExpenditureRowView: View {
         .background(Rectangle().stroke(isNew ? Color.buttonStrockColor : Color.clear, lineWidth: 1))
         .onAppear {
             self.loadData()
+        }.onReceive(NotificationCenter.default.publisher(for: .incomeDataDidUpdated)) { (output) in
+            if output.object as? String == self.data?.id {
+                self.loadData()
+                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
+                    self.loadData()
+                }
+            }
         }
         
     }
