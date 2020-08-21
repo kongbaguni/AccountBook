@@ -13,7 +13,7 @@ struct ReviewNavigationView: View {
     @State var isActive = false
     var body: some View {
         NavigationView {
-            TagListView().navigationBarTitle(LocalizedStringKey("Tags"))
+            TagListView()
                 .navigationBarItems(
                 trailing:Button(action: {
                     TagModel.createTag(title: "test\(Int.random(in: 0...100))", isCreatePublic: true) { (isSucess) in
@@ -23,9 +23,7 @@ struct ReviewNavigationView: View {
                     Text("AppTitle")+Text("TEST").bold()
                 }
             )
-                
-            
-        }
+        }.navigationBarTitle(LocalizedStringKey("Tags"))
     }
 }
 

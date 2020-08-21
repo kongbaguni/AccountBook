@@ -24,6 +24,7 @@ struct SelectDayRangeView: View {
                 }
             }
         }
+        .navigationBarTitle("select period")
         .environment(\.editMode, .constant(EditMode.active))
         .onReceive([optionSelect].publisher) { (output) in
             print(output ?? "선택없음")
@@ -34,7 +35,6 @@ struct SelectDayRangeView: View {
                 self.optionSelect = Consts.dayRangeSelection
             }
         }
-        .navigationBarTitle("select period")
     }
 }
 

@@ -48,11 +48,13 @@ struct MakePriceView: View {
                 }
             }
             
-        }.onAppear {
+        }
+        .navigationBarTitle("edit price")
+        .onAppear {
             self.price = "\(self.priceValue)"
             self.loadPrices()
-        }.listStyle(GroupedListStyle())
-        .navigationBarTitle("edit price")
+        }
+        .listStyle(GroupedListStyle())
     }
     
     func loadPrices() {

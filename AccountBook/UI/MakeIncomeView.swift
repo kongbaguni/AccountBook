@@ -67,7 +67,11 @@ struct MakeIncomeView: View {
         }
         isLoaded.toggle()
         if let model = incomeModel {
-            mapView.location = CLLocation(latitude: model.latitude, longitude: model.longitude)
+            if model.latitude == 0 {
+                mapView.location = UserDefaults.standard.lastLocation
+            } else {
+                mapView.location = CLLocation(latitude: model.latitude, longitude: model.longitude)
+            }
             name = model.name
             value = "\(Int(abs(model.value)))"
             tags = model.tagStringValue
@@ -111,6 +115,20 @@ struct MakeIncomeView: View {
                 }
             }
         }
+        .navigationBarTitle(Text(isIncome ? "income" : "expenditure"))
+        .navigationBarItems(leading:
+            Button(action: {
+                self.presentationMode.wrappedValue.dismiss()
+            }) {
+                Text("cancel")
+            }
+            ,trailing:
+            Button(action: {
+                self.save()
+            }) {
+                Text("save")
+            }
+        )
         .listStyle(GroupedListStyle())
         .alert(isPresented: $showDeleteAlert, content: { () -> Alert in
             return Alert(
@@ -134,19 +152,7 @@ struct MakeIncomeView: View {
                 self.mapView.location = UserDefaults.standard.lastLocation
             }
         }
-        .navigationBarItems(leading:
-            Button(action: {
-                self.presentationMode.wrappedValue.dismiss()
-            }) {
-                Text("cancel")
-            }
-            ,trailing:
-            Button(action: {
-                self.save()
-            }) {
-                Text("save")
-            }
-        )
+        
         .onReceive(NotificationCenter.default.publisher(for: .makeTagsNotification), perform: { (obj) in
             if let list = obj.object as? [String] {
                 var txt = ""
@@ -179,7 +185,7 @@ struct MakeIncomeView: View {
             }
         })
         .navigationBarBackButtonHidden(true)
-        .navigationBarTitle(Text(isIncome ? "income" : "expenditure"))
+        
             
     }
     

@@ -125,13 +125,13 @@ struct MakeTagView: View {
                 }
             }
         }
+        .navigationBarTitle(Text("edit tag"))
+        .listStyle(GroupedListStyle())
         .onAppear {
             self.loadTags()
         }.onDisappear {
             NotificationCenter.default.post(name: .makeTagsNotification, object: self.addTags)
         }
-        .listStyle(GroupedListStyle())
-        .navigationBarTitle(Text("edit tag"))
     }
 }
 

@@ -56,6 +56,42 @@ struct ProfileSettingView: View {
                 }
             }.padding(10)
         }
+        .navigationBarTitle("profileSetting")
+        .navigationBarItems(leading:
+            Button(action: {
+                self.presentationMode.wrappedValue.dismiss()
+            }) {
+                Text("cancel")
+            }
+            , trailing: Button(action: {
+                if self.name.isEmpty {
+                    self.showingAlert = true
+                    return
+                }
+                func updateProfile(photoURL:URL?, thumbURL:URL?) {
+                    self.info?.updateUserInfo(name: self.name, profileImageURL: photoURL, profileImageThumbURL: thumbURL, isSetDefaultProfile: self.isDeleteProfile, isSetGoogleProfile: self.isSetGoogleProfile, complete: { (complete) in
+                        self.presentationMode.wrappedValue.dismiss()
+                        
+                    })
+                }
+                
+                if let url = self.selectImageURL {
+                    FirebaseStorageHelper().uploadProfile(url: url) { (large, thumb) in
+                        updateProfile(photoURL: large, thumbURL: thumb)
+                    }
+                    
+                } else {
+                    updateProfile(photoURL: nil, thumbURL: nil)
+                }
+                
+                
+            }) {
+                Text("save")
+        })
+            .alert(isPresented: $showingAlert) { () -> Alert in
+                Alert(title: Text("alert"), message: Text("name is empty!"), dismissButton: .default(Text("confirm")))
+                
+        }
         .onAppear {
             print("""
                appear
@@ -68,42 +104,6 @@ struct ProfileSettingView: View {
             self.loadData()
         }
         .navigationBarBackButtonHidden(true)
-        .navigationBarTitle("profileSetting")
-        .navigationBarItems(leading:
-            Button(action: {
-                self.presentationMode.wrappedValue.dismiss()
-            }) {
-                Text("cancel")
-            }
-            , trailing: Button(action: {
-            if self.name.isEmpty {
-                self.showingAlert = true
-                return
-            }
-            func updateProfile(photoURL:URL?, thumbURL:URL?) {
-                self.info?.updateUserInfo(name: self.name, profileImageURL: photoURL, profileImageThumbURL: thumbURL, isSetDefaultProfile: self.isDeleteProfile, isSetGoogleProfile: self.isSetGoogleProfile, complete: { (complete) in
-                    self.presentationMode.wrappedValue.dismiss()
-                    
-                })
-            }
-            
-            if let url = self.selectImageURL {
-                FirebaseStorageHelper().uploadProfile(url: url) { (large, thumb) in
-                    updateProfile(photoURL: large, thumbURL: thumb)
-                }
-                
-            } else {
-                updateProfile(photoURL: nil, thumbURL: nil)
-            }
-            
-            
-        }) {
-            Text("save")
-        })
-            .alert(isPresented: $showingAlert) { () -> Alert in
-                Alert(title: Text("alert"), message: Text("name is empty!"), dismissButton: .default(Text("confirm")))
-                
-        }
         .actionSheet(isPresented: $showingImagePic, content: { () -> ActionSheet in
             var buttons:[ActionSheet.Button] = [
                 .default(Text("pic profile image"), action: {

@@ -50,12 +50,13 @@ struct MakeNameView: View {
                     }
                 }
             }
-        }.onAppear {
+        }
+        .navigationBarTitle(Text("edit name"))
+        .listStyle(GroupedListStyle())
+        .onAppear {
             self.name = self.nameValue
             self.loadNames()
         }
-        .listStyle(GroupedListStyle())
-        .navigationBarTitle(Text("edit name"))
     }
     
     func loadNames() {
