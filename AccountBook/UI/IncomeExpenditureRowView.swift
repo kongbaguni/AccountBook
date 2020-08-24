@@ -10,12 +10,12 @@ import SwiftUI
 import RealmSwift
 
 struct IncomeExpenditureRowView: View {
-    @State var name:String = "바나나우유"
-    @State var price:Float = -1500
-    @State var creatorEmail:String = "kongbaguni@gmail.com"
+    @State var name:String = "....."
+    @State var price:Float = 0
+    @State var creatorEmail:String = " "
     @State var regDt:Date = Date()
     @State var isNew:Bool = false
-    @State var tags:String = "test,1234"
+    @State var tags:String = "....."
     
     var creator:UserInfoModel? {
         return try! Realm().object(ofType: UserInfoModel.self, forPrimaryKey: creatorEmail)
