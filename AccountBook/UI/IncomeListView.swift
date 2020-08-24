@@ -11,23 +11,14 @@ import RealmSwift
 
 struct IncomeListView: View {
     @State var beforeDay:Int = 0
+    @State var year:Int = Date().formatedString(format: "y").integerValue
+    @State var month:Int? = nil
+    @State var day:Int? = nil
+    
+    var t1:Date { Date.getMidnightTime(before: self.beforeDay, type: Consts.dayRangeSelection) }
+    var t2:Date { Date.getMidnightTime(before: self.beforeDay-1, type: Consts.dayRangeSelection) }
     
     var listData:Results<IncomeModel> {
-        var t1 = Date.getMidnightTime(beforeDay:self.beforeDay)
-        var t2 = Date.getMidnightTime(beforeDay:self.beforeDay-1)
-        switch Consts.dayRangeSelection {
-        case .daily:
-            break
-        case .weakly:
-            t1 = Date.getMidnightTime(beforeWeak:self.beforeDay)
-            t2 = Date.getMidnightTime(beforeWeak:self.beforeDay-1)
-        case .monthly:
-            t1 = Date.getMidnightTime(beforeMonth:self.beforeDay)
-            t2 = Date.getMidnightTime(beforeMonth:self.beforeDay-1)
-        case .yearly:
-            t1 = Date.getMidnightTime(beforeYear:self.beforeDay)
-            t2 = Date.getMidnightTime(beforeYear:self.beforeDay-1)
-        }
         print("""
             _________________________________
             \(t1.simpleFormatStringValue) to \(t2.simpleFormatStringValue)
@@ -84,6 +75,30 @@ struct IncomeListView: View {
         try! Realm().object(ofType: IncomeModel .self, forPrimaryKey: id)
     }
     
+    var dateSelect:MakeIncomeView.DateSelect? {
+        if beforeDay == 0 {
+            return nil
+        }
+        switch Consts.dayRangeSelection {
+        case .daily:
+            return MakeIncomeView.DateSelect(year: t1.formatedString(format: "y").integerValue,
+                month: t1.formatedString(format: "M").integerValue,
+                day: t1.formatedString(format: "d").integerValue)
+        case .weakly:
+            return MakeIncomeView.DateSelect(year: t1.formatedString(format: "y").integerValue,
+                month: t1.formatedString(format: "M").integerValue,
+                day: nil)
+        case .monthly:
+            return MakeIncomeView.DateSelect(year: t1.formatedString(format: "y").integerValue,
+                month: t1.formatedString(format: "M").integerValue,
+                day: nil)
+        case .yearly:
+            return MakeIncomeView.DateSelect(year: t1.formatedString(format: "y").integerValue,
+                month: nil,
+                day: nil)
+        }
+    }
+    
     var body: some View {
         VStack {
             List {
@@ -104,7 +119,7 @@ struct IncomeListView: View {
                             }
                         }
                     }
-
+                    
                 }
                 if list.count == 0 && eList.count == 0 {
                     Text("empty income or expenture").padding(20).foregroundColor(Color.orangeColor)
@@ -133,12 +148,12 @@ struct IncomeListView: View {
             }
             HStack {
                 NavigationLink(destination:
-                    MakeIncomeView(incomeId: nil, isIncome: true)
+                    MakeIncomeView(incomeId: nil, isIncome: true, dateSelect: self.dateSelect)
                 ) {
                     Text("income").font(.title)
                 }
                 NavigationLink(destination:
-                    MakeIncomeView(incomeId: nil, isIncome: false)
+                    MakeIncomeView(incomeId: nil, isIncome: false, dateSelect: self.dateSelect)
                 ) {
                     Text("expenditure").font(.title)
                 }
@@ -147,6 +162,20 @@ struct IncomeListView: View {
         .onAppear {
             IncomeModel.sync { (isSucess) in
                 self.loadData()
+            }
+            
+            if self.beforeDay > 0 {
+                switch Consts.dayRangeSelection {
+                case .daily:
+                    
+                    break
+                case .weakly:
+                    break
+                case .monthly:
+                    break
+                case .yearly:
+                    break
+                }
             }
         }
         .onReceive(NotificationCenter.default.publisher(for: .incomeDataDidUpdated)) { (obj) in
@@ -187,7 +216,7 @@ struct IncomeListView: View {
                 }
                 print("\(item.name) : \(item.regTime.simpleFormatStringValue)")
             }
-           
+            
         }
     }
 }

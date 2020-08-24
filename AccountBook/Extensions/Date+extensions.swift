@@ -51,6 +51,19 @@ extension Date {
         return f.string(from: self)
     }        
     
+    static func getMidnightTime(before:Int, type:Consts.DayRangeType)->Date {
+        switch type {
+        case .daily:
+            return Date.getMidnightTime(beforeDay: before)
+        case .weakly:
+            return Date.getMidnightTime(beforeWeak: before)
+        case .monthly:
+            return Date.getMidnightTime(beforeMonth: before)
+        case .yearly:
+            return Date.getMidnightTime(beforeYear: before)
+        }
+    }
+    
     /** 오늘의  자정시각 구하기*/
     static var midnightTodayTime:Date {
         let format = "yyyyMMdd"

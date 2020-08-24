@@ -16,6 +16,16 @@ extension Notification.Name {
 }
 
 struct MakeIncomeView: View {
+    struct DateSelect {
+        let year:Int
+        let month:Int?
+        let day:Int?
+        var date:Date {
+            let str = "\(year):\(month ?? 1):\(day ?? 1)"
+            return str.dateValue(format: "yyyy:MM:dd") ?? str.dateValue(format: "yyyy:M:d") ?? Date(timeIntervalSince1970: 0)
+        }
+    }
+    
     @State var name:String = ""
     @State var value:String = ""
     @State var tags:String = ""
@@ -32,6 +42,8 @@ struct MakeIncomeView: View {
     
     @ObservedObject var locationManager = LocationManager()
     
+    var dateSelect:DateSelect? = nil
+    
     var userLatitude: String {
         return "\(locationManager.lastLocation?.coordinate.latitude ?? 0)"
     }
@@ -47,7 +59,19 @@ struct MakeIncomeView: View {
         return nil
     }
     
-    init(incomeId:String?, isIncome:Bool?) {
+    var dateView:Text {
+        if let date = self.dateSelect {
+            return Text(date.date.simpleFormatStringValue)
+        }
+        else if let model = self.incomeModel {
+            return Text(model.regTime.simpleFormatStringValue)
+        }
+        else {
+            return Text(Date().simpleFormatStringValue)
+        }
+    }
+    
+    init(incomeId:String?, isIncome:Bool?, dateSelect:DateSelect? = nil) {
         print("MakeIconView init \(incomeId ?? "new")")
         self.incomeId = incomeId
         self.isIncome = isIncome ?? true
@@ -58,6 +82,7 @@ struct MakeIncomeView: View {
             editTags = ""
         }
         print(tags)
+        self.dateSelect = dateSelect
     }
     
     @State var isLoaded:Bool = false
@@ -101,6 +126,10 @@ struct MakeIncomeView: View {
                         Text(tags).foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/)
                     }.padding(20)
                 }
+                HStack {
+                    Text("date")
+                    self.dateView
+                }.padding(20)
             }
             Section(header: Text("location")) {
                 mapView.frame(width: UIScreen.main.bounds.width - 30, height: 300, alignment: .center)
