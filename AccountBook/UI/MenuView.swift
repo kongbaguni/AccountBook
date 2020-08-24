@@ -31,6 +31,11 @@ struct MenuView: View {
                     Consts.dayRangeSelection.textValue
                 }
             }
+            Section(header: Text("health")) {
+                NavigationLink(destination: HealthView()) {
+                    Text("Health")
+                }
+            }
             Section(header: Text("")) {
                 Button(action: {
                     let realm = try! Realm()

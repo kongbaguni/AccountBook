@@ -62,6 +62,10 @@
 	<string>upload photo</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>check location</string>
+	<key>NSHealthUpdateUsageDescription</key>
+	<string>get health data</string>
+	<key>NSHealthShareUsageDescription</key>
+	<string>share heath data</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>

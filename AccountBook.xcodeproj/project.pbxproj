@@ -53,6 +53,9 @@
 		C36C6D3224B6B6A7001CC3E7 /* HorizonCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = C36C6D3124B6B6A7001CC3E7 /* HorizonCalendar */; };
 		C36C6D3424B6B758001CC3E7 /* SUHorizonCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36C6D3324B6B758001CC3E7 /* SUHorizonCalendarView.swift */; };
 		C3760D3A24BD7A1900C13678 /* LogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3760D3924BD7A1900C13678 /* LogoView.swift */; };
+		C37BF44124F38FE90075C03D /* HealthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37BF44024F38FE90075C03D /* HealthView.swift */; };
+		C37BF44324F3909D0075C03D /* HealthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37BF44224F3909D0075C03D /* HealthManager.swift */; };
+		C37BF44524F397DC0075C03D /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C37BF44424F397DC0075C03D /* HealthKit.framework */; };
 		C383B78E24D3ECDF0051FB5F /* IncomeListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C383B78D24D3ECDF0051FB5F /* IncomeListView.swift */; };
 		C383B79024D3F3F20051FB5F /* Float+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C383B78F24D3F3F20051FB5F /* Float+Extensions.swift */; };
 		C383B79224D3F8B20051FB5F /* Date+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C383B79124D3F8B20051FB5F /* Date+extensions.swift */; };
@@ -114,6 +117,9 @@
 		C36C6D2824B5C5EA001CC3E7 /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
 		C36C6D3324B6B758001CC3E7 /* SUHorizonCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SUHorizonCalendarView.swift; sourceTree = "<group>"; };
 		C3760D3924BD7A1900C13678 /* LogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoView.swift; sourceTree = "<group>"; };
+		C37BF44024F38FE90075C03D /* HealthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthView.swift; sourceTree = "<group>"; };
+		C37BF44224F3909D0075C03D /* HealthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthManager.swift; sourceTree = "<group>"; };
+		C37BF44424F397DC0075C03D /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		C383B78D24D3ECDF0051FB5F /* IncomeListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomeListView.swift; sourceTree = "<group>"; };
 		C383B78F24D3F3F20051FB5F /* Float+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Float+Extensions.swift"; sourceTree = "<group>"; };
 		C383B79124D3F8B20051FB5F /* Date+extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+extensions.swift"; sourceTree = "<group>"; };
@@ -135,6 +141,7 @@
 				C36C6CF624B31629001CC3E7 /* ImagePicker in Frameworks */,
 				C36C6D3224B6B6A7001CC3E7 /* HorizonCalendar in Frameworks */,
 				02F28C5EB3A198C4A2132223 /* Pods_AccountBook.framework in Frameworks */,
+				C37BF44524F397DC0075C03D /* HealthKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -175,6 +182,7 @@
 				C36C6CC524B312C8001CC3E7 /* AppDelegate.swift */,
 				C36C6D1024B3F360001CC3E7 /* Const.swift */,
 				C3DC022324EE6FDB002F2E47 /* LocationManager.swift */,
+				C37BF44224F3909D0075C03D /* HealthManager.swift */,
 				C36C6CC724B312C8001CC3E7 /* SceneDelegate.swift */,
 				C36C6CC924B312C8001CC3E7 /* ContentView.swift */,
 				C36C6CFA24B31813001CC3E7 /* Firebase */,
@@ -227,6 +235,7 @@
 				C36C6CDB24B314E0001CC3E7 /* ProfileSettingView.swift */,
 				C36C6D2424B5C22C001CC3E7 /* TitleView.swift */,
 				C3760D3924BD7A1900C13678 /* LogoView.swift */,
+				C37BF44024F38FE90075C03D /* HealthView.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -287,6 +296,7 @@
 		FA720B475365BE9200A0C7F3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C37BF44424F397DC0075C03D /* HealthKit.framework */,
 				E93C12ED9C05169AA81D528A /* Pods_AccountBook.framework */,
 			);
 			name = Frameworks;
@@ -465,6 +475,7 @@
 				C3DC022824EE720E002F2E47 /* LocationAgreeView.swift in Sources */,
 				C36C6D2524B5C22C001CC3E7 /* TitleView.swift in Sources */,
 				C36C6CEF24B3153D001CC3E7 /* String+Extensions.swift in Sources */,
+				C37BF44324F3909D0075C03D /* HealthManager.swift in Sources */,
 				C36C6CE624B314E0001CC3E7 /* ImageButton.swift in Sources */,
 				C34C7D5324BD42D600E7E1FA /* UserDefault+Extensions.swift in Sources */,
 				C383B79224D3F8B20051FB5F /* Date+extensions.swift in Sources */,
@@ -473,6 +484,7 @@
 				C36C6CF024B3153D001CC3E7 /* Color+Extensions.swift in Sources */,
 				C36C6D1724B43DD7001CC3E7 /* IncomeExpenditureRowView.swift in Sources */,
 				C36C6CCA24B312C8001CC3E7 /* ContentView.swift in Sources */,
+				C37BF44124F38FE90075C03D /* HealthView.swift in Sources */,
 				C36C6D1B24B46F1B001CC3E7 /* TagModel.swift in Sources */,
 				C36C6CE224B314E0001CC3E7 /* MainTabView.swift in Sources */,
 				C36C6D1924B46C92001CC3E7 /* IncomeModel.swift in Sources */,
