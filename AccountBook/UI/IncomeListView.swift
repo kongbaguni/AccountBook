@@ -87,7 +87,7 @@ struct IncomeListView: View {
         case .weakly:
             return MakeIncomeView.DateSelect(year: t1.formatedString(format: "y").integerValue,
                 month: t1.formatedString(format: "M").integerValue,
-                day: nil)
+                day: t1.formatedString(format: "d").integerValue)
         case .monthly:
             return MakeIncomeView.DateSelect(year: t1.formatedString(format: "y").integerValue,
                 month: t1.formatedString(format: "M").integerValue,
