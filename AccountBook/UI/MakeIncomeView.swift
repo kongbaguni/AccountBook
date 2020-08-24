@@ -110,13 +110,13 @@ struct MakeIncomeView: View {
     var body: some View {
         List {
             Section(header: Text(incomeId == nil ? "make" : "edit"), footer: Text("")) {
-                NavigationLink(destination: MakeNameView(name: self.name, isIncome: self.isIncome)) {
+                NavigationLink(destination: MakeNameView(name: self.name, isIncome: self.isIncome, incomeId: self.incomeId)) {
                     HStack {
                         Text("name")
                         RoundedTextField(title: "name", text: $name, keyboardType: .default, onEditingChanged: {_ in }, onCommit: { })
                     }.padding(20)
                 }
-                NavigationLink(destination: MakePriceView(price: self.value, isIncome: self.isIncome     )) {
+                NavigationLink(destination: MakePriceView(price: self.value, isIncome: self.isIncome, incomeId: self.incomeId)) {
                     HStack {
                         Text("price")
                         RoundedTextField(title: "price", text: $value, keyboardType: .numberPad, onEditingChanged: {_ in }, onCommit: { })

@@ -8,6 +8,7 @@
 
 import SwiftUI
 import RealmSwift
+import CoreLocation
 
 extension Notification.Name {
     static let nameModifiedFromListNotification = Notification.Name("nameModifiredFromList_observer")
@@ -19,9 +20,28 @@ struct MakeNameView: View {
     
     @State var name:String = ""
     @State var names:[String] = []
-    init(name:String, isIncome:Bool) {
+    
+    var incomeId:String? = nil
+    var incomeModel:IncomeModel? {
+        if let id = incomeId {
+            return try! Realm().object(ofType: IncomeModel.self, forPrimaryKey: id)
+        }
+        return nil
+    }
+    var location:CLLocation? {
+        if let model = self.incomeModel {
+            return CLLocation(latitude: model.latitude, longitude: model.longitude)
+        }
+        if let location = UserDefaults.standard.lastLocation {
+            return location
+        }
+        return  nil
+    }
+    
+    init(name:String, isIncome:Bool, incomeId:String?) {
         self.nameValue = name
         self.isIncome  = isIncome
+        self.incomeId = incomeId
     }
     
     var body: some View {
@@ -62,7 +82,7 @@ struct MakeNameView: View {
     func loadNames() {
         var names = Set<String>()
         var list = try! Realm().objects(IncomeModel.self)
-        if let location = UserDefaults.standard.lastLocation?.coordinate {
+        if let location = self.location?.coordinate {
             let minlat = location.latitude - 0.005
             let maxlat = location.latitude + 0.005
             let minlng = location.longitude - 0.005
@@ -87,6 +107,6 @@ struct MakeNameView: View {
 
 struct MakeNameView_Previews: PreviewProvider {
     static var previews: some View {
-        MakeNameView(name: "하하하", isIncome: true)
+        MakeNameView(name: "하하하", isIncome: true, incomeId: nil)
     }
 }

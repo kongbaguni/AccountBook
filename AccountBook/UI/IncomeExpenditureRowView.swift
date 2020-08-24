@@ -36,25 +36,36 @@ struct IncomeExpenditureRowView: View {
         }
     }
     
+    var tagIsEmpty:Bool {
+         return tags.trimmingValue.isEmpty == true
+    }
+    
     var body: some View {
         VStack {
             HStack {
                 Text(name).font(.title).fontWeight(.heavy).foregroundColor(Color("orangeColor")).padding(10)
                 Spacer()
-                VStack {
-                    Text(price.currencyFormatString)
-                        .italic()
-                        .foregroundColor(price > 0 ? .blue : .red)
-                        .font(.subheadline)
-                    Text(regDt.simpleFormatStringValue)
-                        .font(.footnote)
-                }.padding(10)
+                Text(price.currencyFormatString)
+                    .italic()
+                    .foregroundColor(price > 0 ? .blue : .red)
+                    .font(.subheadline)
+                    .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
             }
-            if tags.trimmingValue.isEmpty == false {
+            
+            HStack {
+                Text(regDt.simpleFormatStringValue)
+                    .font(.footnote)
+                    .padding(EdgeInsets(top: 0, leading: 10, bottom: tagIsEmpty ? 10 : 0, trailing: 10))
+                Spacer()
+            }
+
+            if tagIsEmpty == false {
                 HStack {
-                    Text(tags).foregroundColor(.green).padding(10)
+                    Image("tagIcon")
+                    Text(tags)
+                        .foregroundColor(.green)
                     Spacer()
-                }
+                }.padding(EdgeInsets(top: 0, leading: 10, bottom: 10, trailing: 0))
             }
         }
         .background(Rectangle().stroke(isNew ? Color.buttonStrockColor : Color.clear, lineWidth: 1))
