@@ -42,7 +42,9 @@ struct MakeIncomeView: View {
     
     @ObservedObject var locationManager = LocationManager()
     
-    var dateSelect:DateSelect? = nil
+    let dateSelect:DateSelect?
+    
+    @State var selectedDate:Date = Date(timeIntervalSince1970: 0)
     
     var userLatitude: String {
         return "\(locationManager.lastLocation?.coordinate.latitude ?? 0)"
@@ -72,6 +74,7 @@ struct MakeIncomeView: View {
     }
     
     init(incomeId:String?, isIncome:Bool?, dateSelect:DateSelect? = nil) {
+        self.dateSelect = dateSelect
         print("MakeIconView init \(incomeId ?? "new")")
         self.incomeId = incomeId
         self.isIncome = isIncome ?? true
@@ -82,7 +85,7 @@ struct MakeIncomeView: View {
             editTags = ""
         }
         print(tags)
-        self.dateSelect = dateSelect
+        self.selectedDate = dateSelect?.date ?? Date()
     }
     
     @State var isLoaded:Bool = false
@@ -126,10 +129,11 @@ struct MakeIncomeView: View {
                         Text(tags).foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/)
                     }.padding(20)
                 }
-                HStack {
-                    Text("date")
-                    self.dateView
-                }.padding(20)
+                
+                DatePicker(selection: $selectedDate, label: {
+                    Text("date").padding(20)
+                    })
+                
             }
             Section(header: Text("location")) {
                 mapView.frame(width: UIScreen.main.bounds.width - 30, height: 300, alignment: .center)
@@ -180,6 +184,14 @@ struct MakeIncomeView: View {
             if self.incomeId == nil {
                 self.mapView.location = UserDefaults.standard.lastLocation
             }
+            if let model = self.incomeModel {
+                self.selectedDate = model.regTime
+            } else {
+                self.selectedDate = self.dateSelect?.date ?? Date()
+            }
+            if self.dateSelect == nil {
+                print("????")
+            }
         }
         
         .onReceive(NotificationCenter.default.publisher(for: .makeTagsNotification), perform: { (obj) in
@@ -229,7 +241,9 @@ struct MakeIncomeView: View {
             value: self.isIncome ? value : -value ,
             name: self.name,
             tags: self.tags,
-            coordinate2D: location?.coordinate ?? UserDefaults.standard.lastLocation?.coordinate) { (isSucess,id) in
+            coordinate2D: location?.coordinate ?? UserDefaults.standard.lastLocation?.coordinate,
+            regDate: self.selectedDate
+        ) { (isSucess,id) in
                 NotificationCenter.default.post(name: .incomeDataDidUpdated, object: id)
         }
         presentationMode.wrappedValue.dismiss()

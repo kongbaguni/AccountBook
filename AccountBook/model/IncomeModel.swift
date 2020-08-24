@@ -98,7 +98,12 @@ extension IncomeModel {
     }
     
     static func create(id:String? = nil ,
-                       value:Float, name:String, tags:String, coordinate2D:CLLocationCoordinate2D?, complete:@escaping(_ isSucess:Bool, _ id:String)->Void) {
+                       value:Float,
+                       name:String,
+                       tags:String,
+                       coordinate2D:CLLocationCoordinate2D?,
+                       regDate:Date,
+                       complete:@escaping(_ isSucess:Bool, _ id:String)->Void) {
         let isUpdate = id != nil
         let id = id ?? "\(UUID().uuidString)_\(Date().timeIntervalSince1970)_\(loginedEmail)"
         let newTags = tags.components(separatedBy: ",")
@@ -110,8 +115,9 @@ extension IncomeModel {
                 ttags.append(",")
             }
         }
-        
-        var data:[String:Any] = [
+        let now = Date().timeIntervalSince1970
+
+        let data:[String:Any] = [
             "id" : id ,
             "value" : value,
             "name" : name,
@@ -119,14 +125,9 @@ extension IncomeModel {
             "latitude" : coordinate2D?.latitude ?? 0,
             "longitude" : coordinate2D?.longitude ?? 0,
             "creatorEmail" : loginedEmail,
+            "regTimeIntervalSince1970" : regDate.timeIntervalSince1970,
+            "updateTimeIntervalSince1970": now
         ]
-        let now = Date().timeIntervalSince1970
-        if isUpdate {
-            data["updateTimeIntervalSince1970"] = now
-        } else {
-            data["regTimeIntervalSince1970"] = now
-            data["updateTimeIntervalSince1970"] = now
-        }
         
         let realm = try! Realm()
         realm.beginWrite()
