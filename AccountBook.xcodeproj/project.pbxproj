@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		02F28C5EB3A198C4A2132223 /* Pods_AccountBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E93C12ED9C05169AA81D528A /* Pods_AccountBook.framework */; };
 		C301E77124BED53F00A08A59 /* PHAsset+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C301E77024BED53F00A08A59 /* PHAsset+Extensions.swift */; };
+		C3076BA724F617E100A3AB7F /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3076BA624F617E100A3AB7F /* GraphView.swift */; };
 		C324E15924BEE4450091A0B4 /* FirebaseStorageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C324E15824BEE4440091A0B4 /* FirebaseStorageHelper.swift */; };
 		C327349624BEEAFF009E7002 /* CGSize+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C327349524BEEAFE009E7002 /* CGSize+Extensions.swift */; };
 		C32D634324EBB6660056689F /* MakeNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32D634224EBB6660056689F /* MakeNameView.swift */; };
@@ -71,6 +72,7 @@
 		54629A7E4FC90EF909318947 /* Pods-AccountBook.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AccountBook.release.xcconfig"; path = "Target Support Files/Pods-AccountBook/Pods-AccountBook.release.xcconfig"; sourceTree = "<group>"; };
 		5AA65F46D6B25139C448A16F /* Pods-AccountBook.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AccountBook.debug.xcconfig"; path = "Target Support Files/Pods-AccountBook/Pods-AccountBook.debug.xcconfig"; sourceTree = "<group>"; };
 		C301E77024BED53F00A08A59 /* PHAsset+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PHAsset+Extensions.swift"; sourceTree = "<group>"; };
+		C3076BA624F617E100A3AB7F /* GraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphView.swift; sourceTree = "<group>"; };
 		C324E15824BEE4440091A0B4 /* FirebaseStorageHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseStorageHelper.swift; sourceTree = "<group>"; };
 		C327349524BEEAFE009E7002 /* CGSize+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGSize+Extensions.swift"; sourceTree = "<group>"; };
 		C32D634224EBB6660056689F /* MakeNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeNameView.swift; sourceTree = "<group>"; };
@@ -214,6 +216,7 @@
 			children = (
 				C36C6D2D24B6A9AC001CC3E7 /* wrapSwiftUI */,
 				C36C6CDA24B314E0001CC3E7 /* MainTabView.swift */,
+				C3076BA624F617E100A3AB7F /* GraphView.swift */,
 				C36C6CDC24B314E0001CC3E7 /* LoginView.swift */,
 				C36C6CDD24B314E0001CC3E7 /* NetImageView.swift */,
 				C36C6CDE24B314E0001CC3E7 /* ImageButton.swift */,
@@ -495,6 +498,7 @@
 				C301E77124BED53F00A08A59 /* PHAsset+Extensions.swift in Sources */,
 				C36C6CE724B314E0001CC3E7 /* RoundedTextField.swift in Sources */,
 				C36C6CE324B314E0001CC3E7 /* ProfileSettingView.swift in Sources */,
+				C3076BA724F617E100A3AB7F /* GraphView.swift in Sources */,
 				C3EC817E24E50CED001FC45F /* MakeTagView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

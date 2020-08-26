@@ -102,6 +102,9 @@ struct IncomeListView: View {
     var body: some View {
         VStack {
             List {
+                Section(header: Text("graph")) {
+                    GraphView(before: self.beforeDay)
+                }
                 if list.count > 0 {
                     Section(header: Text("income")) {
                         ForEach(list, id:\.self) { id in
@@ -191,6 +194,7 @@ struct IncomeListView: View {
                 if let model = try! Realm().object(ofType: IncomeModel.self, forPrimaryKey: id) {
                     model.delete { (isSucess) in
                         self.loadData()
+                        NotificationCenter.default.post(name: .incomeDataDidUpdated, object: nil)
                     }
                 }
             }
