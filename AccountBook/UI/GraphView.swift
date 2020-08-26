@@ -16,7 +16,6 @@ struct GraphView: View {
         let id:String = UUID().uuidString
         let value:Float
         let height:CGFloat
-        let color:Color
         let date:Date
     }
     
@@ -37,9 +36,8 @@ struct GraphView: View {
         for d in beforeDays {
             let count = getCount(beforeDay: d)
             let height = getHeight(beforeDay: d)
-            let color = getGraphColor(beforeDay: d)
             let date = getDate(beforeDay: d)
-            let data = Data(value: count, height: height, color: color, date: date)
+            let data = Data(value: count, height: height, date: date)
             datas.append(data)
         }
     }
@@ -59,17 +57,10 @@ struct GraphView: View {
     }
     
     func getHeight(beforeDay:Int)->CGFloat {
+        let max = HEIGHT / 2 - 20
         let sum = getCount(beforeDay: beforeDay)
         let result = CGFloat(abs(sum)) / 10000 + 10
-        return result > HEIGHT ? HEIGHT : result
-    }
-    
-    func getGraphColor(beforeDay:Int)->Color  {
-        if (getCount(beforeDay: beforeDay) == 0) {
-            return .buttonStrockColor
-        } else {
-            return getCount(beforeDay: beforeDay) > 0 ? .blue : .red
-        }
+        return result > max ? max : result
     }
     
     init(before:Int) {
@@ -91,14 +82,19 @@ struct GraphView: View {
         HStack {
             ForEach(datas, id:\.id) { d in
                 VStack {
-                    Spacer()
                     Capsule()
-                        .foregroundColor(d.color)
+                        .foregroundColor(.blue)
                         .frame(width: 10,
-                               height: d.height,
+                               height: d.value > 0 ? d.height : 0,
                                alignment: .center)
                     Text(d.date.formatedString(format: self.dayFormatString))
                         .font(.system(size: 8))
+                    Capsule()
+                        .foregroundColor(.red)
+                        .frame(width: 10,
+                               height: d.value < 0 ? d.height : 0,
+                               alignment: .center)
+
                 }.frame(width: (UIScreen.main.bounds.width - 30) / CGFloat(self.beforeDays.count + 1),
                         height: HEIGHT,
                         alignment: .center)

@@ -80,14 +80,19 @@ extension Date {
     
     /** n달전 1일 자정시각 구하기*/
     static func getMidnightTime(beforeMonth:Int)->Date {
+        let format = "y_M"
         let year = Date().formatedString(format: "y").integerValue
         let month = Date().formatedString(format: "M").integerValue
+        let date = "\(year)_\(month)".dateValue(format: format)!
+        let interval = date.timeIntervalSince1970 - (Double(beforeMonth) * 31 * 60 * 60 * 24)
+        let d2 = Date(timeIntervalSince1970:interval)
+        print(d2.simpleFormatStringValue)
+        let y2 = d2.formatedString(format: "y").integerValue
+        let m2 = d2.formatedString(format: "M").integerValue
         
-        let y = beforeMonth / 12
-        let m = beforeMonth % 12
-        let str = "\(year - y)_\(month - m)"
-        print(str)
-        return str.dateValue(format: "y_M") ?? Date()
+        let result = "\(y2)_\(m2)".dateValue(format: format)!
+        print(result.simpleFormatStringValue)
+        return result
     }
     /** n주전 월요일 자정시각 구하기*/
     static func getMidnightTime(beforeWeak:Int)->Date {

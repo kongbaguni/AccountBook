@@ -22,13 +22,14 @@ struct IncomeListView: View {
         print("""
             _________________________________
             \(t1.simpleFormatStringValue) to \(t2.simpleFormatStringValue)
+            \(t1.timeIntervalSince1970) ~ \(t2.timeIntervalSince1970)
             ---------------------------------
             """
         )
         return try! Realm().objects(IncomeModel.self)
-            .sorted(byKeyPath: "regTimeIntervalSince1970")
-            .filter("creatorEmail = %@",loginedEmail)
-            .filter("regTimeIntervalSince1970 > %@ && regTimeIntervalSince1970 <= %@"
+            .sorted(byKeyPath: "regTimeIntervalSince1970")        
+            .filter("creatorEmail == %@ && %@ <= regTimeIntervalSince1970 && regTimeIntervalSince1970 < %@"
+                , loginedEmail
                 ,t1.timeIntervalSince1970
                 ,t2.timeIntervalSince1970
         )        

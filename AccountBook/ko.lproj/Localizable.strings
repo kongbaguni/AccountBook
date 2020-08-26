@@ -75,3 +75,5 @@
 "use health" = "건강정보 사용하기";
 "view health" = "건강정보 보기";
 "no auth health" = "건강정보 접근 권한이 없습니다.";
+
+"graph" = "그래프";
