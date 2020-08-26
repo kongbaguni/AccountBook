@@ -96,8 +96,8 @@ extension Date {
     }
     /** n주전 월요일 자정시각 구하기*/
     static func getMidnightTime(beforeWeak:Int)->Date {
-        let value = Date().formatedString(format: "W").integerValue
-        return Date.getMidnightTime(beforeDay: value + (beforeWeak * 7))
+        let weekday = Calendar.current.dateComponents([.weekday], from: Date()).weekday! - 1
+        return Date.getMidnightTime(beforeDay: weekday + (beforeWeak * 7))
     }
     
     /** n년전 1월1일 자정시각 구하기*/
