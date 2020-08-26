@@ -8,10 +8,12 @@
 
 import Foundation
 import HealthKit
+
 extension Notification.Name {
     /** 건강 정보 권한 갱신 옵서버*/
     static let healthAuthorazitionStatusDidUpdated = Notification.Name("healthAuthorazitionStatusDidUpdated_observer")
 }
+
 class HealthManager : NSObject, ObservableObject {
     struct ShareAuth {
         let sharingAuthorizeds:Set<HKQuantityTypeIdentifier>
@@ -70,6 +72,7 @@ class HealthManager : NSObject, ObservableObject {
                 }
 
                 DispatchQueue.main.async {
+                    UserDefaults.standard.isRequestHealth = true
                     NotificationCenter.default.post(
                         name: .healthAuthorazitionStatusDidUpdated,
                         object: isSucess ? ShareAuth(sharingAuthorizeds: sharingAuthorizeds, sharingDenied: sharingDenied) : nil)
@@ -77,9 +80,70 @@ class HealthManager : NSObject, ObservableObject {
             }
         }
         else {
+            UserDefaults.standard.isRequestHealth = true
             NotificationCenter.default.post(name: .healthAuthorazitionStatusDidUpdated, object: ShareAuth(sharingAuthorizeds: sharingAuthorizeds, sharingDenied: sharingDenied))
         }
         
     }
+    
+    func sync(complete:@escaping(_ data:[HKQuantityType : HKUnit]?)->Void) {
+        var set = Set<HKQuantityType>()
+        for id in self.readTypes {
+            if let type = HKQuantityType.quantityType(forIdentifier: id) {
+                set.insert(type)
+            }
+        }
+        store.preferredUnits(for: set) { (data, error) in
+            if error == nil {
+                for d in data {
+                    switch d.key {
+                    case .stepCount:
+                        print("stepCount: \(d.value.accessibilityElementCount())")
+                        let predicate = HKQuery.predicateForSamples(withStart: Date.getMidnightTime(beforeDay: 10), end: Date.getMidnightTime(beforeDay: 0), options: .strictEndDate)
+                       
+                        _ = HKSampleQuery(
+                            sampleType: .stepCount,
+                            predicate: predicate,
+                            limit: HKObjectQueryNoLimit,
+                            sortDescriptors: nil) { (query, sample, error) in
+                                if let data = sample {
+                                    for d in data {
+                                        print("======")
+                                        print(d.startDate.simpleFormatStringValue)
+                                        print(d.endDate.simpleFormatStringValue)
+                                        print(d)
+                                    }
+                                }
+                            
+                        }
+                        
+                                               
+                        break
+
+                    case .flightsClimbed:
+                        print("flightsClimbed: \(d.value.accessibilityElementCount())")
+
+                        break
+                    default:
+                        break
+                    }
+                }
+                complete(data)
+            } else {
+                complete(nil)
+            }
+        }
+    }
 }
 
+
+//extension HKQuantityType {
+//    static let stepCount = HKQuantityType.quantityType(forIdentifier: .stepCount)!
+//    static let flightsClimbed = HKQuantityType.quantityType(forIdentifier: .flightsClimbed)!
+//}
+
+
+extension HKSampleType {
+    static let stepCount = HKSampleType.quantityType(forIdentifier: .stepCount)!
+    static let flightsClimbed = HKSampleType.quantityType(forIdentifier: .flightsClimbed)!
+}

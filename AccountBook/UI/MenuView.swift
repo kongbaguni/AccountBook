@@ -33,7 +33,9 @@ struct MenuView: View {
             }
             Section(header: Text("health")) {
                 NavigationLink(destination: HealthView()) {
-                    Text("Health")
+                    UserDefaults.standard.isRequestHealth
+                        ? Text("view health")
+                        : Text("use health")                    
                 }
             }
             Section(header: Text("")) {

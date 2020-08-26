@@ -24,12 +24,21 @@ struct HealthView: View {
             return Text("unknown")
         }
     }
+    @State var isRequestedHealth = UserDefaults.standard.isRequestHealth
     
     var body: some View {
         List {
-            if set.count == 0 {
+            if isRequestedHealth == false {
                 Section(header: Text(" ")) {
-                    Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+                    Button(action: {
+                        self.healthManager = HealthManager()
+                    }) {
+                        Text("use health")
+                    }
+                }
+            } else if set.count == 0 {
+                Section(header: Text(" ")) {
+                    Text("no auth health")
                 }
             } else {
                 Section(header: Text(" ")) {
@@ -38,11 +47,20 @@ struct HealthView: View {
                     }
                 }
             }
-        }.navigationBarTitle("Health")
+        }
         .onAppear {
-            self.healthManager = HealthManager()
+            if UserDefaults.standard.isRequestHealth {
+                self.healthManager = HealthManager()
+                self.healthManager?.sync(complete: { (data) in
+                    print(data ?? "none")
+                })
+            }
+        }
+        .listStyle(GroupedListStyle())
+        .navigationBarTitle("health")
+        .onReceive(NotificationCenter.default.publisher(for: .healthAuthorazitionStatusDidUpdated)) { (out) in
+            self.isRequestedHealth = UserDefaults.standard.isRequestHealth
             
-        }.onReceive(NotificationCenter.default.publisher(for: .healthAuthorazitionStatusDidUpdated)) { (out) in
             if let auth = out.object as? HealthManager.ShareAuth {
                 self.set.removeAll()
                 for id in auth.sharingAuthorizeds {

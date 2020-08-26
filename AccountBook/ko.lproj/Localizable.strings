@@ -70,3 +70,8 @@
 "Location Agree" = "위치정보 접근 동의";
 "location" = "위치";
 "date" = "날자"   ;
+
+"health" = "건강정보";
+"use health" = "건강정보 사용하기";
+"view health" = "건강정보 보기";
+"no auth health" = "건강정보 접근 권한이 없습니다.";

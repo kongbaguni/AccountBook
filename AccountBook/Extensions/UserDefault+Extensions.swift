@@ -55,4 +55,13 @@ extension UserDefaults {
             return CLLocation(latitude: lat, longitude: long)
         }
     }
+    
+    var isRequestHealth:Bool {
+        set {
+            set(newValue, forKey: "isRequestHealthAuth")
+        }
+        get {
+            bool(forKey: "isRequestHealthAuth")
+        }
+    }
 }
