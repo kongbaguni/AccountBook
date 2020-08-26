@@ -17,6 +17,7 @@ struct GraphView: View {
         let value:Float
         let height:CGFloat
         let date:Date
+        let beforeDay:Int
     }
     
     @State var datas:[Data] = []
@@ -37,7 +38,7 @@ struct GraphView: View {
             let count = getCount(beforeDay: d)
             let height = getHeight(beforeDay: d)
             let date = getDate(beforeDay: d)
-            let data = Data(value: count, height: height, date: date)
+            let data = Data(value: count, height: height, date: date, beforeDay: d)
             datas.append(data)
         }
     }
@@ -94,10 +95,15 @@ struct GraphView: View {
                         .frame(width: 10,
                                height: d.value < 0 ? d.height : 0,
                                alignment: .center)
-
+                    
                 }.frame(width: (UIScreen.main.bounds.width - 30) / CGFloat(self.beforeDays.count + 1),
                         height: HEIGHT,
                         alignment: .center)
+                    .onTapGesture {
+                        NotificationCenter.default.post(name: .todaySelectorDidUpdated, object: d.beforeDay)
+                        print(d.beforeDay)
+                }
+                
             }
         }
         .frame(width: nil, height: HEIGHT, alignment: .center)

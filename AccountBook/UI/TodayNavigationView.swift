@@ -15,11 +15,7 @@ extension Notification.Name {
 
 struct TodayNavigationView: View {
     @State var isActive:Bool = false
-    @State var dayBefore:Int = 0 {
-        didSet {
-            NotificationCenter.default.post(name:.todaySelectorDidUpdated, object:dayBefore)
-        }
-    }
+    @State var dayBefore:Int = 0
     
     var dayString:String {
         switch Consts.dayRangeSelection {
@@ -42,16 +38,20 @@ struct TodayNavigationView: View {
                 HStack {
                     Button(action: {
                         self.dayBefore += 1
+                        NotificationCenter.default.post(name:.todaySelectorDidUpdated, object:self.dayBefore)
                     }) {
                         Text("<").padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 10))
                     }
                     Button(action: {
                         self.dayBefore = 0
+                        NotificationCenter.default.post(name:.todaySelectorDidUpdated, object:self.dayBefore)
                     }) {
                         Text(dayString).font(.headline)
                     }.disabled(dayBefore == 0)
                     Button(action: {
                         self.dayBefore -= 1
+                        NotificationCenter.default.post(name:.todaySelectorDidUpdated, object:self.dayBefore)
+                        
                     }) {
                         Text(">").padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 0))
                     }.disabled(dayBefore == 0)
@@ -69,6 +69,12 @@ struct TodayNavigationView: View {
             )
             .onReceive(NotificationCenter.default.publisher(for: .selectDayRangeDidChange)) { (obj) in
                 self.dayBefore = 0
+                NotificationCenter.default.post(name:.todaySelectorDidUpdated, object:0)
+            }
+            .onReceive(NotificationCenter.default.publisher(for: .todaySelectorDidUpdated)) { (output) in
+                if let day = output.object  as? Int {
+                    self.dayBefore = day
+                }
             }
         }
     }
