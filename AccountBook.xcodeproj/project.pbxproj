@@ -10,6 +10,8 @@
 		02F28C5EB3A198C4A2132223 /* Pods_AccountBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E93C12ED9C05169AA81D528A /* Pods_AccountBook.framework */; };
 		C301E77124BED53F00A08A59 /* PHAsset+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C301E77024BED53F00A08A59 /* PHAsset+Extensions.swift */; };
 		C3076BA724F617E100A3AB7F /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3076BA624F617E100A3AB7F /* GraphView.swift */; };
+		C31DF7B524F8F5530082077F /* HealthModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31DF7B424F8F5530082077F /* HealthModel.swift */; };
+		C323D74424F8FE2E0021851A /* HealthListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C323D74324F8FE2E0021851A /* HealthListRowView.swift */; };
 		C324E15924BEE4450091A0B4 /* FirebaseStorageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C324E15824BEE4440091A0B4 /* FirebaseStorageHelper.swift */; };
 		C327349624BEEAFF009E7002 /* CGSize+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C327349524BEEAFE009E7002 /* CGSize+Extensions.swift */; };
 		C32D634324EBB6660056689F /* MakeNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32D634224EBB6660056689F /* MakeNameView.swift */; };
@@ -73,6 +75,8 @@
 		5AA65F46D6B25139C448A16F /* Pods-AccountBook.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AccountBook.debug.xcconfig"; path = "Target Support Files/Pods-AccountBook/Pods-AccountBook.debug.xcconfig"; sourceTree = "<group>"; };
 		C301E77024BED53F00A08A59 /* PHAsset+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PHAsset+Extensions.swift"; sourceTree = "<group>"; };
 		C3076BA624F617E100A3AB7F /* GraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphView.swift; sourceTree = "<group>"; };
+		C31DF7B424F8F5530082077F /* HealthModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthModel.swift; sourceTree = "<group>"; };
+		C323D74324F8FE2E0021851A /* HealthListRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthListRowView.swift; sourceTree = "<group>"; };
 		C324E15824BEE4440091A0B4 /* FirebaseStorageHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseStorageHelper.swift; sourceTree = "<group>"; };
 		C327349524BEEAFE009E7002 /* CGSize+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGSize+Extensions.swift"; sourceTree = "<group>"; };
 		C32D634224EBB6660056689F /* MakeNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeNameView.swift; sourceTree = "<group>"; };
@@ -239,6 +243,7 @@
 				C36C6D2424B5C22C001CC3E7 /* TitleView.swift */,
 				C3760D3924BD7A1900C13678 /* LogoView.swift */,
 				C37BF44024F38FE90075C03D /* HealthView.swift */,
+				C323D74324F8FE2E0021851A /* HealthListRowView.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -265,6 +270,7 @@
 				C36C6CF824B31760001CC3E7 /* UserInfoModel.swift */,
 				C36C6D1824B46C92001CC3E7 /* IncomeModel.swift */,
 				C36C6D1A24B46F1B001CC3E7 /* TagModel.swift */,
+				C31DF7B424F8F5530082077F /* HealthModel.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -460,6 +466,7 @@
 				C36C6D0F24B32455001CC3E7 /* SigninWithGoogleId.swift in Sources */,
 				C327349624BEEAFF009E7002 /* CGSize+Extensions.swift in Sources */,
 				C36C6D1324B40221001CC3E7 /* AuthDataResult+Extensions.swift in Sources */,
+				C31DF7B524F8F5530082077F /* HealthModel.swift in Sources */,
 				C36C6CE424B314E0001CC3E7 /* LoginView.swift in Sources */,
 				C3DC022224EE6C20002F2E47 /* MapView.swift in Sources */,
 				C36C6CE824B314E0001CC3E7 /* ButtonView.swift in Sources */,
@@ -495,6 +502,7 @@
 				C36C6D1F24B5826E001CC3E7 /* TodayNavigationView.swift in Sources */,
 				C32D634524EBBD0A0056689F /* MakePriceView.swift in Sources */,
 				C36C6CE924B314E0001CC3E7 /* ReviewNavigationView.swift in Sources */,
+				C323D74424F8FE2E0021851A /* HealthListRowView.swift in Sources */,
 				C301E77124BED53F00A08A59 /* PHAsset+Extensions.swift in Sources */,
 				C36C6CE724B314E0001CC3E7 /* RoundedTextField.swift in Sources */,
 				C36C6CE324B314E0001CC3E7 /* ProfileSettingView.swift in Sources */,

@@ -66,23 +66,22 @@ extension Date {
     
     /** 오늘의  자정시각 구하기*/
     static var midnightTodayTime:Date {
-        let format = "yyyyMMdd"
-        return Date().formatedString(format: format).dateValue(format: format)!
+        return Calendar.current.startOfDay(for: Date())
     }
     
     /** n일전 자정시각 구하기*/
     static func getMidnightTime(beforeDay:Int)->Date {
-        let format = "yyyyMMdd"
-        let dayInterval:Double = Double(Date().timeIntervalSince1970) - Double(60 * 60 * 24 * beforeDay)
-        let day = Date(timeIntervalSince1970: dayInterval)
-        return day.formatedString(format: format).dateValue(format: format)!
+        let timeInterval = TimeInterval(60 * 60 * 24 * beforeDay) * -1
+        return Calendar.current.startOfDay(for: Date(timeIntervalSinceNow: timeInterval))
     }
     
     /** n달전 1일 자정시각 구하기*/
     static func getMidnightTime(beforeMonth:Int)->Date {
+        let comm = Calendar.current.dateComponents([.month, .year], from: Date())
+        let month = comm.month!
+        let year = comm.year!        
         let format = "y_M"
-        let year = Date().formatedString(format: "y").integerValue
-        let month = Date().formatedString(format: "M").integerValue
+        
         let date = "\(year)_\(month)".dateValue(format: format)!
         let interval = date.timeIntervalSince1970 - (Double(beforeMonth) * 31 * 60 * 60 * 24)
         let d2 = Date(timeIntervalSince1970:interval)
@@ -102,7 +101,8 @@ extension Date {
     
     /** n년전 1월1일 자정시각 구하기*/
     static func getMidnightTime(beforeYear:Int)->Date {
-        let year = Date().formatedString(format:"y").integerValue
+        let comp = Calendar.current.dateComponents([.year], from: Date())
+        let year = comp.year!
         return "\(year - beforeYear)".dateValue(format:"y") ?? Date()
     }
     

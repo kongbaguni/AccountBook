@@ -151,6 +151,7 @@ extension IncomeModel {
                     realm.create(IncomeModel.self, value: data, update: .modified)
                     try! realm.commitWrite()
                 }
+                NotificationCenter.default.post(name: .incomeDataDidUpdated, object: id)
                 complete(error == nil, id)
             }
         }
@@ -162,6 +163,7 @@ extension IncomeModel {
                     realm.create(IncomeModel.self, value: data, update:.all)
                     try! realm.commitWrite()
                 }
+                NotificationCenter.default.post(name: .incomeDataDidUpdated, object: id)
                 complete(error == nil, id)
             }
         }
@@ -184,6 +186,7 @@ extension IncomeModel {
                     realm.create(IncomeModel.self, value: doc.data(), update: .all)
                 }
                 try! realm.commitWrite()
+                NotificationCenter.default.post(name: .incomeDataDidUpdated, object: nil)
                 complete(error == nil)
         }
     }
@@ -198,6 +201,7 @@ extension IncomeModel {
                 self.name = ""
                 try! realm.commitWrite()
             }
+            NotificationCenter.default.post(name: .incomeDataDidUpdated, object: nil)
             complete(error == nil)
         }
     }

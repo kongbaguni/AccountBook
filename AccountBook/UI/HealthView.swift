@@ -8,24 +8,23 @@
 
 import SwiftUI
 import HealthKit
+import RealmSwift
 
 struct HealthView: View {
+    var list:Results<HealthModel> {
+        return try! Realm().objects(HealthModel.self).sorted(byKeyPath: "startDate")
+    }
+    
+    var stepList:Results<HealthModel> {
+        return list.filter("type = %@", HKQuantityType.stepCount.identifier)
+    }
+    
     @State var healthManager:HealthManager? = nil
     @State var set:[HKQuantityTypeIdentifier] = []
-    func getView(id:HKQuantityTypeIdentifier)->Text {
-        if id == HKQuantityTypeIdentifier.stepCount {
-            
-            return Text("stepCount")
-            
-        }
-        else if id == HKQuantityTypeIdentifier.flightsClimbed {
-            return Text("flightsClimbed")
-        } else {
-            return Text("unknown")
-        }
-    }
+    
     @State var isRequestedHealth = UserDefaults.standard.isRequestHealth
     
+    @State var stepIds:[String] = []
     var body: some View {
         List {
             if isRequestedHealth == false {
@@ -42,17 +41,18 @@ struct HealthView: View {
                 }
             } else {
                 Section(header: Text(" ")) {
-                    ForEach(set, id:\.self) { id in
-                        self.getView(id: id)
+                    ForEach(stepIds, id:\.self) { id in
+                        HealthListRowView(id:id)
                     }
                 }
             }
         }
         .onAppear {
+            self.loadData()
             if UserDefaults.standard.isRequestHealth {
                 self.healthManager = HealthManager()
-                self.healthManager?.sync(complete: { (data) in
-                    print(data ?? "none")
+                self.healthManager?.getCount(type: .stepCount, complete: { (count) in
+                    self.loadData()
                 })
             }
         }
@@ -67,6 +67,15 @@ struct HealthView: View {
                     self.set.append(id)
                 }
             }
+        }
+
+               
+    }
+    
+    func loadData() {
+        stepIds.removeAll()
+        for step in stepList {
+            stepIds.append(step.id)
         }
     }
 }

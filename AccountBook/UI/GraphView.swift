@@ -26,7 +26,7 @@ struct GraphView: View {
     
     var beforeDays:[Int] {
         var result:[Int] = []
-        for a in before..<before+7 {
+        for a in before-3..<before+4 {
             result.append(a)
         }
         return result.reversed()
@@ -52,7 +52,7 @@ struct GraphView: View {
         let t2:Date = Date.getMidnightTime(before: beforeDay-1, type: Consts.dayRangeSelection)
         
         let realm = try! Realm()
-        let list = realm.objects(IncomeModel.self).filter("regTimeIntervalSince1970 > %@ && regTimeIntervalSince1970 <= %@", t1.timeIntervalSince1970, t2.timeIntervalSince1970)
+        let list = realm.objects(IncomeModel.self).filter("%@ <= regTimeIntervalSince1970 && regTimeIntervalSince1970 < %@", t1.timeIntervalSince1970, t2.timeIntervalSince1970)
         let sum:Float  = list.sum(ofProperty: "value")
         return sum
     }
@@ -100,7 +100,9 @@ struct GraphView: View {
                         height: HEIGHT,
                         alignment: .center)
                     .onTapGesture {
-                        NotificationCenter.default.post(name: .todaySelectorDidUpdated, object: d.beforeDay)
+                        if d.beforeDay >= 0 {
+                            NotificationCenter.default.post(name: .todaySelectorDidUpdated, object: d.beforeDay)
+                        }
                         print(d.beforeDay)
                 }
                 

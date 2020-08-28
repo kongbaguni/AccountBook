@@ -37,7 +37,7 @@ struct MakeIncomeView: View {
     let incomeId:String?
     
     @State var mapView = MapView()
-    
+    @State var saveBtnDisabled = false
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     @ObservedObject var locationManager = LocationManager()
@@ -160,7 +160,7 @@ struct MakeIncomeView: View {
                 self.save()
             }) {
                 Text("save")
-            }
+            }.disabled(self.saveBtnDisabled)
         )
         .listStyle(GroupedListStyle())
         .alert(isPresented: $showDeleteAlert, content: { () -> Alert in
@@ -235,6 +235,8 @@ struct MakeIncomeView: View {
         if self.name.isEmpty || self.value.isEmpty {
             return
         }
+        saveBtnDisabled = true
+        
         let value = abs(self.value.floatValue)
         IncomeModel.create(
             id: self.incomeModel?.id,
@@ -244,9 +246,13 @@ struct MakeIncomeView: View {
             coordinate2D: location?.coordinate ?? UserDefaults.standard.lastLocation?.coordinate,
             regDate: self.selectedDate
         ) { (isSucess,id) in
-                NotificationCenter.default.post(name: .incomeDataDidUpdated, object: id)
+            if isSucess {
+                self.presentationMode.wrappedValue.dismiss()
+            } else {
+                self.saveBtnDisabled = false
+            }
         }
-        presentationMode.wrappedValue.dismiss()
+        
     }
 }
 

@@ -20,7 +20,7 @@ class HealthManager : NSObject, ObservableObject {
         let sharingDenied:Set<HKQuantityTypeIdentifier>
     }
     let store = HKHealthStore()
-    let readTypes:[HKQuantityTypeIdentifier] = [.flightsClimbed, .stepCount]
+    let readTypes:[HKQuantityTypeIdentifier] = [.stepCount, .distanceWalkingRunning]
     override init() {
         super.init()
         requestAuth()
@@ -70,7 +70,7 @@ class HealthManager : NSObject, ObservableObject {
                         }
                     }
                 }
-
+                
                 DispatchQueue.main.async {
                     UserDefaults.standard.isRequestHealth = true
                     NotificationCenter.default.post(
@@ -86,54 +86,41 @@ class HealthManager : NSObject, ObservableObject {
         
     }
     
-    func sync(complete:@escaping(_ data:[HKQuantityType : HKUnit]?)->Void) {
-        var set = Set<HKQuantityType>()
-        for id in self.readTypes {
-            if let type = HKQuantityType.quantityType(forIdentifier: id) {
-                set.insert(type)
+    func getCount(type:HKQuantityType, complete:@escaping(_ count:Double)->Void) {
+        let now = Date()
+        let startOfDay = Calendar.current.startOfDay(for: now)
+        var interval = DateComponents()
+        interval.day = 1
+        
+        let query = HKStatisticsCollectionQuery(quantityType: type,
+                                                quantitySamplePredicate: nil,
+                                                options: [.cumulativeSum],
+                                                anchorDate: startOfDay,
+                                                intervalComponents: interval)
+        
+        query.initialResultsHandler = { _, result, error in
+            var resultCount = 0.0
+            guard let r = result else {
+                return
             }
-        }
-        store.preferredUnits(for: set) { (data, error) in
-            if error == nil {
-                for d in data {
-                    switch d.key {
-                    case .stepCount:
-                        print("stepCount: \(d.value.accessibilityElementCount())")
-                        let predicate = HKQuery.predicateForSamples(withStart: Date.getMidnightTime(beforeDay: 10), end: Date.getMidnightTime(beforeDay: 0), options: .strictEndDate)
-                       
-                        _ = HKSampleQuery(
-                            sampleType: .stepCount,
-                            predicate: predicate,
-                            limit: HKObjectQueryNoLimit,
-                            sortDescriptors: nil) { (query, sample, error) in
-                                if let data = sample {
-                                    for d in data {
-                                        print("======")
-                                        print(d.startDate.simpleFormatStringValue)
-                                        print(d.endDate.simpleFormatStringValue)
-                                        print(d)
-                                    }
-                                }
-                            
-                        }
-                        
-                                               
-                        break
-
-                    case .flightsClimbed:
-                        print("flightsClimbed: \(d.value.accessibilityElementCount())")
-
-                        break
-                    default:
-                        break
+            r.enumerateStatistics(from: startOfDay, to: now) { statistics, _ in
+                
+                if let sum = statistics.sumQuantity() {
+                    // Get steps (they are of double type)                    
+                    resultCount = sum.doubleValue(for: HKUnit.count())
+                } // end if
+                
+                DispatchQueue.main.async {
+                    HealthModel.update(type: type, value: resultCount) { (isSucess) in
+                        complete(resultCount)
                     }
                 }
-                complete(data)
-            } else {
-                complete(nil)
             }
         }
+        store.execute(query)
     }
+    
+    
 }
 
 
@@ -146,4 +133,5 @@ class HealthManager : NSObject, ObservableObject {
 extension HKSampleType {
     static let stepCount = HKSampleType.quantityType(forIdentifier: .stepCount)!
     static let flightsClimbed = HKSampleType.quantityType(forIdentifier: .flightsClimbed)!
+    static let distanceWalkingRunning = HKSampleType.quantityType(forIdentifier: .distanceWalkingRunning)!
 }

@@ -195,7 +195,6 @@ struct IncomeListView: View {
                 if let model = try! Realm().object(ofType: IncomeModel.self, forPrimaryKey: id) {
                     model.delete { (isSucess) in
                         self.loadData()
-                        NotificationCenter.default.post(name: .incomeDataDidUpdated, object: nil)
                     }
                 }
             }

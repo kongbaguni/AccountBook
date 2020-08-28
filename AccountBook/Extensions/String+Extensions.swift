@@ -31,6 +31,8 @@ extension String {
     public static let FSCollectionName_accountData:String = "accounts_data_TEST"
     /** firenase db : tag 정보 저장*/
     public static let FSCollectionName_tags:String = "accounts_tag_TEST"
+    /** 건강 정보 저장*/
+    public static let FSCollectionName_health:String = "health_TEST"
     #else
     /** firebase db : 사용자 정보 콜랙션 */
     public static let FSCollectionName_user:String = "users"
@@ -38,6 +40,8 @@ extension String {
     public static let FSCollectionName_accountData:String = "accounts_data"
     /** firenase db : tag 정보 저장*/
     public static let FSCollectionName_tags:String = "accounts_tag"
+    /** 건강 정보 저장*/
+    public static let FSCollectionName_health:String = "health"
     #endif
     }
 
