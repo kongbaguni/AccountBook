@@ -72,7 +72,7 @@ class HealthManager : NSObject, ObservableObject {
                 }
                 
                 DispatchQueue.main.async {
-                    UserDefaults.standard.isRequestHealth = true
+                    UserDefaults.standard.isRequestHealthAuth = true
                     NotificationCenter.default.post(
                         name: .healthAuthorazitionStatusDidUpdated,
                         object: isSucess ? ShareAuth(sharingAuthorizeds: sharingAuthorizeds, sharingDenied: sharingDenied) : nil)
@@ -80,14 +80,14 @@ class HealthManager : NSObject, ObservableObject {
             }
         }
         else {
-            UserDefaults.standard.isRequestHealth = true
+            UserDefaults.standard.isRequestHealthAuth = true
             NotificationCenter.default.post(name: .healthAuthorazitionStatusDidUpdated, object: ShareAuth(sharingAuthorizeds: sharingAuthorizeds, sharingDenied: sharingDenied))
         }
         
     }
     
-    func getCount(type:HKQuantityType, complete:@escaping(_ count:Double)->Void) {
-        let now = Date()
+    func getCount(beforeDay:Int,type:HKQuantityType, complete:@escaping(_ count:Double)->Void) {
+        let now = Date.getMidnightTime(beforeDay: beforeDay)
         let startOfDay = Calendar.current.startOfDay(for: now)
         var interval = DateComponents()
         interval.day = 1
@@ -111,7 +111,7 @@ class HealthManager : NSObject, ObservableObject {
                 } // end if
                 
                 DispatchQueue.main.async {
-                    HealthModel.update(type: type, value: resultCount) { (isSucess) in
+                    HealthModel.update(dayBefore:beforeDay, type: type, value: resultCount) { (isSucess) in
                         complete(resultCount)
                     }
                 }

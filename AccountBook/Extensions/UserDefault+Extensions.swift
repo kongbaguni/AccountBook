@@ -56,7 +56,7 @@ extension UserDefaults {
         }
     }
     
-    var isRequestHealth:Bool {
+    var isRequestHealthAuth:Bool {
         set {
             set(newValue, forKey: "isRequestHealthAuth")
         }
