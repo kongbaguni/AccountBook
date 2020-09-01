@@ -10,6 +10,10 @@ import Foundation
 import RealmSwift
 import HealthKit
 
+fileprivate func idValue(dayBefore:Int)->String {
+    return Date.getMidnightTime(beforeDay: dayBefore).formatedString(format: "yyyyMMdd")
+}
+
 extension Notification.Name {
     static let healthDataDidUpdated = Notification.Name("healthDataDidUpdated_observer")
 }
@@ -31,14 +35,13 @@ extension HealthModel {
         return Date(timeIntervalSince1970: startTimeInterval1970)
     }
     fileprivate static func create(beforeDay:Int,type:HKQuantityType, value:Double, complete:@escaping(_ isSucess:Bool)->Void) {
-        let startDt = Date.getMidnightTime(beforeDay: beforeDay).timeIntervalSince1970
-        let id = "\(loginedEmail)_\(startDt)"
+        let id = idValue(dayBefore: beforeDay)
         let data:[String:Any] = [
             "creator" : loginedEmail,
             "id": id,
             "value" : value,
             "type" : type.identifier,
-            "startTimeInterval1970" : startDt,
+            "startTimeInterval1970" : Date.getMidnightTime(beforeDay: beforeDay).timeIntervalSince1970,
             "updateTimeInterval1970" : Date().timeIntervalSince1970
         ]
         
@@ -73,8 +76,7 @@ extension HealthModel {
     }
     
     static func update(dayBefore:Int,type:HKQuantityType,value:Double, complete:@escaping(_ isSucess:Bool)->Void) {
-        let startDt =  Date.getMidnightTime(beforeDay: dayBefore).timeIntervalSince1970
-        let id = "\(loginedEmail)_\(startDt)"
+        let id = idValue(dayBefore: dayBefore)
         if let data = try! Realm().object(ofType: HealthModel.self, forPrimaryKey: id) {
             update(id: data.id, value: value, complete: complete)
             return
