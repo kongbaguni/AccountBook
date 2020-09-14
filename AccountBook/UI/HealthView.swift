@@ -9,16 +9,31 @@
 import SwiftUI
 import HealthKit
 import RealmSwift
+import SwiftUICharts
+import WaterfallGrid
 
 struct HealthView: View {
     var list:Results<HealthModel> {
-        return try! Realm().objects(HealthModel.self).sorted(byKeyPath: "startTimeInterval1970")
+        return try! Realm().objects(HealthModel.self)
+            .filter("startTimeInterval1970 > %@",Date.getMidnightTime(before: 7, type: Consts.dayRangeSelection).timeIntervalSince1970)
+            .sorted(byKeyPath: "startTimeInterval1970")
+    }
+    
+    var isChackYesterDay : Bool {
+        return false
+//        return try! Realm().objects(HealthModel.self).filter("updateTimeInterval1970 > %@", Date.midnightTodayTime.timeIntervalSince1970).count > 1
+    }
+    
+    var isNeedTodayCheck : Bool {
+        return try! Realm().objects(HealthModel.self).filter("updateTimeInterval1970 > %@", Date().timeIntervalSince1970 - 30).count == 0
     }
     
     var stepList:Results<HealthModel> {
         return list.filter("type = %@", HKQuantityType.stepCount.identifier)
     }
     
+    @State private var animationAmount: Double = 3.14
+
     @State var healthManager:HealthManager? = nil
     @State var set:[HKQuantityTypeIdentifier] = []
     
@@ -27,39 +42,38 @@ struct HealthView: View {
     @State var stepIds:[String] = []
     @State var dayBefore:Int = 0
     @State var isRequestHealthInfo:Bool = false
+    
     var dayString:String {
         return Date.getMidnightTime(beforeDay: dayBefore).simpleFormatStringValue
     }
     
+    @State var steps:[Double] = []
+    
+    @State var chartData:ChartData = ChartData(points: [0,0,0,0,0,0])
+    
+    func getHealthData() {
+        if self.isChackYesterDay == false {
+            self.isRequestHealthInfo = true
+            self.healthManager?.getCount(beforeDay: 1, type: .stepCount, complete: { (count) in
+                self.isRequestHealthInfo = false
+                self.loadData()
+            })
+        }
+        if self.isNeedTodayCheck {
+            self.isRequestHealthInfo = true
+            self.healthManager?.getCount(beforeDay: 0, type: .stepCount, complete: { (count) in
+                self.isRequestHealthInfo = false
+                self.loadData()
+            })
+        }
+        self.healthManager?.getCount(beforeDay: 0, type: .heartRate, complete: { (count) in
+            
+        })
+    }
     
     var body: some View {
-        VStack {
-            if self.isRequestHealthInfo {
-                Text("Request Health info....")
-            }
-            
-            HStack {
-                Button(action: {
-                    self.dayBefore += 1
-                    NotificationCenter.default.post(name:.todaySelectorDidUpdated, object:self.dayBefore)
-                }) {
-                    Text("<").padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 10))
-                }
-                Button(action: {
-                    self.dayBefore = 0
-                    NotificationCenter.default.post(name:.todaySelectorDidUpdated, object:self.dayBefore)
-                }) {
-                    Text(dayString).font(.headline)
-                }.disabled(dayBefore == 0)
-                Button(action: {
-                    self.dayBefore -= 1
-                    NotificationCenter.default.post(name:.todaySelectorDidUpdated, object:self.dayBefore)
-                }) {
-                    Text(">").padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 0))
-                }.disabled(dayBefore == 0)
-            }
-            List {
-                
+        ZStack  {
+            VStack {
                 if isRequestedHealthAuth == false {
                     Section(header: Text(" ")) {
                         Button(action: {
@@ -68,16 +82,37 @@ struct HealthView: View {
                             Text("use health")
                         }
                     }
-                } else if set.count == 0 {
-                    Section(header: Text(" ")) {
-                        Text("no auth health")
-                    }
                 } else {
-                    Section(header: Text(" ")) {
-                        ForEach(stepIds, id:\.self) { id in
-                            HealthListRowView(id:id)
-                        }
-                    }
+                    WaterfallGrid((0..<3), id: \.self) { index in
+                        VStack {
+                            HStack {
+                                Text("Today")
+                                    .font(.title)
+                                Text("\(Int(self.steps.last ?? 0))")
+                                    .font(.caption)
+                                    .foregroundColor(.orangeColor)
+                                Text("steps")
+                                    .font(.caption)
+                            }
+                            BarChartView(data: self.chartData, title: "step", legend: "day")
+                                .padding(10)
+                        }.padding()
+                        
+                    }.gridStyle(columns: 2)
+                }
+
+            }
+            if self.isRequestHealthInfo {
+                Text("Request Health info....")
+                    .padding(10)
+                    .background(Capsule().foregroundColor(.orangeColor))
+                    .opacity(/*@START_MENU_TOKEN@*/0.8/*@END_MENU_TOKEN@*/)
+                    .rotation3DEffect(Angle(degrees: animationAmount), axis: (x: 10, y:5, z: 10))
+                    .animation(
+                        Animation.easeInOut(duration: 0.25)
+                            .repeatForever(autoreverses: true))
+                    .onAppear {
+                         self.animationAmount = 5 * 3.14
                 }
             }
         }
@@ -90,11 +125,7 @@ struct HealthView: View {
                         self.loadData()
                     }
                 }
-                self.isRequestHealthInfo = true
-                self.healthManager?.getCount(beforeDay: self.dayBefore, type: .stepCount, complete: { (count) in
-                    self.isRequestHealthInfo = false
-                    self.loadData()
-                })
+                self.getHealthData()
             }
         }
         .listStyle(GroupedListStyle())
@@ -107,6 +138,7 @@ struct HealthView: View {
                 for id in auth.sharingAuthorizeds {
                     self.set.append(id)
                 }
+                self.getHealthData()
             }
         }
         .onReceive(NotificationCenter.default.publisher(for: .todaySelectorDidUpdated)) { (output) in
@@ -116,15 +148,16 @@ struct HealthView: View {
                 self.loadData()
             })
         }
-        
-        
     }
     
     func loadData() {
         stepIds.removeAll()
+        steps.removeAll()
         for step in stepList {
             stepIds.append(step.id)
+            steps.append(step.value)
         }
+        chartData = ChartData(points: steps)
     }
 }
 

@@ -15,6 +15,7 @@ struct AuthData {
     let accessToken:String
     let idToken:String
 }
+
 extension UserDefaults {
     var authData:AuthData? {
         set {
@@ -55,6 +56,7 @@ extension UserDefaults {
             return CLLocation(latitude: lat, longitude: long)
         }
     }
+    
     
     var isRequestHealthAuth:Bool {
         set {

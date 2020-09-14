@@ -20,7 +20,7 @@ class HealthManager : NSObject, ObservableObject {
         let sharingDenied:Set<HKQuantityTypeIdentifier>
     }
     let store = HKHealthStore()
-    let readTypes:[HKQuantityTypeIdentifier] = [.stepCount, .distanceWalkingRunning]
+    let readTypes:[HKQuantityTypeIdentifier] = [.stepCount, .distanceWalkingRunning, .heartRate]
     override init() {
         super.init()
         requestAuth()
@@ -72,7 +72,7 @@ class HealthManager : NSObject, ObservableObject {
                 }
                 
                 DispatchQueue.main.async {
-                    UserDefaults.standard.isRequestHealthAuth = true
+                    UserDefaults.standard.isRequestHealthAuth = isSucess
                     NotificationCenter.default.post(
                         name: .healthAuthorazitionStatusDidUpdated,
                         object: isSucess ? ShareAuth(sharingAuthorizeds: sharingAuthorizeds, sharingDenied: sharingDenied) : nil)
@@ -86,34 +86,59 @@ class HealthManager : NSObject, ObservableObject {
         
     }
     
-    func getCount(beforeDay:Int,type:HKQuantityType, complete:@escaping(_ count:Double)->Void) {
+    var resultCount:[Int:Double] = [:]
+    
+    func getCount(beforeDay:Int, type:HKQuantityType, complete:@escaping(_ count:Double)->Void) {
         let now = Date.getMidnightTime(beforeDay: beforeDay)
         let startOfDay = Calendar.current.startOfDay(for: now)
         var interval = DateComponents()
         interval.day = 1
+
+        var options:HKStatisticsOptions {
+            switch type {
+            case .heartRate:
+                return []
+            default:
+                return [.cumulativeSum]
+            }
+        }
         
         let query = HKStatisticsCollectionQuery(quantityType: type,
                                                 quantitySamplePredicate: nil,
-                                                options: [.cumulativeSum],
+                                                options: options,
                                                 anchorDate: startOfDay,
                                                 intervalComponents: interval)
         
         query.initialResultsHandler = { _, result, error in
-            var resultCount = 0.0
-            guard let r = result else {
-                return
-            }
-            r.enumerateStatistics(from: startOfDay, to: now) { statistics, _ in
-                
-                if let sum = statistics.sumQuantity() {
-                    // Get steps (they are of double type)                    
-                    resultCount = sum.doubleValue(for: HKUnit.count())
-                } // end if
-                
-                DispatchQueue.main.async {
-                    HealthModel.update(dayBefore:beforeDay, type: type, value: resultCount) { (isSucess) in
-                        complete(resultCount)
+            DispatchQueue.main.async {
+                var resultCount = 0.0
+                guard let r = result else {
+                    return
+                }
+                switch type {
+                case .stepCount:
+                    for data in r.statistics() {
+                        if let sum = data.sumQuantity() {
+                            resultCount = sum.doubleValue(for: HKUnit.count())
+                        }
                     }
+                default:
+                    for data in r.statistics() {
+                        
+                        print("""
+                            average \(data.averageQuantity()?.doubleValue(for: HKUnit.atmosphere()))
+                            """)
+                        //                    data.averageQuantity()
+                        //                    let value = data.mostRecentQuantity()?.doubleValue(for: HKUnit.hertz()) ?? 0.0
+                        //                    if value > 0.0 {
+                        //                        resultCount = value
+                        //                    }
+                    }
+                    
+                }
+                print("update value : \(now.simpleFormatStringValue) \(type.identifier) \(beforeDay) : \(resultCount)")
+                HealthModel.update(dayBefore:beforeDay, type: type, value: resultCount) { (isSucess) in
+                    complete(resultCount)
                 }
             }
         }
@@ -124,14 +149,9 @@ class HealthManager : NSObject, ObservableObject {
 }
 
 
-//extension HKQuantityType {
-//    static let stepCount = HKQuantityType.quantityType(forIdentifier: .stepCount)!
-//    static let flightsClimbed = HKQuantityType.quantityType(forIdentifier: .flightsClimbed)!
-//}
-
-
 extension HKSampleType {
     static let stepCount = HKSampleType.quantityType(forIdentifier: .stepCount)!
     static let flightsClimbed = HKSampleType.quantityType(forIdentifier: .flightsClimbed)!
     static let distanceWalkingRunning = HKSampleType.quantityType(forIdentifier: .distanceWalkingRunning)!
+    static let heartRate = HKSampleType.quantityType(forIdentifier: .heartRate)!
 }

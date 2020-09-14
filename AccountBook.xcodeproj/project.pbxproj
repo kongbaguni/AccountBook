@@ -16,6 +16,7 @@
 		C327349624BEEAFF009E7002 /* CGSize+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C327349524BEEAFE009E7002 /* CGSize+Extensions.swift */; };
 		C32D634324EBB6660056689F /* MakeNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32D634224EBB6660056689F /* MakeNameView.swift */; };
 		C32D634524EBBD0A0056689F /* MakePriceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32D634424EBBD090056689F /* MakePriceView.swift */; };
+		C330732724FF6775000A500C /* SwiftUICharts in Frameworks */ = {isa = PBXBuildFile; productRef = C330732624FF6775000A500C /* SwiftUICharts */; };
 		C34C7D5324BD42D600E7E1FA /* UserDefault+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34C7D5224BD42D600E7E1FA /* UserDefault+Extensions.swift */; };
 		C36C6CC624B312C8001CC3E7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36C6CC524B312C8001CC3E7 /* AppDelegate.swift */; };
 		C36C6CC824B312C8001CC3E7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36C6CC724B312C8001CC3E7 /* SceneDelegate.swift */; };
@@ -146,6 +147,7 @@
 				C36C6CF324B315A7001CC3E7 /* SwURL in Frameworks */,
 				C36C6CF624B31629001CC3E7 /* ImagePicker in Frameworks */,
 				C36C6D3224B6B6A7001CC3E7 /* HorizonCalendar in Frameworks */,
+				C330732724FF6775000A500C /* SwiftUICharts in Frameworks */,
 				02F28C5EB3A198C4A2132223 /* Pods_AccountBook.framework in Frameworks */,
 				C37BF44524F397DC0075C03D /* HealthKit.framework in Frameworks */,
 			);
@@ -334,6 +336,7 @@
 				C36C6CF224B315A7001CC3E7 /* SwURL */,
 				C36C6CF524B31629001CC3E7 /* ImagePicker */,
 				C36C6D3124B6B6A7001CC3E7 /* HorizonCalendar */,
+				C330732624FF6775000A500C /* SwiftUICharts */,
 			);
 			productName = AccountBook;
 			productReference = C36C6CC224B312C8001CC3E7 /* AccountBook.app */;
@@ -368,6 +371,7 @@
 				C36C6CF124B315A7001CC3E7 /* XCRemoteSwiftPackageReference "SwURL" */,
 				C36C6CF424B31629001CC3E7 /* XCRemoteSwiftPackageReference "image-picker" */,
 				C36C6D3024B6B6A7001CC3E7 /* XCRemoteSwiftPackageReference "HorizonCalendar" */,
+				C330732524FF6775000A500C /* XCRemoteSwiftPackageReference "SwiftUICharts" */,
 			);
 			productRefGroup = C36C6CC324B312C8001CC3E7 /* Products */;
 			projectDirPath = "";
@@ -727,6 +731,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		C330732524FF6775000A500C /* XCRemoteSwiftPackageReference "SwiftUICharts" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/drewche/SwiftUICharts.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		C36C6CF124B315A7001CC3E7 /* XCRemoteSwiftPackageReference "SwURL" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/cmtrounce/SwURL.git";
@@ -754,6 +766,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		C330732624FF6775000A500C /* SwiftUICharts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C330732524FF6775000A500C /* XCRemoteSwiftPackageReference "SwiftUICharts" */;
+			productName = SwiftUICharts;
+		};
 		C36C6CF224B315A7001CC3E7 /* SwURL */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = C36C6CF124B315A7001CC3E7 /* XCRemoteSwiftPackageReference "SwURL" */;

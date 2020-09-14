@@ -20,12 +20,30 @@
         }
       },
       {
+        "package": "SwiftUICharts",
+        "repositoryURL": "https://github.com/drewche/SwiftUICharts.git",
+        "state": {
+          "branch": "master",
+          "revision": "6524b90483ffeaa94e9506008430f40ad28738fa",
+          "version": null
+        }
+      },
+      {
         "package": "SwURL",
         "repositoryURL": "https://github.com/cmtrounce/SwURL.git",
         "state": {
           "branch": null,
           "revision": "f9ae7d6e3ff18ea80689da1de4b66461ed8dbc41",
           "version": "0.2.3"
+        }
+      },
+      {
+        "package": "WaterfallGrid",
+        "repositoryURL": "https://github.com/paololeonardi/WaterfallGrid.git",
+        "state": {
+          "branch": null,
+          "revision": "67bb0263a45357651608faafcd51fe39cfd3cf30",
+          "version": "0.4.0"
         }
       }
     ]
