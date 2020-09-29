@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		02F28C5EB3A198C4A2132223 /* Pods_AccountBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E93C12ED9C05169AA81D528A /* Pods_AccountBook.framework */; };
+		1B74213B2523153D00113EB6 /* WaterfallGrid in Frameworks */ = {isa = PBXBuildFile; productRef = 1B74213A2523153D00113EB6 /* WaterfallGrid */; };
 		C301E77124BED53F00A08A59 /* PHAsset+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C301E77024BED53F00A08A59 /* PHAsset+Extensions.swift */; };
 		C3076BA724F617E100A3AB7F /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3076BA624F617E100A3AB7F /* GraphView.swift */; };
 		C31DF7B524F8F5530082077F /* HealthModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31DF7B424F8F5530082077F /* HealthModel.swift */; };
@@ -149,6 +150,7 @@
 				C36C6D3224B6B6A7001CC3E7 /* HorizonCalendar in Frameworks */,
 				C330732724FF6775000A500C /* SwiftUICharts in Frameworks */,
 				02F28C5EB3A198C4A2132223 /* Pods_AccountBook.framework in Frameworks */,
+				1B74213B2523153D00113EB6 /* WaterfallGrid in Frameworks */,
 				C37BF44524F397DC0075C03D /* HealthKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -337,6 +339,7 @@
 				C36C6CF524B31629001CC3E7 /* ImagePicker */,
 				C36C6D3124B6B6A7001CC3E7 /* HorizonCalendar */,
 				C330732624FF6775000A500C /* SwiftUICharts */,
+				1B74213A2523153D00113EB6 /* WaterfallGrid */,
 			);
 			productName = AccountBook;
 			productReference = C36C6CC224B312C8001CC3E7 /* AccountBook.app */;
@@ -372,6 +375,7 @@
 				C36C6CF424B31629001CC3E7 /* XCRemoteSwiftPackageReference "image-picker" */,
 				C36C6D3024B6B6A7001CC3E7 /* XCRemoteSwiftPackageReference "HorizonCalendar" */,
 				C330732524FF6775000A500C /* XCRemoteSwiftPackageReference "SwiftUICharts" */,
+				1B7421392523153D00113EB6 /* XCRemoteSwiftPackageReference "WaterfallGrid" */,
 			);
 			productRefGroup = C36C6CC324B312C8001CC3E7 /* Products */;
 			projectDirPath = "";
@@ -731,6 +735,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		1B7421392523153D00113EB6 /* XCRemoteSwiftPackageReference "WaterfallGrid" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.com:paololeonardi/WaterfallGrid.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.4.0;
+			};
+		};
 		C330732524FF6775000A500C /* XCRemoteSwiftPackageReference "SwiftUICharts" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/drewche/SwiftUICharts.git";
@@ -766,6 +778,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		1B74213A2523153D00113EB6 /* WaterfallGrid */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1B7421392523153D00113EB6 /* XCRemoteSwiftPackageReference "WaterfallGrid" */;
+			productName = WaterfallGrid;
+		};
 		C330732624FF6775000A500C /* SwiftUICharts */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = C330732524FF6775000A500C /* XCRemoteSwiftPackageReference "SwiftUICharts" */;

@@ -39,7 +39,7 @@
       },
       {
         "package": "WaterfallGrid",
-        "repositoryURL": "https://github.com/paololeonardi/WaterfallGrid.git",
+        "repositoryURL": "git@github.com:paololeonardi/WaterfallGrid.git",
         "state": {
           "branch": null,
           "revision": "67bb0263a45357651608faafcd51fe39cfd3cf30",
